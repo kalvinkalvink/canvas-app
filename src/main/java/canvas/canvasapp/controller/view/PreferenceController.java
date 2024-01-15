@@ -10,12 +10,14 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PreferenceController {
-	private final CourseDao courseDao = new CourseDao();
+
+	private CourseDao courseDao = new CourseDao();
 	private ListProperty<String> courseItems;
 	private ListProperty<String> courseSelections;
 
