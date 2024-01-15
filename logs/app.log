@@ -1,0 +1,299 @@
+2024-01-15 00:01:30.164 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:01:30.250 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:01:30.333 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:01:30.334 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:01:30.334 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:01:30.335 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:01:30.336 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:01:30.429 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:01:30.749 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@9f7a1cb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:01:30.804 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:01:30.821 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:01:51.317 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:05:48.762 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:05:48.849 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:05:48.931 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:05:48.932 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:05:48.932 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:05:48.932 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:05:48.933 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:05:49.017 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:05:49.325 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4b7cb815] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:05:49.379 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:05:49.394 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:06:47.693 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:06:47.775 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:06:47.860 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:06:47.862 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:06:47.862 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:06:47.862 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:06:47.863 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:06:47.960 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:06:48.268 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16543eb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:06:48.325 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:06:48.339 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:06:53.236 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:07:12.491 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:07:12.569 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:07:12.649 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:07:12.650 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:07:12.651 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:07:12.651 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:07:12.652 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:07:12.742 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:07:13.032 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@61781c3a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:07:13.084 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:07:13.097 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:13:35.032 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:13:35.115 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:13:35.202 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:13:35.204 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:13:35.204 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:13:35.204 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:13:35.206 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:13:35.305 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:13:35.604 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@61781c3a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:13:35.655 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:13:35.668 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:17:46.857 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:17:46.933 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:17:47.013 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:17:47.015 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:17:47.015 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:17:47.015 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:17:47.016 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:17:47.103 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:17:47.401 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16543eb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:17:47.485 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:17:47.504 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:21:37.869 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:21:37.947 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:21:38.034 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:21:38.035 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:21:38.035 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:21:38.035 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:21:38.036 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:21:38.120 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:21:38.424 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:21:38.480 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:21:38.494 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:21:53.671 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:21:53.758 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:21:53.834 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:21:53.837 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:21:53.837 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:21:53.837 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:21:53.838 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:21:53.928 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:21:54.235 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:21:54.287 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:21:54.302 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:22:02.462 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:22:28.169 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:22:28.251 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:22:28.330 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:22:28.331 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:22:28.331 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:22:28.332 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:22:28.332 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:22:28.417 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:22:28.712 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57cd152f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:22:28.765 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:22:28.779 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:23:39.845 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:23:39.925 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:23:40.003 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:23:40.005 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:23:40.005 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:23:40.005 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:23:40.006 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:23:40.086 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:23:40.384 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:23:40.434 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:23:40.446 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:24:02.736 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:24:02.816 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:24:02.895 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:24:02.896 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:24:02.896 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:24:02.898 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:24:02.899 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:24:02.987 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:24:03.279 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@225c0e43] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:24:03.328 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:24:03.344 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:24:12.338 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:24:36.788 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:24:36.867 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:24:36.946 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:24:36.947 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:24:36.947 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:24:36.947 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:24:36.948 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:24:37.028 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:24:37.321 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4ebb48f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:24:37.374 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:24:37.387 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:26:18.128 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:26:24.366 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:26:24.442 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:26:24.517 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:26:24.519 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:26:24.519 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:26:24.519 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:26:24.520 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:26:24.603 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:26:24.890 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57cd152f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:26:24.940 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:26:24.953 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 00:26:42.954 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:26:46.559 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 00:26:46.636 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 00:26:46.717 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 00:26:46.719 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 00:26:46.719 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 00:26:46.719 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 00:26:46.720 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 00:26:46.814 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 00:26:47.119 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2bce48e4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 00:26:47.169 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 00:26:47.184 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 12:27:50.584 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 12:27:50.701 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 12:27:50.788 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 12:27:50.789 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:27:50.789 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 12:27:50.789 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 12:27:50.790 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 12:27:50.877 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 12:27:51.200 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 12:27:51.257 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 12:27:51.274 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 12:28:06.778 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:29:09.520 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 12:29:09.598 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 12:29:09.674 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 12:29:09.675 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:29:09.675 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 12:29:09.675 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 12:29:09.676 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 12:29:09.754 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 12:29:10.033 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 12:29:10.084 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 12:29:10.097 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 12:30:04.767 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 12:30:04.841 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 12:30:04.914 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 12:30:04.915 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:30:04.915 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 12:30:04.915 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 12:30:04.916 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 12:30:04.993 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 12:30:05.267 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@225c0e43] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 12:30:05.315 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 12:30:05.327 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 12:33:40.928 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 12:33:41.004 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 12:33:41.078 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 12:33:41.080 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:33:41.080 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 12:33:41.080 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 12:33:41.082 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 12:33:41.160 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 12:33:41.436 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16543eb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 12:33:41.485 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 12:33:41.498 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 12:36:30.497 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 12:36:30.577 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 12:36:30.652 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 12:36:30.653 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 12:36:30.653 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 12:36:30.653 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 12:36:30.654 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 12:36:30.739 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 12:36:31.036 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57cd152f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 12:36:31.086 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 12:36:31.099 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 13:01:58.761 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:03:29.136 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 13:03:29.255 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 13:03:29.337 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 13:03:29.338 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:03:29.338 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 13:03:29.338 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 13:03:29.339 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 13:03:29.424 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 13:03:29.741 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57cd152f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 13:03:29.795 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 13:03:29.809 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 13:03:44.616 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:03:47.964 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 13:03:48.046 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 13:03:48.120 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 13:03:48.122 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:03:48.122 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 13:03:48.122 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 13:03:48.123 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 13:03:48.201 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 13:03:48.484 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2bce48e4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 13:03:48.535 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 13:03:48.548 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 13:04:00.767 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:04:04.090 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 13:04:04.163 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 13:04:04.240 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 13:04:04.242 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:04:04.242 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 13:04:04.243 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 13:04:04.243 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 13:04:04.323 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 13:04:04.594 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@16543eb6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 13:04:04.642 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 13:04:04.654 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 13:04:20.716 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:04:23.262 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 13:04:23.342 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 13:04:23.417 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 13:04:23.418 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 13:04:23.418 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 13:04:23.418 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 13:04:23.420 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 13:04:23.499 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 13:04:23.788 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@fd4386f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 13:04:23.838 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 13:04:23.849 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 15:26:01.929 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 15:26:02.057 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 15:26:02.144 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 15:26:02.145 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 15:26:02.145 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 15:26:02.145 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 15:26:02.146 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 15:26:02.238 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 15:26:02.582 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2bce48e4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 15:26:02.643 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 15:26:02.662 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 15:27:07.121 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 15:27:07.194 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 15:27:07.266 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 15:27:07.267 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 15:27:07.267 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 15:27:07.267 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 15:27:07.268 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 15:27:07.345 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 15:27:07.620 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@61781c3a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 15:27:07.668 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 15:27:07.681 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 15:30:10.192 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 15:45:11.186 [JavaFX-Launcher] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.21.Final
+2024-01-15 15:45:11.259 [JavaFX-Launcher] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2024-01-15 15:45:11.332 [JavaFX-Launcher] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-01-15 15:45:11.333 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:./src/main/resources/db/canvasapp]
+2024-01-15 15:45:11.333 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=canvas}
+2024-01-15 15:45:11.333 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2024-01-15 15:45:11.335 [JavaFX-Launcher] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+2024-01-15 15:45:11.412 [JavaFX-Launcher] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-01-15 15:45:11.700 [JavaFX-Launcher] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@61781c3a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2024-01-15 15:45:11.751 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Setting up database
+2024-01-15 15:45:11.765 [JavaFX-Launcher] INFO  canvas.canvasapp.controller.StartupController - Fetching data from canvas
+2024-01-15 15:45:16.343 [JavaFX Application Thread] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:h2:./src/main/resources/db/canvasapp]
