@@ -1,6 +1,6 @@
 package canvas.canvasapp.controller.view;
 
-import canvas.canvasapp.dao.CourseDao;
+import canvas.canvasapp.dao.CourseRepository;
 import canvas.canvasapp.model.Course;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.model.Category;
@@ -11,20 +11,25 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Controller
 public class PreferenceController {
-
-	private CourseDao courseDao = new CourseDao();
+	@Autowired
+	CourseRepository courseRepository;
 	private ListProperty<String> courseItems;
 	private ListProperty<String> courseSelections;
-
-	public PreferenceController() {
-		List<Course> allCourse = courseDao.getAll();
+	@Autowired
+	public PreferenceController(CourseRepository courseRepository) {
+		this.courseRepository =courseRepository;
+		Iterable<Course> courseIterable = courseRepository.findAll();
+		ArrayList<Course> courseList = new ArrayList<>();
+		courseIterable.forEach(courseList::add);
 		courseItems = new SimpleListProperty<>(FXCollections.observableArrayList(
-				allCourse.stream().map(course -> course.getName()).collect(Collectors.toList())
+				courseList.stream().map(course -> course.getName()).collect(Collectors.toList())
 		));
 		courseSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
 	}

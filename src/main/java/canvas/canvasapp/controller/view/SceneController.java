@@ -10,11 +10,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-
+@Controller
 public class SceneController {
+	private final FxWeaver fxWeaver;
 	private static Parent main;
+
+	public SceneController(FxWeaver fxWeaver) {
+		this.fxWeaver = fxWeaver;
+	}
 
 	public static void getInitialScene(Stage stage) throws IOException {
 		main = FXMLLoader.load(SceneController.class.getResource(ScenePath.DASHBOARD.getPath()));

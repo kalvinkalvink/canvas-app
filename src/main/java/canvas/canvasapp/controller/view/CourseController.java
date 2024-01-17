@@ -2,9 +2,10 @@ package canvas.canvasapp.controller.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-
+@Controller
 public class CourseController {
 
 	@FXML

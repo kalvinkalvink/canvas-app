@@ -3,22 +3,25 @@ package canvas.canvasapp;
 import canvas.canvasapp.controller.StartupController;
 import canvas.canvasapp.controller.view.SceneController;
 import canvas.canvasapp.event.StageReadyEvent;
-import canvas.canvasapp.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-
+@Service
 public class CanvasApp extends Application {
 	private ConfigurableApplicationContext applicationContext;
+
+	@Autowired
+	StartupController startupController;
+
 
 	@Override
 	public void init() throws Exception {
@@ -37,9 +40,7 @@ public class CanvasApp extends Application {
 				.initializers(initializer)
 				.run(getParameters().getRaw().toArray(new String[0]));
 		// init database
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.close();
-		StartupController.initApplication();
+		startupController.initApplication();
 	}
 
 	@Override
@@ -53,8 +54,6 @@ public class CanvasApp extends Application {
 		super.stop();
 		// spring
 		applicationContext.stop();
-		// database
-		HibernateUtil.shutdown();
 		Platform.exit();
 	}
 

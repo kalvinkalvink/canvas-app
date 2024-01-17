@@ -1,11 +1,13 @@
 package canvas.canvasapp.model;
 
-import lombok.*;
-import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
-import java.util.UUID;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 
 @Entity
 @Data
