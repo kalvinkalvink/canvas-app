@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="canvas.canvasapp.controller.view.DashboardController">
+<VBox fx:id="dashboard" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="canvas.canvasapp.controller.view.DashboardController">
    <children>
        <fx:include source="menu-bar.fxml"/>
       <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="243.0" prefWidth="393.0" VBox.vgrow="ALWAYS">

@@ -16,32 +16,35 @@ import org.springframework.stereotype.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Controller
 public class PreferenceController {
 	@Autowired
 	CourseRepository courseRepository;
 	private ListProperty<String> courseItems;
 	private ListProperty<String> courseSelections;
-	@Autowired
-	public PreferenceController(CourseRepository courseRepository) {
-		this.courseRepository =courseRepository;
-		Iterable<Course> courseIterable = courseRepository.findAll();
-		ArrayList<Course> courseList = new ArrayList<>();
-		courseIterable.forEach(courseList::add);
-		courseItems = new SimpleListProperty<>(FXCollections.observableArrayList(
-				courseList.stream().map(course -> course.getName()).collect(Collectors.toList())
-		));
-		courseSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
-	}
+
 
 	public void showPreferenceMenu(ActionEvent event) {
-
+		loadCourseData();
 		PreferencesFx preferencesFx = PreferencesFx.of(PreferenceController.class,
 				Category.of("Course",
 						Group.of("Display courses",
 								Setting.of("course", courseItems, courseSelections)))
 		);
 		preferencesFx.show();
+	}
+
+	private void loadCourseData() {
+		this.courseRepository = courseRepository;
+		Iterable<Course> courseIterable = courseRepository.findAll();
+		ArrayList<Course> courseList = new ArrayList<>();
+		courseIterable.forEach(courseList::add);
+		System.out.println(String.format("course list size: %d", courseList.size()));
+		courseItems = new SimpleListProperty<>(FXCollections.observableArrayList(
+				courseList.stream().map(course -> course.getName()).collect(Collectors.toList())
+		));
+		courseSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
 	}
 
 	private List<Setting> getCourseSettingList() {

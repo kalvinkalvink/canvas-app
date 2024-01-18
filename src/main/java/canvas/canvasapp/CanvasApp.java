@@ -46,7 +46,6 @@ public class CanvasApp extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
 		applicationContext.publishEvent(new StageReadyEvent(stage));
-		SceneController.getInitialScene(stage);
 	}
 
 	@Override

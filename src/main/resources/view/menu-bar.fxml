@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<MenuBar prefHeight="25.0" prefWidth="504.0" fx:controller="canvas.canvasapp.controller.view.MenuBarController"
+<MenuBar fx:id="menuBarVBox" prefHeight="25.0" prefWidth="504.0" fx:controller="canvas.canvasapp.controller.view.MenuBarController"
          xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <menus>
         <Menu mnemonicParsing="false" text="File">

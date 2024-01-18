@@ -2,10 +2,12 @@ package canvas.canvasapp.controller.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-
-@Controller
+@Component
+@FxmlView("/view/menu-bar.fxml")
 public class MenuBarController {
 	@Autowired
 	PreferenceController preferenceController;
