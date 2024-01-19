@@ -1,10 +1,8 @@
 package canvas.canvasapp.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,14 +11,14 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class Course {
-	public enum Selected{
-		Y,N
-	}
+
 	@Id
 	private Long id;
+
+	@Column(unique = true
+	)
 	private String name;
 	private String courseCode;
-	@Enumerated(EnumType.STRING)
-	private Selected selected;
+	private Boolean selected;
 
 }

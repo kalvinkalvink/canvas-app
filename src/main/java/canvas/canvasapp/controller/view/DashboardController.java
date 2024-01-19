@@ -1,5 +1,6 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.event.StartupFinishEvent;
 import canvas.canvasapp.task.FetchAssignmentsTask;
 import edu.ksu.canvas.model.assignment.Assignment;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import org.springframework.context.event.SourceFilteringListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,6 +34,7 @@ public class DashboardController implements IViewController {
 	private Button filesTabBtn;
 	@FXML
 	private VBox assigmentListVBox;
+
 
 	private FetchAssignmentsTask fetchAssignmentsTask;
 
@@ -59,6 +63,10 @@ public class DashboardController implements IViewController {
 		}
 	}
 
+	@EventListener
+	public void handleUpdateTask(StartupFinishEvent startupFinishEvent){
+
+	}
 
 	@FXML
 	private void showCourseTab(ActionEvent event) throws IOException {

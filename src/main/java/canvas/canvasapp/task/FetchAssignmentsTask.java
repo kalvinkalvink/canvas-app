@@ -28,14 +28,13 @@ public class FetchAssignmentsTask extends Task<Map<Date, List<Assignment>>> {
 
 	@Override
 	protected Map<Date, List<Assignment>> call() throws Exception {
-		System.out.println("running fetch assignment task");
 		Iterable<Course> courseIt = courseRepository.findAll();
 		ArrayList<Course> courseList = new ArrayList<>();
 		courseIt.forEach(courseList::add);
 		AssignmentReader assignmentReader = canvasApi.getReader(AssignmentReader.class);
 		ArrayList<Assignment> assignmentArrayList = new ArrayList<>();
 		// get all selected course
-		courseList.stream().filter(course -> course.getSelected().toString() == "Y").forEach(course -> {
+		courseList.stream().filter(Course::getSelected).forEach(course -> {
 			try {
 				List<Assignment> assignments = assignmentReader.listCourseAssignments(new ListCourseAssignmentsOptions(course.getId().toString()));
 				assignmentArrayList.addAll(assignments);

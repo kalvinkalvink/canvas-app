@@ -1,10 +1,14 @@
 package canvas.canvasapp.task;
 
+import canvas.canvasapp.controller.view.PreferenceController;
 import canvas.canvasapp.dao.CourseRepository;
 import canvas.canvasapp.util.CanvasApi;
+import edu.ksu.canvas.interfaces.AssignmentReader;
 import edu.ksu.canvas.interfaces.CourseReader;
 import edu.ksu.canvas.model.Course;
+import edu.ksu.canvas.requestOptions.ListCourseAssignmentsOptions;
 import edu.ksu.canvas.requestOptions.ListCurrentUserCoursesOptions;
+import javafx.beans.property.ListProperty;
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,9 +28,16 @@ public class StartupFetchDataTask extends Task<Void> {
 	CourseRepository courseRepository;
 	@Autowired
 	CanvasApi canvasApi;
+	@Autowired
+	PreferenceController preferenceController;
 
 	@Override
 	protected Void call() throws Exception {
+		fetchCourse();
+//		fetchAssignment();
+		return null;
+	}
+	private void fetchCourse(){
 		try {
 			CourseReader courseReader = canvasApi.getReader(CourseReader.class);
 			List<Course> canvasCourseList = courseReader.listCurrentUserCourses(new ListCurrentUserCoursesOptions());
@@ -40,13 +52,32 @@ public class StartupFetchDataTask extends Task<Void> {
 								.setId(canvasCourse.getId())
 								.setName(canvasCourse.getName())
 								.setCourseCode(canvasCourse.getCourseCode())
-								.setSelected(canvas.canvasapp.model.Course.Selected.N);
+								.setSelected(false);
 						courseRepository.save(course);
 					});
-			return null;
 		} catch (IOException e) {
 			log.error("Failed to fetch course data", e);
 		}
-		return null;
+
+	}
+	private void fetchAssignment(){
+		// read selected course
+		ListProperty<String> courseSelections = preferenceController.getCourseSelections();
+		List<canvas.canvasapp.model.Course> selectedCourseList = courseSelections.stream()
+				.map(courseRepository::findByNameAndSelectedIsTrue)
+				.collect(Collectors.toList());
+
+		// fetch course assignments
+		AssignmentReader assignmentReader = canvasApi.getReader(AssignmentReader.class);
+		selectedCourseList.stream().map((course)->{
+			try {
+				assignmentReader.listCourseAssignments(new ListCourseAssignmentsOptions(course.getId().toString()));
+			} catch (IOException e) {
+//				log.warn();
+			}
+			return null;
+		}).collect(Collectors.toList());
+
+
 	}
 }
