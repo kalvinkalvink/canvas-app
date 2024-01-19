@@ -44,13 +44,14 @@ public class DashboardController implements IViewController {
 	}
 
 	private void initView() {
-		System.out.println("init fetch assignment");
 		try {
 			if (fetchAssignmentsTask != null && fetchAssignmentsTask.isRunning()) {
 				fetchAssignmentsTask.cancel();
 			}
 			fetchAssignmentsTask = new FetchAssignmentsTask();
-			fetchAssignmentsTask.run();
+			Thread fetchAssignmentThread = new Thread(fetchAssignmentsTask);
+			fetchAssignmentThread.start();
+
 			Map<Date, List<Assignment>> dateListMap = fetchAssignmentsTask.get();
 			System.out.println(dateListMap);
 		} catch (ExecutionException | InterruptedException e) {

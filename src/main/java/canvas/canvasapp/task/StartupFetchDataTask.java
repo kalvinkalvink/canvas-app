@@ -43,6 +43,7 @@ public class StartupFetchDataTask extends Task<Void> {
 								.setSelected(canvas.canvasapp.model.Course.Selected.N);
 						courseRepository.save(course);
 					});
+			return null;
 		} catch (IOException e) {
 			log.error("Failed to fetch course data", e);
 		}

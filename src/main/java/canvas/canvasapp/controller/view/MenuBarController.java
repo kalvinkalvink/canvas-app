@@ -1,5 +1,6 @@
 package canvas.canvasapp.controller.view;
 
+import javafx.beans.property.ListProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -19,6 +20,9 @@ public class MenuBarController {
 
 	@FXML
 	public void test(ActionEvent event) {
-
+		ListProperty<String> courseSelections = preferenceController.getCourseSelections();
+		courseSelections.forEach(course->{
+			System.out.println(course);
+		});
 	}
 }

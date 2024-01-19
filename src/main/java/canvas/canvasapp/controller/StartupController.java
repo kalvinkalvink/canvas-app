@@ -1,5 +1,6 @@
 package canvas.canvasapp.controller;
 
+import canvas.canvasapp.event.StartupFinishEvent;
 import canvas.canvasapp.task.StartupFetchDataTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class StartupController {
 
 	private void fetchDataFromCanvas() throws ExecutionException, InterruptedException {
 		log.info("Fetching data from canvas");
-		startupFetchDataTask.run();
+		Thread fetchDataTaskThread = new Thread(startupFetchDataTask);
+		startupFetchDataTask.setOnSucceeded(new StartupFinishEvent());
+		fetchDataTaskThread.start();
+
 	}
 }
