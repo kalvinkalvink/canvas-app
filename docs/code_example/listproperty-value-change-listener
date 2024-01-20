@@ -1,0 +1,31 @@
+courseSelections.addListener((ListChangeListener<? super String>) e -> {
+			while (e.next()) {
+				if (e.wasAdded()) {
+					List<? extends String> addedSubList = e.getAddedSubList();
+					List<Course> courseUpdateList = new ArrayList<>();
+					addedSubList.stream()
+							.map(courseRepository::findByName)
+							.filter(Optional::isPresent)
+							.map(Optional::get)
+							.map(course -> course.setSelected(true))
+							.peek(selectedCoruse -> log.debug("Course {} is selected", selectedCoruse.getName()))
+							.forEach(courseUpdateList::add);
+					log.debug("Selecting {} courses", courseUpdateList.size());
+					courseRepository.saveAll(courseUpdateList);
+				}
+
+				if (e.wasRemoved()) {
+					List<? extends String> removedList = e.getRemoved();
+					List<Course> courseUpdateList = new ArrayList<>();
+					removedList.stream()
+							.map(courseRepository::findByName)
+							.filter(Optional::isPresent)
+							.map(Optional::get)
+							.map(course -> course.setSelected(false))
+							.peek(selectedCoruse -> log.debug("Course {} is selected", selectedCoruse.getName()))
+							.forEach(courseUpdateList::add);
+					log.debug("Unselecting {} courses", courseUpdateList.size());
+					courseRepository.saveAll(courseUpdateList);
+				}
+			}
+		});

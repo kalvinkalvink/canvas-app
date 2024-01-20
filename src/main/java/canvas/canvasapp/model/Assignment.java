@@ -1,5 +1,6 @@
 package canvas.canvasapp.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -12,8 +13,11 @@ import java.util.Date;
 @Accessors(chain = true)
 public class Assignment {
     @Id
+	@Column(nullable = false)
     private Long id;
+	@Column(nullable = false)
     private String name;
+	@Column(length = 4192)
     private String description;
     private Date createdAt;
     private Date updatedAt;

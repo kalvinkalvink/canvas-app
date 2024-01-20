@@ -1,8 +1,9 @@
 package canvas.canvasapp.model;
 
 
-import jakarta.persistence.*;
-import lombok.Builder;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,11 +14,12 @@ import lombok.experimental.Accessors;
 public class Course {
 
 	@Id
+	@Column(nullable = false)
 	private Long id;
 
-	@Column(unique = true
-	)
+	@Column(unique = true, nullable = false)
 	private String name;
+	@Column(unique = true, nullable = false)
 	private String courseCode;
 	private Boolean selected;
 
