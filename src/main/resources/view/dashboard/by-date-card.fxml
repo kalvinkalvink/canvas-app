@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="canvas.canvasapp.controller.view.dashboard.ByDateCardController">
+   <children>
+      <Label fx:id="dueDateLabel" text="Due Date">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <VBox fx:id="assignmentVBox" prefWidth="100.0" />
+   </children>
+</VBox>

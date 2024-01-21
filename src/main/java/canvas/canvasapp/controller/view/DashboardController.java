@@ -1,18 +1,24 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.controller.view.dashboard.ByDateCardController;
 import canvas.canvasapp.event.StartupFinishEvent;
 import canvas.canvasapp.model.Assignment;
 import canvas.canvasapp.task.load.LoadUpcomingAssignmentTask;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
+import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -22,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
 @Slf4j
-@Component
+@Controller
 @FxmlView("/view/dashboard.fxml")
 public class DashboardController implements IViewController {
 	private final FxWeaver fxWeaver;
@@ -33,7 +39,7 @@ public class DashboardController implements IViewController {
 	@FXML
 	private Button filesTabBtn;
 	@FXML
-	private VBox assigmentListVBox;
+	private ListView<VBox> assigmentListView;
 
 	@Autowired
 	private LoadUpcomingAssignmentTask loadUpcomingAssignmentTask;
@@ -58,8 +64,12 @@ public class DashboardController implements IViewController {
 			assignmentByDueDate.forEach(new BiConsumer<Date, List<Assignment>>() {
 				@Override
 				public void accept(Date date, List<Assignment> assignments) {
-					System.out.printf("------ %s ------------\n", date);
-					assignments.forEach(assignment -> System.out.println(assignment.getName()));
+					FxControllerAndView<ByDateCardController, VBox> byDateCard = fxWeaver.load(ByDateCardController.class);
+					ByDateCardController byDateCardController = byDateCard.getController();
+					byDateCardController.setDueDate(date);
+					assigmentListView.getItems().add(byDateCard.getView().get());
+//					System.out.printf("------ %s ------------\n", date);
+//					assignments.forEach(assignment -> System.out.println(assignment.getName()));
 				}
 			});
 		} catch (InterruptedException | ExecutionException e) {

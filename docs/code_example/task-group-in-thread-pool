@@ -1,0 +1,28 @@
+import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int numberOfTasks = 5;
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfTasks);
+        CompletionService<Void> completionService = new ExecutorCompletionService<>(executorService);
+
+        // Submit tasks to the completion service
+        for (int i = 0; i < numberOfTasks; i++) {
+            completionService.submit(() -> {
+                // Task logic
+                return null;
+            });
+        }
+
+        // Wait for all tasks to finish
+        for (int i = 0; i < numberOfTasks; i++) {
+            completionService.take(); // Blocking call to retrieve completed tasks
+        }
+
+        // All tasks finished, emit the event
+        System.out.println("All tasks finished");
+
+        // Shutdown the executor service when done
+        executorService.shutdown();
+    }
+}

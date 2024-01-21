@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 @Service
 @Scope("prototype")
 public class StartupFetchTask extends Task<Void> {
@@ -21,6 +23,7 @@ public class StartupFetchTask extends Task<Void> {
 		fetchSelectedAssignmentTask.setOnFailed(new TaskFailedHandler());
 		fetchCourseTask.run();
 		fetchSelectedAssignmentTask.run();
+
 		return null;
 	}
 }

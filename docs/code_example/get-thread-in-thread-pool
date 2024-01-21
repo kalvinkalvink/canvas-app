@@ -1,0 +1,21 @@
+public class Main {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+        // Submit tasks to the executor service
+
+        // Get the underlying thread pool
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executorService;
+        List<Thread> threads = threadPoolExecutor.getThreads();
+
+        for (Thread thread : threads) {
+            System.out.println("Thread ID: " + thread.getId());
+            System.out.println("Thread Name: " + thread.getName());
+            System.out.println("Thread State: " + thread.getState());
+            System.out.println("---------------------");
+        }
+
+        // Shutdown the executor service when done
+        executorService.shutdown();
+    }
+}

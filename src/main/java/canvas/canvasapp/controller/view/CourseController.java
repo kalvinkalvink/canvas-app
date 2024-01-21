@@ -7,10 +7,11 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
-@Component
+@Controller
 @FxmlView("/view/course.fxml")
 public class CourseController implements IViewController {
 	@Autowired
