@@ -1,7 +1,7 @@
-package canvas.canvasapp.event.listener;
+package canvas.canvasapp.event.listener.application;
 
 import canvas.canvasapp.controller.view.SceneController;
-import canvas.canvasapp.event.StageReadyEvent;
+import canvas.canvasapp.event.application.StageReadyEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

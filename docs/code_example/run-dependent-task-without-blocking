@@ -1,0 +1,57 @@
+public class Main {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        CompletableFuture<Void> task1 = CompletableFuture.runAsync(() -> {
+            // Task 1 logic
+            System.out.println("Task 1 started");
+            try {
+                Thread.sleep(2000); // Simulating some work
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Task 1 completed");
+        }, executorService);
+
+        CompletableFuture<Void> task2 = task1.thenRunAsync(() -> {
+            // Task 2 logic, waits for Task 1 to complete
+            System.out.println("Task 2 started");
+            try {
+                Thread.sleep(1000); // Simulating some work
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Task 2 completed");
+        }, executorService);
+
+        // Callback-based approach
+        task2.whenComplete((result, throwable) -> {
+            System.out.println("All tasks completed");
+            executorService.shutdown();
+        });
+
+        // Non-blocking waiting using a separate thread
+        Thread mainThread = Thread.currentThread();
+        task2.thenRun(() -> {
+            System.out.println("All tasks completed");
+            executorService.shutdown();
+            synchronized (mainThread) {
+                mainThread.notify(); // Notify the main thread to resume
+            }
+        });
+
+        // Continue with other work in the main thread
+        System.out.println("Continuing with other work");
+
+        // Wait for the tasks to complete without blocking the main thread
+        synchronized (mainThread) {
+            try {
+                mainThread.wait(); // Suspend the main thread
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Main thread resumed");
+    }
+}

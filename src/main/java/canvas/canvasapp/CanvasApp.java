@@ -1,8 +1,8 @@
 package canvas.canvasapp;
 
 import canvas.canvasapp.controller.StartupController;
-import canvas.canvasapp.controller.view.SceneController;
-import canvas.canvasapp.event.StageReadyEvent;
+import canvas.canvasapp.controller.task.ThreadPoolController;
+import canvas.canvasapp.event.application.StageReadyEvent;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -21,7 +21,8 @@ public class CanvasApp extends Application {
 
 	@Autowired
 	StartupController startupController;
-
+	@Autowired
+	ThreadPoolController threadPoolController;
 
 	@Override
 	public void init() throws Exception {
@@ -53,6 +54,9 @@ public class CanvasApp extends Application {
 		super.stop();
 		// spring
 		applicationContext.stop();
+
+		// thread pool
+		threadPoolController.stopAllThreadPool();
 		Platform.exit();
 	}
 

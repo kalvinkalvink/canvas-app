@@ -3,7 +3,9 @@ package canvas.canvasapp.task.fetch;
 import canvas.canvasapp.controller.view.PreferenceController;
 import canvas.canvasapp.dao.AssignmentRepository;
 import canvas.canvasapp.dao.CourseRepository;
+import canvas.canvasapp.event.publisher.fetch.FetchedEventPublisher;
 import canvas.canvasapp.util.CanvasApi;
+import canvas.canvasapp.util.predicate.DistinctByPredicate;
 import edu.ksu.canvas.interfaces.CourseReader;
 import edu.ksu.canvas.model.Course;
 import edu.ksu.canvas.requestOptions.ListCurrentUserCoursesOptions;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,6 +32,8 @@ public class FetchCourseTask extends Task<Void> {
 	CanvasApi canvasApi;
 	@Autowired
 	PreferenceController preferenceController;
+	@Autowired
+	FetchedEventPublisher fetchedEventPublisher;
 
 	@Override
 	protected Void call() {
@@ -49,23 +54,26 @@ public class FetchCourseTask extends Task<Void> {
 //				System.out.printf("%d %s %s\n", course.getId(), course.getName(), course.getSelected());
 //			});
 
-			canvasCourseList.stream()
+			List<canvas.canvasapp.model.Course> courseList = canvasCourseList.stream()
 					.filter(canvasCourse -> Objects.nonNull(canvasCourse.getName()) && Objects.nonNull(canvasCourse.getId()))
 					.filter(canvasCourse -> courseRepository.findById(canvasCourse.getId()).isEmpty())
-					.filter(canvasCourse-> courseRepository.findByName(canvasCourse.getName()).isEmpty())
-					.peek(canvasCourse-> log.debug("Added {} {} to db", canvasCourse.getId(), canvasCourse.getName()))
+					.filter(canvasCourse -> courseRepository.findByName(canvasCourse.getName()).isEmpty())
+					.filter(DistinctByPredicate.distinctBy(Course::getName))	// filter duplicated course name
+					.peek(canvasCourse -> log.debug("Added {} {} to db", canvasCourse.getId(), canvasCourse.getName()))
 					.map(canvasCourse -> new canvas.canvasapp.model.Course()
 							.setId(canvasCourse.getId())
 							.setName(canvasCourse.getName())
 							.setCourseCode(canvasCourse.getCourseCode())
 							.setSelected(false)
-					).forEach(courseRepository::save);
-
+					).distinct()
+					.collect(Collectors.toList());
+			courseRepository.saveAll(courseList);
 		} catch (IOException e) {
 			log.error("Failed to fetch courses", e);
 		}
 
-
+		// fire course fetched event
+		fetchedEventPublisher.publishEvent(this, FetchedEventPublisher.FetchEventType.COURSE_FETCH);
 		return null;
 	}
 

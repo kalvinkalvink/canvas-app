@@ -1,4 +1,4 @@
-package canvas.canvasapp.event;
+package canvas.canvasapp.event.application;
 
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationEvent;

@@ -1,29 +1,29 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.controller.view.dashboard.AssignmentItemController;
 import canvas.canvasapp.controller.view.dashboard.ByDateCardController;
-import canvas.canvasapp.event.StartupFinishEvent;
+import canvas.canvasapp.event.task.fetch.AssignmentFetchedEvent;
 import canvas.canvasapp.model.Assignment;
+import canvas.canvasapp.model.Course;
 import canvas.canvasapp.task.load.LoadUpcomingAssignmentTask;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
@@ -32,14 +32,15 @@ import java.util.function.BiConsumer;
 @FxmlView("/view/dashboard.fxml")
 public class DashboardController implements IViewController {
 	private final FxWeaver fxWeaver;
-	@Autowired
-	SceneController sceneController;
+
 	@FXML
 	private Button courseTabBtn;
 	@FXML
 	private Button filesTabBtn;
 	@FXML
 	private ListView<VBox> assigmentListView;
+	@Autowired
+	SceneController sceneController;
 
 	@Autowired
 	private LoadUpcomingAssignmentTask loadUpcomingAssignmentTask;
@@ -55,30 +56,45 @@ public class DashboardController implements IViewController {
 
 	private void initView() {
 		log.info("Initializing dashboard view");
-		if (loadUpcomingAssignmentTask.isRunning()) {
-			loadUpcomingAssignmentTask.cancel();
-		}
-		try {
-			loadUpcomingAssignmentTask.run();
-			Map<Date, List<Assignment>> assignmentByDueDate = loadUpcomingAssignmentTask.get();
-			assignmentByDueDate.forEach(new BiConsumer<Date, List<Assignment>>() {
-				@Override
-				public void accept(Date date, List<Assignment> assignments) {
-					FxControllerAndView<ByDateCardController, VBox> byDateCard = fxWeaver.load(ByDateCardController.class);
-					ByDateCardController byDateCardController = byDateCard.getController();
-					byDateCardController.setDueDate(date);
-					assigmentListView.getItems().add(byDateCard.getView().get());
-//					System.out.printf("------ %s ------------\n", date);
-//					assignments.forEach(assignment -> System.out.println(assignment.getName()));
-				}
-			});
-		} catch (InterruptedException | ExecutionException e) {
-			log.error("Failed to load dashboard assignment",e);
-		}
+		Platform.runLater(() -> {
+			if (loadUpcomingAssignmentTask.isRunning())
+				loadUpcomingAssignmentTask.cancel();
+			assigmentListView.getItems().clear();
+			try {
+				loadUpcomingAssignmentTask.run();
+				Map<Date, List<Assignment>> assignmentByDueDate = loadUpcomingAssignmentTask.get();
+				assignmentByDueDate.forEach(new BiConsumer<Date, List<Assignment>>() {
+					@Override
+					public void accept(Date date, List<Assignment> assignmentList) {
+						FxControllerAndView<ByDateCardController, VBox> byDateCardFxControllerAndView = fxWeaver.load(ByDateCardController.class);
+						ByDateCardController byDateCardController = byDateCardFxControllerAndView.getController();
+						byDateCardController.setDueDate(date);
+						assignmentList.forEach(assignment -> {
+							FxControllerAndView<AssignmentItemController, VBox> assignmentItemFxControllerAndView = fxWeaver.load(AssignmentItemController.class);
+							AssignmentItemController assignmentItemController = assignmentItemFxControllerAndView.getController();
+							System.out.println("finding course for "+ assignment.getCourseId());
+							Course currCourse = assignment.getCourse();
+							if(Objects.isNull(currCourse.getColor()))
+								assignmentItemController.setColor(Color.GRAY);	// default color
+							else
+								assignmentItemController.setColor(currCourse.getColor());	// assigned color
+
+							assignmentItemController.setCourseName(currCourse.getName());
+							assignmentItemController.setAssignmentname(assignment.getName());
+							byDateCardController.addAssignment(assignmentItemFxControllerAndView.getView().get());
+						});
+						assigmentListView.getItems().add(byDateCardFxControllerAndView.getView().get());
+					}
+				});
+			} catch (InterruptedException | ExecutionException e) {
+				log.error("Failed to load dashboard assignment", e);
+			}
+		});
+
 	}
 
 	@EventListener
-	public void handleUpdateTask(StartupFinishEvent startupFinishEvent){
+	public void assignmentUpdatedEventListener(AssignmentFetchedEvent assignmentFetchedEvent) {
 		initView();
 	}
 

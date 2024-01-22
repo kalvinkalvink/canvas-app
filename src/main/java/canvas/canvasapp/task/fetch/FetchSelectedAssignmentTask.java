@@ -3,23 +3,21 @@ package canvas.canvasapp.task.fetch;
 import canvas.canvasapp.controller.view.PreferenceController;
 import canvas.canvasapp.dao.AssignmentRepository;
 import canvas.canvasapp.dao.CourseRepository;
+import canvas.canvasapp.event.publisher.fetch.FetchedEventPublisher;
 import canvas.canvasapp.model.Course;
 import canvas.canvasapp.util.CanvasApi;
 import edu.ksu.canvas.interfaces.AssignmentReader;
 import edu.ksu.canvas.model.assignment.Assignment;
 import edu.ksu.canvas.requestOptions.ListCourseAssignmentsOptions;
-import javafx.beans.property.ListProperty;
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -33,6 +31,8 @@ public class FetchSelectedAssignmentTask extends Task<Void> {
 	CourseRepository courseRepository;
 	@Autowired
 	PreferenceController preferenceController;
+	@Autowired
+	FetchedEventPublisher fetchedEventPublisher;
 
 	@Override
 	protected Void call() throws Exception {
@@ -42,7 +42,7 @@ public class FetchSelectedAssignmentTask extends Task<Void> {
 		// read selected course
 		List<Course> selectedCourseList = courseRepository.getBySelectedIsTrue();
 		log.debug("Selected course list size: {}", selectedCourseList.size());
- 		List<canvas.canvasapp.model.Assignment> assignmentList = new ArrayList<>();
+		List<canvas.canvasapp.model.Assignment> assignmentList = new ArrayList<>();
 		selectedCourseList.stream()
 				.map(selectedCourse -> {
 					try {
@@ -56,7 +56,6 @@ public class FetchSelectedAssignmentTask extends Task<Void> {
 				.map(canvasAssignment -> new canvas.canvasapp.model.Assignment()
 						.setId(canvasAssignment.getId())
 						.setName(canvasAssignment.getName())
-						.setDescription(canvasAssignment.getDescription())
 						.setCreatedAt(canvasAssignment.getCreatedAt())
 						.setUpdatedAt(canvasAssignment.getUpdatedAt())
 						.setDueAt(canvasAssignment.getDueAt())
@@ -65,6 +64,9 @@ public class FetchSelectedAssignmentTask extends Task<Void> {
 						.setCourseId(canvasAssignment.getCourseId()))
 				.forEach(assignmentList::add);
 		assignmentRepository.saveAll(assignmentList);
+
+		// fire assignment fetched event
+		fetchedEventPublisher.publishEvent(this, FetchedEventPublisher.FetchEventType.ASSIGNMENT_FETCH);
 		return null;
 	}
 }
