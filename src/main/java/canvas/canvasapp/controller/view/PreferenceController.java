@@ -100,6 +100,7 @@ public class PreferenceController {
 				if(course.getName().equals(courseName)){
 					SimpleObjectProperty<Color> colorSimpleObjectProperty = colorSimpleObjectPropertyList.get(i);
 					Color color = colorSimpleObjectProperty.getValue();
+					System.out.println("saving color" + color.toString());
 					course.setColor(color);
 				}
 			}

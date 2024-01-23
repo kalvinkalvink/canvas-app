@@ -9,6 +9,9 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
+
 @Controller
 @FxmlView("/view/menu-bar.fxml")
 public class MenuBarController {
@@ -23,10 +26,12 @@ public class MenuBarController {
 
 	@FXML
 	public void test(ActionEvent event) {
-		ListProperty<String> courseSelections = preferenceController.getCourseSelections();
-		courseSelections.forEach(course->{
-			System.out.println(course);
-		});
+//		ListProperty<String> courseSelections = preferenceController.getCourseSelections();
+//		courseSelections.forEach(course->{
+//			System.out.println(course);
+//		});
 //		courseRepository.findAll().stream().filter(Course::getSelected).forEach(System.out::println);
+		List<Course> bySelectedIsTrue = courseRepository.getBySelectedIsTrue();
+		bySelectedIsTrue.forEach(course-> System.out.println(course.getColor()));
 	}
 }

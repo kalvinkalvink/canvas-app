@@ -24,6 +24,7 @@ public class AssignmentItemController {
 		colorPane.setBackground(Background.fill(color));
 		// set course name border color
 		courseNameLabel.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5))));
+
 	}
 
 	public void setCourseName(String courseName) {

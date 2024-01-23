@@ -5,10 +5,17 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<AnchorPane fx:controller="canvas.canvasapp.controller.view.dashboard.AssignmentItemController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Pane fx:id="colorPane" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="courseNameLabel" alignment="CENTER" layoutX="125.0" layoutY="17.0" prefWidth="250.0" style="-fx-border-color: green; -fx-border-width: 5;" text="course name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="assignmentNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="369.0" layoutY="17.0" text="assignment name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   </children>
+<AnchorPane fx:controller="canvas.canvasapp.controller.view.dashboard.AssignmentItemController" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane fx:id="colorPane" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <Label fx:id="courseNameLabel" alignment="CENTER" layoutX="125.0" layoutY="17.0" prefWidth="250.0"
+               text="course name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0"
+               AnchorPane.topAnchor="0.0"/>
+        <Label fx:id="assignmentNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="369.0" layoutY="17.0"
+               text="assignment name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+    </children>
 </AnchorPane>

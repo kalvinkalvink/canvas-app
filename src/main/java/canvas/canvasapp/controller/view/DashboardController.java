@@ -72,13 +72,15 @@ public class DashboardController implements IViewController {
 						assignmentList.forEach(assignment -> {
 							FxControllerAndView<AssignmentItemController, VBox> assignmentItemFxControllerAndView = fxWeaver.load(AssignmentItemController.class);
 							AssignmentItemController assignmentItemController = assignmentItemFxControllerAndView.getController();
-							System.out.println("finding course for "+ assignment.getCourseId());
+							System.out.println("finding course for "+ assignment.getCourse().getId());
 							Course currCourse = assignment.getCourse();
+							if(Objects.isNull(currCourse))
+								return;
 							if(Objects.isNull(currCourse.getColor()))
 								assignmentItemController.setColor(Color.GRAY);	// default color
 							else
 								assignmentItemController.setColor(currCourse.getColor());	// assigned color
-
+							System.out.println(currCourse.getColor());
 							assignmentItemController.setCourseName(currCourse.getName());
 							assignmentItemController.setAssignmentname(assignment.getName());
 							byDateCardController.addAssignment(assignmentItemFxControllerAndView.getView().get());

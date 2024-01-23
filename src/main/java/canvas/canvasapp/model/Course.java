@@ -2,13 +2,12 @@ package canvas.canvasapp.model;
 
 
 import canvas.canvasapp.model.converter.ColorConverter;
-import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import javafx.scene.paint.Color;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 
 @Entity
@@ -29,4 +28,6 @@ public class Course {
 	@Convert(converter = ColorConverter.class)
 	private Color color;
 
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	private List<Assignment> assignments;
 }
