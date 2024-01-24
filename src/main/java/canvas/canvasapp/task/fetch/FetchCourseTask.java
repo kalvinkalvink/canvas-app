@@ -1,9 +1,7 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.controller.view.PreferenceController;
-import canvas.canvasapp.dao.AssignmentRepository;
-import canvas.canvasapp.dao.CourseRepository;
-import canvas.canvasapp.event.publisher.fetch.FetchedEventPublisher;
+import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
+import canvas.canvasapp.service.CourseService;
 import canvas.canvasapp.util.CanvasApi;
 import canvas.canvasapp.util.predicate.DistinctByPredicate;
 import edu.ksu.canvas.interfaces.CourseReader;
@@ -23,27 +21,25 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @Scope("prototype")
-public class FetchCourseTask extends Task<Void> {
+public class FetchCourseTask implements Runnable {
 	@Autowired
-	CourseRepository courseRepository;
-	@Autowired
-	AssignmentRepository assignmentRepository;
+	CourseService courseService;
 	@Autowired
 	CanvasApi canvasApi;
 	@Autowired
-	PreferenceController preferenceController;
-	@Autowired
-	FetchedEventPublisher fetchedEventPublisher;
+	DatabaseUpdatedEventPublisher databaseUpdatedEventPublisher;
+
+
 
 	@Override
-	protected Void call() {
+	public void run() {
 		try {
-			log.info("Fetching courses");
-			log.info("Course database size: {}", courseRepository.count());
+			log.info("Fetching courses data from canvas");
+			log.debug("Course database size: {}", courseService.count());
 
 			CourseReader courseReader = canvasApi.getReader(CourseReader.class);
 			List<Course> canvasCourseList = courseReader.listCurrentUserCourses(new ListCurrentUserCoursesOptions());
-			log.info("Fetched {} courses from canvas", canvasCourseList.size());
+			log.debug("Fetched {} courses from canvas", canvasCourseList.size());
 
 //			canvasCourseList.stream().forEach(canvasCoruse->{
 //				System.out.printf("%d, %s, %s\n",canvasCoruse.getId(), canvasCoruse.getName(), canvasCoruse.getCourseCode());
@@ -56,8 +52,8 @@ public class FetchCourseTask extends Task<Void> {
 
 			List<canvas.canvasapp.model.Course> courseList = canvasCourseList.stream()
 					.filter(canvasCourse -> Objects.nonNull(canvasCourse.getName()) && Objects.nonNull(canvasCourse.getId()))
-					.filter(canvasCourse -> courseRepository.findById(canvasCourse.getId()).isEmpty())
-					.filter(canvasCourse -> courseRepository.findByName(canvasCourse.getName()).isEmpty())
+					.filter(canvasCourse -> courseService.findById(canvasCourse.getId()).isEmpty())
+					.filter(canvasCourse -> courseService.findByName(canvasCourse.getName()).isEmpty())
 					.filter(DistinctByPredicate.distinctBy(Course::getName))	// filter duplicated course name
 					.peek(canvasCourse -> log.debug("Added {} {} to db", canvasCourse.getId(), canvasCourse.getName()))
 					.map(canvasCourse -> new canvas.canvasapp.model.Course()
@@ -67,15 +63,12 @@ public class FetchCourseTask extends Task<Void> {
 							.setSelected(false)
 					).distinct()
 					.collect(Collectors.toList());
-			courseRepository.saveAll(courseList);
+			courseService.saveAll(courseList);
 		} catch (IOException e) {
 			log.error("Failed to fetch courses", e);
 		}
 
 		// fire course fetched event
-		fetchedEventPublisher.publishEvent(this, FetchedEventPublisher.FetchEventType.COURSE_FETCH);
-		return null;
+		databaseUpdatedEventPublisher.publishEvent(this, DatabaseUpdatedEventPublisher.UpdateEventType.COURSE_UPDATED);
 	}
-
-
 }

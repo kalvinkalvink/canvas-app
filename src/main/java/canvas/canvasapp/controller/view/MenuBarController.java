@@ -1,13 +1,11 @@
 package canvas.canvasapp.controller.view;
 
-import canvas.canvasapp.dao.CourseRepository;
 import canvas.canvasapp.model.Course;
-import javafx.beans.property.ListProperty;
+import canvas.canvasapp.service.CourseService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public class MenuBarController {
 	@Autowired
 	PreferenceController preferenceController;
 	@Autowired
-	CourseRepository courseRepository;
+	CourseService courseService;
 	@FXML
 	public void showPreferenceMenu(ActionEvent event) {
 		preferenceController.showPreferenceMenu(event);
@@ -31,7 +29,7 @@ public class MenuBarController {
 //			System.out.println(course);
 //		});
 //		courseRepository.findAll().stream().filter(Course::getSelected).forEach(System.out::println);
-		List<Course> bySelectedIsTrue = courseRepository.getBySelectedIsTrue();
+		List<Course> bySelectedIsTrue = courseService.getAllSelected();
 		bySelectedIsTrue.forEach(course-> System.out.println(course.getColor()));
 	}
 }

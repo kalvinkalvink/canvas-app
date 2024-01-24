@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 @Service
 @Scope("prototype")
-public class StartupFetchTask extends Task<Void> {
+public class StartupTask extends Task<Void> {
 	@Autowired
 	FetchCourseTask fetchCourseTask;
 	@Autowired
@@ -29,10 +28,7 @@ public class StartupFetchTask extends Task<Void> {
 		// e.g. course fetch task will fire CourseFetchFinishEvent to trigger AssignmentFetchTask
 		ExecutorCompletionService<Void> executorCompleteService = fixedThreadPoolExecutor.getNewExecutorCompleteService();
 		// adding task in order
-		ArrayList<Task<Void>> fetchTaskList = new ArrayList<>();
-
-		// set task failed handler
-		fetchCourseTask.setOnFailed(new TaskFailedHandler());
+		ArrayList<Runnable> fetchTaskList = new ArrayList<>();
 
 		// add all task to list for easy management
 		fetchTaskList.add(fetchCourseTask);

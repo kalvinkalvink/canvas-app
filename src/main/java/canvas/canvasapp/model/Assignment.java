@@ -20,8 +20,7 @@ public class Assignment {
 	private Date dueAt;
 	private Date lockAt;
 	private Date unlockAt;
-//	@Column(name = "course_id", insertable = false, updatable = false)
-//	private String courseId;
+
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Course course;

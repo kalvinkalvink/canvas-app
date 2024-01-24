@@ -1,10 +1,9 @@
 package canvas.canvasapp.task.load;
 
-import canvas.canvasapp.dao.AssignmentRepository;
+import canvas.canvasapp.repository.AssignmentRepository;
 import canvas.canvasapp.model.Assignment;
+import canvas.canvasapp.service.AssignmentService;
 import javafx.concurrent.Task;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -16,12 +15,13 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class LoadUpcomingAssignmentTask extends Task<TreeMap<Date, List<Assignment>>> {
 	@Autowired
-	AssignmentRepository assignmentRepository;
+	AssignmentService assignmentService;
 
 
 	@Override
 	protected TreeMap<Date, List<Assignment>> call() {
-		List<Assignment> assignmentList = assignmentRepository.findAll();
+		List<Assignment> assignmentList = assignmentService.findAll();
+		System.out.println(assignmentList.size());
 		return assignmentList.stream()
 				.filter(assignment -> Objects.nonNull(assignment.getDueAt()))
 				.filter(assignment -> !assignment.getDueAt().before(new Date()))
