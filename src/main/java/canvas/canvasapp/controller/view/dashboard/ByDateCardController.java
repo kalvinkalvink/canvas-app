@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Controller
 @Scope("prototype")
-@FxmlView("/view/dashboard/by-date-card.fxml")
+@FxmlView("/view/component/dashboard/by-date-card.fxml")
 public class ByDateCardController {
 	@FXML
 	Label dueDateLabel;

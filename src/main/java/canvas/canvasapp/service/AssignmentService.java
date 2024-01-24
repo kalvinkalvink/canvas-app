@@ -26,7 +26,6 @@ public class AssignmentService implements IUpdateEvent {
 	}
 	public TreeMap<Date, List<Assignment>> getUpcomingAssignmentForSelectedCourse(){
 		List<Assignment> assignmentList = this.findAll();
-		System.out.println(assignmentList.size());
 		return assignmentList.stream()
 				.filter(assignment -> assignment.getCourse().getSelected())
 				.filter(assignment -> Objects.nonNull(assignment.getDueAt()))

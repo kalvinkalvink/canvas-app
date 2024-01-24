@@ -1,8 +1,8 @@
 package canvas.canvasapp.helpers;
 
 public enum ScenePath {
-	DASHBOARD("/view/dashboard.fxml"),
-	COURSE("/view/course.fxml"),
+	DASHBOARD("/view/component/tab/dashboard.fxml"),
+	COURSE("/view/component/tab/course.fxml"),
 	FILES("/view/files.fxml");
 
 	private final String path;
