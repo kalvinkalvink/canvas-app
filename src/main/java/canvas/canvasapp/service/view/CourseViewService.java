@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 @Slf4j
 @Service
-public class CourseService {
+public class CourseViewService {
 	private Course selectedCourse;
 	public void showCourse(Course course){
 

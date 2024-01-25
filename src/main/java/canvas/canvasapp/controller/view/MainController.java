@@ -1,6 +1,7 @@
 package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.controller.view.course.CourseListController;
+import canvas.canvasapp.event.view.CourseItemClickEvent;
 import canvas.canvasapp.model.Course;
 import canvas.canvasapp.service.CourseService;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -55,7 +57,7 @@ public class MainController {
 	@FXML
 	private void initialize() {
 		log.info("Main Controller initializing");
-		showTab(TAB.DASHBOARD_TAB);
+		showTabContent(TAB.DASHBOARD_TAB);
 	}
 
 	@FXML
@@ -74,7 +76,7 @@ public class MainController {
 		preferenceController.showPreferenceMenu(event);
 	}
 
-	private void showTab(TAB tab) {
+	private void showTabContent(TAB tab) {
 		if (currentTab != null && tab == currentTab) return;		// stop if current in that tab
 		this.currentTab = tab;
 		// switch tab button color
@@ -93,12 +95,16 @@ public class MainController {
 		}
 
 	}
-
+	@EventListener
+	private void courseListItemClickEventListener(CourseItemClickEvent courseItemClickEvent) {
+		log.debug("Course list item clicked: {}", courseItemClickEvent.getCourse().getName());
+		this.showTabContent(TAB.COURSE_TAB);
+	}
 
 	@FXML
 	private void showDashboardTab() {
 		log.debug("Dashboard tab button clicked");
-		showTab(TAB.DASHBOARD_TAB);
+		showTabContent(TAB.DASHBOARD_TAB);
 	}
 
 	@FXML
