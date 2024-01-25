@@ -1,15 +1,19 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.model.Course;
 import canvas.canvasapp.service.CourseService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -51,7 +55,6 @@ public class MainController {
 	@FXML
 	private void initialize() {
 		log.info("Main Controller initializing");
-		HBox.setHgrow(tabContentStackPane, Priority.ALWAYS);
 		showTab(TAB.DASHBOARD_TAB);
 	}
 
@@ -62,7 +65,7 @@ public class MainController {
 //			System.out.println(course);
 //		});
 //		courseRepository.findAll().stream().filter(Course::getSelected).forEach(System.out::println);
-		List<Course> bySelectedIsTrue = courseService.getAllSelected();
+		List<Course> bySelectedIsTrue = courseService.findAllSelected();
 		bySelectedIsTrue.forEach(course -> System.out.println(course.getColor()));
 	}
 
@@ -74,9 +77,14 @@ public class MainController {
 	private void showTab(TAB tab) {
 		if (currentTab != null && tab == currentTab) return;		// stop if current in that tab
 		this.currentTab = tab;
+		// switch tab button color
+		switch (tab){
+			case DASHBOARD_TAB -> {
+				dashboardTabButton.setBackground(Background.fill(Paint.valueOf("ffffff")));
+			}
+		}
+
 		// clear and set content
-
-
 		ObservableList<Node> contentPaneChildren = this.tabContentStackPane.getChildren();
 		contentPaneChildren.clear();
 		switch (tab) {
@@ -96,7 +104,11 @@ public class MainController {
 	@FXML
 	private void showCourseTab() {
 		log.debug("Course tab button clicked");
-		showTab(TAB.COURSE_TAB);
+		// show course list for selection
+		Stage courseListWindow = new Stage();
+		courseListWindow.setScene(new Scene((Parent) fxWeaver.load(CourseListController.class).getView().get()));
+		courseListWindow.setTitle("Course List");
+		courseListWindow.show();
 	}
 
 	@FXML

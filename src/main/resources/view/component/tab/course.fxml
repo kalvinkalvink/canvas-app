@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="500.0" prefWidth="300.0"
-            fx:controller="canvas.canvasapp.controller.view.CourseController" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="canvas.canvasapp.controller.view.CourseController">
     <children>
-        <Label layoutX="93.0" layoutY="9.0" text="Course" AnchorPane.leftAnchor="10.0"
-               AnchorPane.topAnchor="10.0">
-            <font>
-                <Font name="System Bold" size="20.0"/>
-            </font>
-        </Label>
-        <VBox id="assigmentListVBox" fx:id="assigmentListVBox" layoutX="-1.0" layoutY="-11.0"
-              prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0"
-              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0"/>
+      <Text fx:id="courseNameText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="132.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="announcementButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Announcement" textFill="#3369a3eb" />
+                  <Button fx:id="assignmentButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Assignments" textFill="#3369a3eb" />
+                  <Button fx:id="gradeButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Grades" textFill="#3369a3eb" />
+                  <Button fx:id="fileButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Files" textFill="#3369a3eb" />
+               </children>
+            </VBox>
+            <StackPane fx:id="courseContentStackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

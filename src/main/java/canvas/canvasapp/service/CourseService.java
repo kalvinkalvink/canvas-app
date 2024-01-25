@@ -6,7 +6,6 @@ import canvas.canvasapp.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.LinkOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +33,7 @@ public class CourseService implements IUpdateEvent {
 		return courseRepository.findAll();
 	}
 
-	public List<Course> getAllSelected() {
+	public List<Course> findAllSelected() {
 		return courseRepository.getBySelectedIsTrue();
 	}
 

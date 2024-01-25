@@ -24,8 +24,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
 	@Override
 	public void onApplicationEvent(StageReadyEvent event) {
 		Stage stage = event.getStage();
-
-		Scene scene = new Scene(fxWeaver.loadView(MainController.class));
+		Scene scene = new Scene(fxWeaver.loadView(MainController.class), 1000, 600);
 		stage.setScene(scene);
 		stage.show();
 	}

@@ -1,7 +1,5 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.controller.view.PreferenceController;
-import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
 import canvas.canvasapp.model.Course;
 import canvas.canvasapp.service.AssignmentService;
 import canvas.canvasapp.service.CourseService;
@@ -9,7 +7,6 @@ import canvas.canvasapp.util.CanvasApi;
 import edu.ksu.canvas.interfaces.AssignmentReader;
 import edu.ksu.canvas.model.assignment.Assignment;
 import edu.ksu.canvas.requestOptions.ListCourseAssignmentsOptions;
-import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -37,7 +34,7 @@ public class FetchSelectedAssignmentTask implements Runnable {
 		log.debug("Assignment table size: {}", assignmentService.count());
 		AssignmentReader assignmentReader = canvasApi.getReader(AssignmentReader.class);
 		// read selected course
-		List<Course> selectedCourseList = courseService.getAllSelected();
+		List<Course> selectedCourseList = courseService.findAllSelected();
 		log.debug("Selected course list size: {}", selectedCourseList.size());
 		List<canvas.canvasapp.model.Assignment> assignmentList = new ArrayList<>();
 		selectedCourseList.stream()
