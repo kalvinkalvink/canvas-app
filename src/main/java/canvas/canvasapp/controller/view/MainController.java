@@ -1,9 +1,12 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.CourseService;
+import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.service.application.CanvasPreferenceService;
+import canvas.canvasapp.service.database.CourseService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +33,8 @@ import java.util.List;
 public class MainController {
 	@Autowired
 	private FxWeaver fxWeaver;
+	@Autowired
+	CanvasPreferenceService canvasPreferenceService;
 
 	// tab menu
 	enum TAB {
@@ -70,6 +75,10 @@ public class MainController {
 		List<Course> bySelectedIsTrue = courseService.findAllSelected();
 		bySelectedIsTrue.forEach(course -> System.out.println(course.getColor()));
 	}
+	@FXML
+	public void test2(ActionEvent event){
+		System.out.println(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, "123"));
+	}
 
 	@FXML
 	public void showPreferenceMenu(ActionEvent event) {
@@ -77,10 +86,10 @@ public class MainController {
 	}
 
 	private void showTabContent(TAB tab) {
-		if (currentTab != null && tab == currentTab) return;		// stop if current in that tab
+//		if (currentTab != null && tab == currentTab) return;        // stop if current in that tab
 		this.currentTab = tab;
 		// switch tab button color
-		switch (tab){
+		switch (tab) {
 			case DASHBOARD_TAB -> {
 				dashboardTabButton.setBackground(Background.fill(Paint.valueOf("ffffff")));
 			}
@@ -95,6 +104,7 @@ public class MainController {
 		}
 
 	}
+
 	@EventListener
 	private void courseListItemClickEventListener(CourseItemClickEvent courseItemClickEvent) {
 		log.debug("Course list item clicked: {}", courseItemClickEvent.getCourse().getName());

@@ -44,11 +44,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- canvas api -->
+
         <dependency>
             <groupId>edu.ksu.canvas</groupId>
             <artifactId>canvas-api</artifactId>
-            <version>2.0.0</version>
+            <version>2.3.5</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -57,22 +57,6 @@
             </exclusions>
         </dependency>
         <!-- logging -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.logging.log4j</groupId>-->
-        <!--            <artifactId>log4j-api</artifactId>-->
-        <!--            <version>2.20.0</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.logging.log4j</groupId>-->
-        <!--            <artifactId>log4j-core</artifactId>-->
-        <!--            <version>2.20.0</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.logging.log4j</groupId>-->
-        <!--            <artifactId>log4j-slf4j-impl</artifactId>-->
-        <!--            <version>2.20.0</version>-->
-        <!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -91,25 +75,12 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-core &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-core</artifactId>-->
-<!--            <version>5.4.21.Final</version>-->
-<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.4.1.Final</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>8.0.19</version>-->
-<!--        </dependency>-->
         <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -148,6 +119,11 @@
             <artifactId>preferencesfx-core</artifactId>
             <version>11.17.0</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.15.1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
@@ -155,6 +131,12 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,39 +1,33 @@
 package canvas.canvasapp.task.executor;
 
-import canvas.canvasapp.task.exception.TaskFailedHandler;
-import javafx.concurrent.Task;
+import canvas.canvasapp.exception.task.TaskUncaughtExceptionHandler;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 @Component
 public class SingleThreadPoolExecutor {
 	private ExecutorService executorService;
 
 	public SingleThreadPoolExecutor() {
-		this.executorService = Executors.newSingleThreadExecutor();
+		ThreadFactory threadFactory = new ThreadFactoryBuilder()
+				.setNameFormat("single-thread-pool-%d")
+				.setUncaughtExceptionHandler(new TaskUncaughtExceptionHandler())
+				.build();
+		this.executorService = Executors.newSingleThreadExecutor(threadFactory);
+
 	}
 
 	public Future<?> submitTask(Runnable task) {
 		return executorService.submit(task);
 	}
 
-	public Future<?> submitTask(Task<?> task) {
-		task.setOnFailed(new TaskFailedHandler());
-		return submitTask((Runnable) task);
-	}
 
 	public void executeTask(Runnable task) {
 		executorService.execute(task);
 	}
 
-	public void executeTask(Task<?> task) {
-		task.setOnFailed(new TaskFailedHandler());
-		this.executeTask((Runnable) task);
-	}
 
 	public ExecutorCompletionService<Void> getNewExecutorCompleteService() {
 		return new ExecutorCompletionService<Void>(executorService);

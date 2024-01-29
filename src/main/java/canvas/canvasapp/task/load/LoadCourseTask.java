@@ -1,7 +1,7 @@
 package canvas.canvasapp.task.load;
 
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.CourseService;
+import canvas.canvasapp.service.database.CourseService;
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package canvas.canvasapp.event.publisher.database;
 
-import canvas.canvasapp.event.task.database.AssignmentUpdatedEvent;
-import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
+import canvas.canvasapp.event.task.database.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,10 @@ public class DatabaseUpdatedEventPublisher {
 
 	public enum UpdateEventType {
 		COURSE_UPDATED,
-		ASSIGNMENT_UPDATED
+		ASSIGNMENT_UPDATED,
+		ANNOUNCEMENT_UPDATED,
+		FILE_UPDATED,
+		FOLDER_UPDATED
 	}
 
 
@@ -22,6 +24,9 @@ public class DatabaseUpdatedEventPublisher {
 		switch (updateEventType) {
 			case COURSE_UPDATED -> eventPublisher.publishEvent(new CourseUpdatedEvent(source));
 			case ASSIGNMENT_UPDATED -> eventPublisher.publishEvent(new AssignmentUpdatedEvent(source));
+			case ANNOUNCEMENT_UPDATED -> eventPublisher.publishEvent(new AnnouncementUpdatedEvent(source));
+			case FILE_UPDATED -> eventPublisher.publishEvent(new FileUpdatedEevnt(source));
+			case FOLDER_UPDATED -> eventPublisher.publishEvent(new FolderUpdateEvent(source));
 		}
 	}
 }

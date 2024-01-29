@@ -997,6 +997,66 @@
     "restrict_enrollments_to_course_dates": true
   },
   {
+    "id": 57260,
+    "name": "CS4182 Computer Graphics",
+    "account_id": 49,
+    "uuid": "HAN8xiuFKSyey9lR7AXEtO3m19t6c4ysBdPpFSfz",
+    "start_at": null,
+    "grading_standard_id": 638,
+    "is_public": false,
+    "created_at": "2023-12-26T19:45:25Z",
+    "course_code": "202402CS4182",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 239,
+    "license": "private",
+    "grade_passback_setting": null,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 10000,
+    "is_public_to_auth_users": false,
+    "homeroom_course": false,
+    "course_color": null,
+    "friendly_name": null,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "https://canvas.cityu.edu.hk/feeds/calendars/course_HAN8xiuFKSyey9lR7AXEtO3m19t6c4ysBdPpFSfz.ics"
+    },
+    "time_zone": "Asia/Hong_Kong",
+    "blueprint": false,
+    "template": false,
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 8,
+        "user_id": 161517,
+        "enrollment_state": "active",
+        "limit_privileges_to_course_section": false
+      },
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 8,
+        "user_id": 161517,
+        "enrollment_state": "active",
+        "limit_privileges_to_course_section": false
+      },
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 8,
+        "user_id": 161517,
+        "enrollment_state": "active",
+        "limit_privileges_to_course_section": false
+      }
+    ],
+    "hide_final_grades": true,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
     "id": 57265,
     "name": "CS4186 Comp Vision & Image Processing",
     "account_id": 49,

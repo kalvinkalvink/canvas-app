@@ -1,10 +1,12 @@
 package canvas.canvasapp.task.startup;
 
-import canvas.canvasapp.task.exception.TaskFailedHandler;
+import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
+import canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor;
+import canvas.canvasapp.task.executor.SingleThreadPoolExecutor;
 import canvas.canvasapp.task.fetch.FetchCourseTask;
-import canvas.canvasapp.task.fetch.FetchSelectedAssignmentTask;
-import javafx.concurrent.Task;
+import canvas.canvasapp.task.fetch.SyncSelectedCourseFileTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -15,15 +17,30 @@ import java.util.concurrent.Executors;
 
 @Service
 @Scope("prototype")
-public class StartupTask extends Task<Void> {
+public class StartupTask implements Runnable {
+	// thread pool executor
 	@Autowired
-	FetchCourseTask fetchCourseTask;
+	private FixedThreadPoolExecutor fixedThreadPoolExecutor;
 	@Autowired
-	FetchSelectedAssignmentTask fetchSelectedAssignmentTask;
+	private SingleThreadPoolExecutor singleThreadPoolExecutor;
 	@Autowired
-	FixedThreadPoolExecutor fixedThreadPoolExecutor;
+	private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+	// task
+	@Autowired
+	private FetchCourseTask fetchCourseTask;
+	@Autowired
+	private SyncSelectedCourseFileTask syncSelectedCourseFileTask;
+	@Autowired
+	private CanvasPreferenceService canvasPreferenceService;
+
 	@Override
-	protected Void call() throws InterruptedException {
+	public void run() {
+		initFixedThreadPoolTask();
+		initScheduledThreadPoolTask();
+		initSingleThreadPoolTask();
+	}
+
+	private void initFixedThreadPoolTask() {
 		// only add all the base task
 		// e.g. course fetch task will fire CourseFetchFinishEvent to trigger AssignmentFetchTask
 		ExecutorCompletionService<Void> executorCompleteService = fixedThreadPoolExecutor.getNewExecutorCompleteService();
@@ -34,7 +51,7 @@ public class StartupTask extends Task<Void> {
 		fetchTaskList.add(fetchCourseTask);
 
 		// submit task for running
-		fetchTaskList.forEach(fetchTask->{
+		fetchTaskList.forEach(fetchTask -> {
 			executorCompleteService.submit(Executors.callable(fetchTask, null));
 		});
 
@@ -42,6 +59,16 @@ public class StartupTask extends Task<Void> {
 //		for (int i = 0; i < fetchTaskList.size(); i++) {
 //			executorCompleteService.take();
 //		}
-		return null;
 	}
+
+	private void initScheduledThreadPoolTask() {
+		int syncTimeInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.COURSE_SYNC_INTERVAL, "300"));
+		scheduledThreadPoolExecutor.scheduleTask(syncSelectedCourseFileTask, 10, syncTimeInterval);    // schedule at 5 mins
+	}
+
+	private void initSingleThreadPoolTask() {
+
+	}
+
+
 }

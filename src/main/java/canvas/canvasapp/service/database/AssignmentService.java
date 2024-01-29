@@ -1,4 +1,4 @@
-package canvas.canvasapp.service;
+package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
 import canvas.canvasapp.model.Assignment;
@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class AssignmentService implements IUpdateEvent {
+public class AssignmentService implements IDatabaseUpdateEvent {
 	@Autowired
 	AssignmentRepository assignmentRepository;
 	@Autowired
@@ -39,6 +39,10 @@ public class AssignmentService implements IUpdateEvent {
 						},
 						TreeMap::new
 				));
+	}
+
+	public List<Assignment> getAssignmentsByCourseId(Long courseId){
+		return assignmentRepository.findByCourseId(courseId);
 	}
 
 	// setter

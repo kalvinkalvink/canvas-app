@@ -1,11 +1,10 @@
 package canvas.canvasapp.util;
+
 import edu.ksu.canvas.CanvasApiFactory;
 import edu.ksu.canvas.interfaces.CanvasReader;
 import edu.ksu.canvas.interfaces.CanvasWriter;
 import edu.ksu.canvas.oauth.NonRefreshableOauthToken;
 import edu.ksu.canvas.oauth.OauthToken;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +16,9 @@ public class CanvasApi {
 		String canvasBaseUrl = "https://canvas.cityu.edu.hk";
 		oauthToken = new NonRefreshableOauthToken("1839~gQ2SiPEvVevHC2pJNTk7UUDkhjrjth1PS49wuUoWcyV1zxuewgHFwImA9WTvPAmI");
 		apiFactory = new CanvasApiFactory(canvasBaseUrl);
+	}
+	public void init(String canvasBaseUrl, String ApiToken){
+
 	}
 
 	public <T extends CanvasReader> T getReader(Class<T> type) {

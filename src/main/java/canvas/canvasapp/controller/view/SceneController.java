@@ -1,12 +1,12 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.controller.view.course.CourseController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Setter;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 @Controller
 public class SceneController {

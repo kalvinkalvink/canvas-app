@@ -1,12 +1,12 @@
 package canvas.canvasapp.controller.view;
 
-import canvas.canvasapp.controller.view.dashboard.AssignmentItemController;
+import canvas.canvasapp.controller.view.dashboard.DashboardAssignmentItemController;
 import canvas.canvasapp.controller.view.dashboard.ByDateCardController;
 import canvas.canvasapp.event.task.database.AssignmentUpdatedEvent;
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
 import canvas.canvasapp.model.Assignment;
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.AssignmentService;
+import canvas.canvasapp.service.database.AssignmentService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -59,24 +59,24 @@ public class DashboardController {
 			assignmentByDueDate.forEach(new BiConsumer<Date, List<Assignment>>() {
 				@Override
 				public void accept(Date date, List<Assignment> assignmentList) {
-					log.debug("Assignment date {}, assignment list size: {}", date, assignmentList.size());
+					log.trace("Assignment date {}, assignment list size: {}", date, assignmentList.size());
 					FxControllerAndView<ByDateCardController, VBox> byDateCardFxControllerAndView = fxWeaver.load(ByDateCardController.class);
 					ByDateCardController byDateCardController = byDateCardFxControllerAndView.getController();
 					byDateCardController.setDueDate(date);
 					assignmentList.forEach(assignment -> {
-						FxControllerAndView<AssignmentItemController, VBox> assignmentItemFxControllerAndView = fxWeaver.load(AssignmentItemController.class);
-						AssignmentItemController assignmentItemController = assignmentItemFxControllerAndView.getController();
+						FxControllerAndView<DashboardAssignmentItemController, VBox> assignmentItemFxControllerAndView = fxWeaver.load(DashboardAssignmentItemController.class);
+						DashboardAssignmentItemController dashboardAssignmentItemController = assignmentItemFxControllerAndView.getController();
 
 						Course currCourse = assignment.getCourse();
 						if (Objects.isNull(currCourse))
 							return;
 						if (Objects.isNull(currCourse.getColor()))
-							assignmentItemController.setColor(Color.GRAY);    // default color
+							dashboardAssignmentItemController.setColor(Color.GRAY);    // default color
 						else
-							assignmentItemController.setColor(currCourse.getColor());    // assigned color
+							dashboardAssignmentItemController.setColor(currCourse.getColor());    // assigned color
 
-						assignmentItemController.setCourseName(currCourse.getName());
-						assignmentItemController.setAssignmentname(assignment.getName());
+						dashboardAssignmentItemController.setCourseName(currCourse.getName());
+						dashboardAssignmentItemController.setAssignmentname(assignment.getName());
 						byDateCardController.addAssignment(assignmentItemFxControllerAndView.getView().get());
 					});
 					assigmentListView.getItems().add(byDateCardFxControllerAndView.getView().get());

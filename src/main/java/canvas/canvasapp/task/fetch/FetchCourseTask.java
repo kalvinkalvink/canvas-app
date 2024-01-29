@@ -1,13 +1,11 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
-import canvas.canvasapp.service.CourseService;
+import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.util.CanvasApi;
 import canvas.canvasapp.util.predicate.DistinctByPredicate;
 import edu.ksu.canvas.interfaces.CourseReader;
 import edu.ksu.canvas.model.Course;
 import edu.ksu.canvas.requestOptions.ListCurrentUserCoursesOptions;
-import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,9 +24,6 @@ public class FetchCourseTask implements Runnable {
 	CourseService courseService;
 	@Autowired
 	CanvasApi canvasApi;
-	@Autowired
-	DatabaseUpdatedEventPublisher databaseUpdatedEventPublisher;
-
 
 
 	@Override
@@ -61,14 +56,14 @@ public class FetchCourseTask implements Runnable {
 							.setName(canvasCourse.getName())
 							.setCourseCode(canvasCourse.getCourseCode())
 							.setSelected(false)
+							.setSynced(false)
 					).distinct()
 					.collect(Collectors.toList());
 			courseService.saveAll(courseList);
+			courseService.publishUpdateEvent();
 		} catch (IOException e) {
 			log.error("Failed to fetch courses", e);
 		}
 
-		// fire course fetched event
-		databaseUpdatedEventPublisher.publishEvent(this, DatabaseUpdatedEventPublisher.UpdateEventType.COURSE_UPDATED);
 	}
 }

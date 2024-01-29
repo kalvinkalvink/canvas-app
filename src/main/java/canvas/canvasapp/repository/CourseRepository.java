@@ -18,6 +18,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 	@Modifying
 	@Query("update Course set selected = false")
 	void setAllSelectedToFalse();
+
 	List<Course> getBySelectedIsTrue();
+
+	List<Course> getBySyncedIsTrue();
+
 	Optional<Course> findByName(String name);
 }

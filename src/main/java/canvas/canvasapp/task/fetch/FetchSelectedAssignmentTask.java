@@ -1,8 +1,8 @@
 package canvas.canvasapp.task.fetch;
 
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.AssignmentService;
-import canvas.canvasapp.service.CourseService;
+import canvas.canvasapp.service.database.AssignmentService;
+import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.util.CanvasApi;
 import edu.ksu.canvas.interfaces.AssignmentReader;
 import edu.ksu.canvas.model.assignment.Assignment;
@@ -43,8 +43,8 @@ public class FetchSelectedAssignmentTask implements Runnable {
 						return assignmentReader.listCourseAssignments(new ListCourseAssignmentsOptions(selectedCourse.getId().toString()));
 					} catch (IOException e) {
 						log.warn("Failed to fetch {} assignments", selectedCourse.getName());
+						return new ArrayList<Assignment>();
 					}
-					return new ArrayList<Assignment>();
 				})
 				.flatMap(List::stream)
 				.map(canvasAssignment -> new canvas.canvasapp.model.Assignment()

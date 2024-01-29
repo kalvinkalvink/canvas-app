@@ -2,13 +2,12 @@ package canvas.canvasapp.controller.view.course;
 
 import canvas.canvasapp.controller.view.MainController;
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.CourseService;
-import canvas.canvasapp.service.view.course.CourseListService;
+import canvas.canvasapp.service.database.CourseService;
+import canvas.canvasapp.service.view.course.CourseViewService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class CourseListController {
     @Autowired
     CourseService courseService;
     @Autowired
-    CourseListService courseListService;
+	CourseViewService courseViewService;
     @Autowired
     MainController mainController;
 
@@ -38,7 +37,7 @@ public class CourseListController {
                     Button courseButton = new Button(course.getName());
                     courseButton.setMaxWidth(Double.MAX_VALUE);
                     courseButton.setOnAction((actionEvent) -> {
-                        courseListService.publishCourseItemClickedEvent(this, course);
+                        courseViewService.publishCourseItemClickedEvent(this, course);
                         Stage window = (Stage) courseListVBox.getScene().getWindow();
                         window.close();
                     });

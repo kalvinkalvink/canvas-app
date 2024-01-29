@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 
 @Slf4j
 @Controller
-@FxmlView("/view/component/dashboard/assignment.fxml")
-public class AssignmentItemController {
+@FxmlView("/view/component/dashboard/dashboard-assignment.fxml")
+public class DashboardAssignmentItemController {
 	@FXML
 	Pane colorPane;
 	@FXML

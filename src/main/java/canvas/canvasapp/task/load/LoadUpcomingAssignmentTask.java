@@ -1,8 +1,7 @@
 package canvas.canvasapp.task.load;
 
-import canvas.canvasapp.repository.AssignmentRepository;
 import canvas.canvasapp.model.Assignment;
-import canvas.canvasapp.service.AssignmentService;
+import canvas.canvasapp.service.database.AssignmentService;
 import javafx.concurrent.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

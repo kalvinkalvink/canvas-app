@@ -1,45 +1,59 @@
 package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
+import canvas.canvasapp.helpers.type.application.AppSetting;
 import canvas.canvasapp.model.Course;
-import canvas.canvasapp.service.CourseService;
+import canvas.canvasapp.service.application.CanvasPreferenceService;
+import canvas.canvasapp.service.database.CourseService;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import javafx.application.Platform;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 public class PreferenceController {
+
+	@Autowired
+	private CanvasPreferenceService canvasPreferenceService;
 	private static PreferencesFx preferencesFx;
 	private final CourseService courseService;
 	private boolean startSavedPreference = false;
-	////////// setting /////////
-	// selected course
 	private ListProperty<String> courseItems;
-	@Getter
-	private ListProperty<String> courseSelections;
+	////////// setting /////////
+	// selected course //
+	private ListProperty<String> courseDisplaySelections = new SimpleListProperty<>(FXCollections.observableArrayList());
 	// course color
 	private Setting[] courseColorSettingArray;
 	private ArrayList<SimpleObjectProperty<Color>> colorSimpleObjectPropertyList;
+
+	// syncing //
+	private ListProperty<String> courseSyncSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private BooleanProperty syncCourseBooleanProperty = new SimpleBooleanProperty();
+	private SimpleObjectProperty<File> syncFolderBasePathStringProperty = new SimpleObjectProperty<>();
+	private SimpleIntegerProperty syncIntervalIntegerProperty = new SimpleIntegerProperty(10);
+
+	// canvas api
+	private SimpleStringProperty canvasApiBaseUrlStringProperty = new SimpleStringProperty();
+	private SimpleStringProperty canvasApiTokenStringProperty = new SimpleStringProperty();
 	///////// setting end ///////
 
 
@@ -56,37 +70,72 @@ public class PreferenceController {
 		Platform.runLater(() -> {
 			preferencesFx = PreferencesFx.of(PreferenceController.class,
 					Category.of("Course",
-							Group.of("Display Courses",
-									Setting.of("course", courseItems, courseSelections)),
+							Group.of("Displayed Courses",
+									Setting.of("course", courseItems, courseDisplaySelections)),
 							Group.of("Course Color",
 									courseColorSettingArray)
-					)
+					),
+					Category.of("Syncing",
+							Group.of("Course To Sync",
+									Setting.of("Synced Courses", courseItems, courseSyncSelections)
+							),
+							Group.of("Sync Course Setting",
+									Setting.of("Sync Course", syncCourseBooleanProperty),
+									Setting.of("Syncing Base Folder Path", syncFolderBasePathStringProperty, "Browse", Paths.get(System.getProperty("user.home")).toFile(), true),
+									Setting.of("Sync Interval (in seconds)", syncIntervalIntegerProperty)
+							)
+					),
+					Category.of("Canvas",
+							Group.of("Api Config",
+									Setting.of("Canvas Api Url", canvasApiBaseUrlStringProperty),
+									Setting.of("Canvas Api Token", canvasApiTokenStringProperty)
+							))
 			).addEventHandler(PreferencesFxEvent.EVENT_PREFERENCES_SAVED, new EventHandler<PreferencesFxEvent>() {
 				// preferebce menu close
 				@Override
 				public void handle(PreferencesFxEvent preferencesFxEvent) {
-					savePreferece();
+					savePreferenceToPref();
+					savePreferenceToDb();
 				}
 			});
-			if (!startSavedPreference) {	// save preference at the start of the application to load changed to the databse
-				savePreferece();
+			if (!startSavedPreference) {    // save preference at the start of the application to load changed to the databse
+				savePreferenceToPref();
+				savePreferenceToDb();
 				startSavedPreference = true;
 			}
 		});
 
 	}
 
+	private void savePreferenceToPref() {
+		// course sync //
+		canvasPreferenceService.store(AppSetting.COURSE_SYNC_INTERVAL, Integer.toString(syncIntervalIntegerProperty.get()));
+		// check if sync folder base path is null
+		File syncFolderFile = syncFolderBasePathStringProperty.get();
+		canvasPreferenceService.store(AppSetting.COURSE_SYNC_FOLDER_PATH, Objects.nonNull(syncFolderFile) ? syncFolderFile.toString() : System.getProperty("user.home"));
+		canvasPreferenceService.store(AppSetting.SYNC_COURSE, syncCourseBooleanProperty.getValue().toString());
+		// course sync end //
+		// canvas api //
+		canvasPreferenceService.store(AppSetting.CANVAS_BASE_URL, canvasApiBaseUrlStringProperty.getValue());
+		canvasPreferenceService.store(AppSetting.CANVAS_API_TOKEN, canvasApiTokenStringProperty.getValue());
+	}
 
-	private void savePreferece() {
+
+	private void savePreferenceToDb() {
 		// save selected course
 		log.info("Saving preference");
 		List<Course> courseList = courseService.findAll();
 		// unsetting all course to not selected
 		courseList.forEach(course -> course.setSelected(false));
-		// updating selected course to true
+
 		courseList.forEach(course -> {
-			if (courseSelections.contains(course.getName()))
+			// updating selected course to true
+			if (courseDisplaySelections.contains(course.getName()))
 				course.setSelected(true);
+			// updating synced course to true
+			if (courseSyncSelections.contains(course.getName()))
+				course.setSynced(true);
+
 		});
 		// selected course color
 		courseList.forEach(course -> {
@@ -100,6 +149,7 @@ public class PreferenceController {
 			}
 		});
 		courseService.saveAll(courseList);
+
 		courseService.publishUpdateEvent();
 	}
 
@@ -116,7 +166,7 @@ public class PreferenceController {
 								.collect(Collectors.toList())
 				)
 		);
-		courseSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 
 		// setting course color list
 		this.colorSimpleObjectPropertyList = new ArrayList<SimpleObjectProperty<Color>>();

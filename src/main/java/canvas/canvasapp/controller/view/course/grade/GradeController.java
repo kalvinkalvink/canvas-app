@@ -1,4 +1,4 @@
-package canvas.canvasapp.controller.view.course;
+package canvas.canvasapp.controller.view.course.grade;
 
 import javafx.fxml.FXML;
 import lombok.extern.slf4j.Slf4j;

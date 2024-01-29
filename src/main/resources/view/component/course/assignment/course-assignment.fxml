@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="canvas.canvasapp.controller.view.course.assignment.CourseAssignmentItemController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Group layoutX="-415.0" layoutY="-355.0" scaleY="-1.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <SVGPath content="m 280,312 c 0,-15 8,-17 48,-16 34,1 48,6 50,18 3,13 -6,16 -47,16 -42,0 -51,-3 -51,-18 z m 0,63 c 0,-12 16,-15 80,-15 64,0 80,3 80,15 0,12 -16,15 -80,15 -64,0 -80,-3 -80,-15 z m 252,41 c -93,-91 -93,-92 -90,-136 3,-45 3,-45 40,-45 33,0 47,10 137,99 56,54 101,102 101,105 0,14 -66,71 -80,70 -8,-1 -57,-43 -108,-93 z m 132,35 c 15,-16 15,-19 1,-31 -21,-18 -61,16 -44,37 15,17 23,17 43,-6 z m -55,-50 c 18,-18 18,-20 -43,-80 -65,-64 -96,-77 -96,-39 0,14 22,45 57,80 32,32 59,58 60,58 2,0 12,-9 22,-19 z M 280,515 v -65 h 110 110 v 65 65 H 390 280 Z m 190,-5 v -30 h -80 -80 v 30 30 h 80 80 z M 190,405 V 140 h 203 202 l -1,47 c -2,57 -27,69 -32,16 l -3,-33 H 389 220 v 235 235 h 170 170 v -66 c 0,-55 3,-65 16,-62 13,2 16,18 17,81 l 2,77 H 393 190 Z" scaleX="0.1" scaleY="0.1" />
+         </children>
+      </Group>
+      <Label fx:id="assignmentNameLabel" layoutX="92.0" layoutY="20.0" text="Assignment name" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="30.0" />
+         </font></Label>
+      <HBox fx:id="dateInfoHBox" layoutX="90.0" layoutY="46.0" prefHeight="40.0" prefWidth="500.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="90.0" />
+   </children>
+</AnchorPane>

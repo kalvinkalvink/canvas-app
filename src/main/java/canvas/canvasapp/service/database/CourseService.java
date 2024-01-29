@@ -1,4 +1,4 @@
-package canvas.canvasapp.service;
+package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
 import canvas.canvasapp.model.Course;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CourseService implements IUpdateEvent {
+public class CourseService implements IDatabaseUpdateEvent {
 	@Autowired
 	CourseRepository courseRepository;
 	@Autowired
@@ -35,6 +35,14 @@ public class CourseService implements IUpdateEvent {
 
 	public List<Course> findAllSelected() {
 		return courseRepository.getBySelectedIsTrue();
+	}
+	public List<Course> findAllSynced(){
+		return courseRepository.getBySyncedIsTrue();
+	}
+
+	public Optional<Course> findFirstSelected() {
+		List<Course> selectedCourseList = courseRepository.getBySelectedIsTrue();
+		return Optional.ofNullable(selectedCourseList.getFirst());
 	}
 
 	// setter
