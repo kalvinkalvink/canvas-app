@@ -1,7 +1,7 @@
 package canvas.canvasapp.controller.view;
 
-import canvas.canvasapp.controller.view.dashboard.DashboardAssignmentItemController;
 import canvas.canvasapp.controller.view.dashboard.ByDateCardController;
+import canvas.canvasapp.controller.view.dashboard.DashboardAssignmentItemController;
 import canvas.canvasapp.event.task.database.AssignmentUpdatedEvent;
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
 import canvas.canvasapp.model.Assignment;
@@ -9,10 +9,10 @@ import canvas.canvasapp.model.Course;
 import canvas.canvasapp.service.database.AssignmentService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -47,7 +47,13 @@ public class DashboardController {
 
 	@FXML
 	private void initialize() {
-		assigmentListView.setPlaceholder(new Label(String.format("Course not selected (please select in preference),\nor Course selected do not have assignments")));
+		// setting placeholder when no assignment is displayed
+		VBox noAssignmentPlaceHolderVBox = new VBox(
+				new Text("No Assignment yet"),
+				new Text("Course not selected (please select in preference"),
+				new Text("Course selected do not have assignments")
+		);
+		assigmentListView.setPlaceholder(noAssignmentPlaceHolderVBox);
 		initView();
 	}
 

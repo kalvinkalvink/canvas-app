@@ -1,7 +1,9 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.event.publisher.setting.SettingEventPublisher;
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
 import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.helpers.type.setting.SettingEvent;
 import canvas.canvasapp.model.Course;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
@@ -34,6 +36,8 @@ public class PreferenceController {
 
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+	@Autowired
+	private SettingEventPublisher settingEventPublisher;
 	private static PreferencesFx preferencesFx;
 	private final CourseService courseService;
 	private boolean startSavedPreference = false;
@@ -77,7 +81,7 @@ public class PreferenceController {
 					),
 					Category.of("Syncing",
 							Group.of("Course To Sync",
-									Setting.of("Synced Courses", courseItems, courseSyncSelections)
+									Setting.of("Synced Courses", courseDisplaySelections, courseSyncSelections)
 							),
 							Group.of("Sync Course Setting",
 									Setting.of("Sync Course", syncCourseBooleanProperty),
@@ -116,8 +120,11 @@ public class PreferenceController {
 		canvasPreferenceService.store(AppSetting.SYNC_COURSE, syncCourseBooleanProperty.getValue().toString());
 		// course sync end //
 		// canvas api //
-		canvasPreferenceService.store(AppSetting.CANVAS_BASE_URL, canvasApiBaseUrlStringProperty.getValue());
-		canvasPreferenceService.store(AppSetting.CANVAS_API_TOKEN, canvasApiTokenStringProperty.getValue());
+		if (Objects.nonNull(canvasApiBaseUrlStringProperty.getValue()) && Objects.nonNull(canvasApiTokenStringProperty.getValue())) {
+			canvasPreferenceService.store(AppSetting.CANVAS_BASE_URL, canvasApiBaseUrlStringProperty.getValue());
+			canvasPreferenceService.store(AppSetting.CANVAS_API_TOKEN, canvasApiTokenStringProperty.getValue());
+			settingEventPublisher.publishEvent(this, SettingEvent.CANVAS_API_INFO_UPDATED);
+		}
 	}
 
 
@@ -125,8 +132,11 @@ public class PreferenceController {
 		// save selected course
 		log.info("Saving preference");
 		List<Course> courseList = courseService.findAll();
-		// unsetting all course to not selected
-		courseList.forEach(course -> course.setSelected(false));
+		// unsetting all course to not selected and not synced
+		courseList.forEach(course -> {
+			course.setSelected(false);
+			course.setSynced(false)
+		});
 
 		courseList.forEach(course -> {
 			// updating selected course to true

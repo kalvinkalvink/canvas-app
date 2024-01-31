@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Scope("prototype")
-public class FetchSelectedAssignmentTask implements Runnable {
+public class FetchSelectedCourseAssignmentTask implements Runnable {
 	@Autowired
 	CanvasApi canvasApi;
 	@Autowired
@@ -30,6 +30,8 @@ public class FetchSelectedAssignmentTask implements Runnable {
 
 	@Override
 	public void run() {
+		if(!canvasApi.isInitialized())return;
+
 		log.info("Fetching selected course assignments");
 		log.debug("Assignment table size: {}", assignmentService.count());
 		AssignmentReader assignmentReader = canvasApi.getReader(AssignmentReader.class);

@@ -3,10 +3,12 @@ package canvas.canvasapp.controller.view;
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
-import canvas.canvasapp.model.Course;
-import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.model.File;
+import canvas.canvasapp.model.Folder;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
+import canvas.canvasapp.service.database.FileService;
+import canvas.canvasapp.service.database.FolderService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,7 +36,11 @@ public class MainController {
 	@Autowired
 	private FxWeaver fxWeaver;
 	@Autowired
-	CanvasPreferenceService canvasPreferenceService;
+	private CanvasPreferenceService canvasPreferenceService;
+	@Autowired
+	FolderService folderService;
+	@Autowired
+	FileService fileService;
 
 	// tab menu
 	enum TAB {
@@ -67,17 +73,17 @@ public class MainController {
 
 	@FXML
 	public void test(ActionEvent event) {
-//		ListProperty<String> courseSelections = preferenceController.getCourseSelections();
-//		courseSelections.forEach(course->{
-//			System.out.println(course);
-//		});
-//		courseRepository.findAll().stream().filter(Course::getSelected).forEach(System.out::println);
-		List<Course> bySelectedIsTrue = courseService.findAllSelected();
-		bySelectedIsTrue.forEach(course -> System.out.println(course.getColor()));
+
+		List<Folder> all = folderService.findAll();
+		System.out.println(all.size());
+		all.stream().forEach(System.out::println);
 	}
 	@FXML
 	public void test2(ActionEvent event){
-		System.out.println(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, "123"));
+		List<File> all = fileService.findAll();
+		System.out.println(all.size());
+
+		all.stream().forEach(System.out::println);
 	}
 
 	@FXML

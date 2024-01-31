@@ -28,6 +28,8 @@ public class FetchCourseTask implements Runnable {
 
 	@Override
 	public void run() {
+		if(!canvasApi.isInitialized())return;
+
 		try {
 			log.info("Fetching courses data from canvas");
 			log.debug("Course database size: {}", courseService.count());

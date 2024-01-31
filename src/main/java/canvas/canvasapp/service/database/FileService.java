@@ -18,9 +18,14 @@ public class FileService implements IDatabaseUpdateEvent {
 	DatabaseUpdatedEventPublisher databaseUpdatedEventPublisher;
 
 	// getter
+	public List<File> findAll() {
+		return fileRepository.findAll();
+	}
+
 	public List<File> findByCourseId(Long courseId) {
 		return fileRepository.findByCourseId(courseId);
 	}
+
 	// setter
 	public void saveAll(List<File> fileList) {
 		fileRepository.saveAll(fileList);

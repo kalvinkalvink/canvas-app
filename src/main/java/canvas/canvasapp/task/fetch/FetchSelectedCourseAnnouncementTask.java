@@ -29,6 +29,7 @@ public class FetchSelectedCourseAnnouncementTask implements Runnable {
 
 	@Override
 	public void run() {
+		if (!canvasApi.isInitialized()) return;
 		log.info("Fetching selected course annnouncement data from canvas");
 		List<Course> selectedCourseList = courseService.findAllSelected();
 		List<canvas.canvasapp.model.Announcement> fetchedAnnouncementList = new ArrayList<>();
@@ -52,7 +53,7 @@ public class FetchSelectedCourseAnnouncementTask implements Runnable {
 						.setPostedAt(canvasAnnouncement.getPostedAt())
 						.setPosition(canvasAnnouncement.getPosition())
 						.setContextCode(canvasAnnouncement.getContextCode())
-						.setCourse(courseService.findById(Long.parseLong(canvasAnnouncement.getContextCode().substring(canvasAnnouncement.getContextCode().indexOf("_")+1))).get())
+						.setCourse(courseService.findById(Long.parseLong(canvasAnnouncement.getContextCode().substring(canvasAnnouncement.getContextCode().indexOf("_") + 1))).get())
 				)
 				.forEach(fetchedAnnouncementList::add);
 		announcementService.saveAll(fetchedAnnouncementList);

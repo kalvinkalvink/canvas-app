@@ -7,6 +7,9 @@ import canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor;
 import canvas.canvasapp.task.executor.SingleThreadPoolExecutor;
 import canvas.canvasapp.task.fetch.FetchCourseTask;
 import canvas.canvasapp.task.fetch.SyncSelectedCourseFileTask;
+import canvas.canvasapp.util.CanvasApi;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -14,10 +17,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+@Slf4j
 @Service
 @Scope("prototype")
 public class StartupTask implements Runnable {
+	// canvas api
+	@Autowired
+	private CanvasApi canvasApi;
 	// thread pool executor
 	@Autowired
 	private FixedThreadPoolExecutor fixedThreadPoolExecutor;
@@ -33,8 +41,14 @@ public class StartupTask implements Runnable {
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
 
+	@SneakyThrows
 	@Override
 	public void run() {
+		// wait for canvas api info to init to start task
+		while (!canvasApi.isInitialized()) {
+			log.info("Waiting for canvas api to init before running startup task");
+			Thread.sleep(5000);
+		} ;
 		initFixedThreadPoolTask();
 		initScheduledThreadPoolTask();
 		initSingleThreadPoolTask();
@@ -61,10 +75,12 @@ public class StartupTask implements Runnable {
 //		}
 	}
 
+	private Future<?> syncCourseFileTaskFuture;
 	private void initScheduledThreadPoolTask() {
 		int syncTimeInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.COURSE_SYNC_INTERVAL, "300"));
-		scheduledThreadPoolExecutor.scheduleTask(syncSelectedCourseFileTask, 10, syncTimeInterval);    // schedule at 5 mins
+		syncCourseFileTaskFuture = scheduledThreadPoolExecutor.scheduleTask(syncSelectedCourseFileTask, 10, syncTimeInterval);// schedule at 5 mins
 	}
+
 
 	private void initSingleThreadPoolTask() {
 

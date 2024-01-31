@@ -31,6 +31,8 @@ public class FetchSelectedCourseFileTask implements Runnable {
 
 	@Override
 	public void run() {
+		if(!canvasApi.isInitialized())return;
+
 		log.info("Fetching selected course file");
 		List<Course> selectedCourseList = courseService.findAllSelected();
 

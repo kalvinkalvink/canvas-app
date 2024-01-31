@@ -15,25 +15,29 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Component
 @Scope("prototype")
-public class FetchSelectedCourseFolderTask implements Runnable{
+public class FetchSelectedCourseFolderTask implements Runnable {
 	@Autowired
 	private FolderService folderService;
 	@Autowired
 	private CourseService courseService;
 	@Autowired
 	private CanvasApi canvasApi;
+
 	@Override
 	public void run() {
+		if (!canvasApi.isInitialized()) return;
+
 		log.info("Fetching selected course folder");
 		List<Course> selectedCourseList = courseService.findAllSelected();
 		FolderReader folderReader = canvasApi.getReader(FolderReader.class);
 
 		List<canvas.canvasapp.model.Folder> courseFolderList = new ArrayList<>();
 		selectedCourseList.stream()
-				.map(selectedCourse-> {
+				.map(selectedCourse -> {
 					try {
 						return folderReader.listCourseFolder(new ListCourseFolderOptioins(selectedCourse.getId().toString()));
 					} catch (IOException e) {
@@ -66,5 +70,7 @@ public class FetchSelectedCourseFolderTask implements Runnable{
 				.forEach(courseFolderList::add);
 		folderService.saveAll(courseFolderList);
 		folderService.publishUpdateEvent();
+		log.info("Fetched selected course folder");
+
 	}
 }

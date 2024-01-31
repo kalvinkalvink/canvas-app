@@ -5,15 +5,15 @@ import canvas.canvasapp.model.Course;
 import canvas.canvasapp.model.File;
 import canvas.canvasapp.model.Folder;
 import canvas.canvasapp.repository.CourseRepository;
+import canvas.canvasapp.service.application.CanvasFileService;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
-import canvas.canvasapp.service.application.FileDownloadService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
+import canvas.canvasapp.util.CanvasApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
@@ -22,7 +22,6 @@ import java.util.List;
 
 @Slf4j
 @Component
-@Scope("prototype")
 public class SyncSelectedCourseFileTask implements Runnable {
 
 	@Autowired
@@ -34,23 +33,27 @@ public class SyncSelectedCourseFileTask implements Runnable {
 	@Autowired
 	private FileService fileService;
 	@Autowired
-	private FileDownloadService fileDownloadService;
+	private CanvasFileService canvasFileService;
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+	@Autowired
+	private CanvasApi canvasApi;
 
 	@Override
 	public void run() {
+		if (!canvasApi.isInitialized()) return;
 		if (!canvasPreferenceService.get(AppSetting.SYNC_COURSE, false)) {    // sync course not enabled
 			log.info("Sync file not enabled, skipping");
 			return;
 		}
 		String syncFolderBasePath = FilenameUtils.separatorsToSystem(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, ""));
-		if (syncFolderBasePath.isEmpty())
-			return;
 		Path syncFolderPath = Paths.get(syncFolderBasePath);
+		if (syncFolderBasePath.isEmpty())	// no path selected, no sync
+			return;
 		List<Course> syncedCourseList = courseService.findAllSynced();
 		log.info("Syncing {} course files to base folder: {}", syncedCourseList.size(), syncFolderBasePath);
-
+		log.info(syncedCourseList.toString());
+		if (syncedCourseList.isEmpty()) return;
 
 		try {
 			syncedCourseList.stream()
@@ -71,11 +74,14 @@ public class SyncSelectedCourseFileTask implements Runnable {
 							// append course file relatiev path to the sync base folder path
 							String fileName = file.getDisplayName().replace(":", "_");    // sanitize filename
 							Path courseFilePath = syncFolderPath.resolve(courseFileRelativePath).resolve(fileName);
-							fileDownloadService.downloadFile(file.getUrl(), courseFilePath.toString(), true);
+							String destinationPath = FilenameUtils.separatorsToSystem(courseFilePath.toString());
+							log.debug("Saving file to {}", destinationPath);
+							canvasFileService.downloadFile(file.getUrl(), destinationPath, true);
 						});
 					});
 		} catch (RuntimeException e) {
 			log.error("Error while syncing course", e);
 		}
+		log.info("Sync selected course files complete");
 	}
 }
