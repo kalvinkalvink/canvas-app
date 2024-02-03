@@ -3,12 +3,11 @@ package canvas.canvasapp.controller.view;
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
-import canvas.canvasapp.model.File;
-import canvas.canvasapp.model.Folder;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
+import canvas.canvasapp.service.helper.DocumentFormatConverterService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
+import java.io.IOException;
 
 @Slf4j
 @Controller("mainController")
@@ -41,6 +40,8 @@ public class MainController {
 	FolderService folderService;
 	@Autowired
 	FileService fileService;
+	@Autowired
+	DocumentFormatConverterService documentFormatConverterService;
 
 	// tab menu
 	enum TAB {
@@ -72,18 +73,22 @@ public class MainController {
 	}
 
 	@FXML
-	public void test(ActionEvent event) {
+	public void test(ActionEvent event) throws Exception {
+		String pptxPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture03.pptx";
+		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture02.pdf";
+		documentFormatConverterService.pptxToPdf(pptxPath, pdfPath);
 
-		List<Folder> all = folderService.findAll();
-		System.out.println(all.size());
-		all.stream().forEach(System.out::println);
+
+//		String docPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.docx";
+//		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.pdf";
+	//		documentFormatConverterService.docToPdf(docPath, pdfPath);
+
 	}
-	@FXML
-	public void test2(ActionEvent event){
-		List<File> all = fileService.findAll();
-		System.out.println(all.size());
 
-		all.stream().forEach(System.out::println);
+	@FXML
+	public void test2(ActionEvent event) throws IOException {
+		System.out.println(System.getProperty("java.io.tmpdir"));
+
 	}
 
 	@FXML

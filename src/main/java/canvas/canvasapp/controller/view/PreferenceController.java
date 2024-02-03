@@ -135,7 +135,7 @@ public class PreferenceController {
 		// unsetting all course to not selected and not synced
 		courseList.forEach(course -> {
 			course.setSelected(false);
-			course.setSynced(false)
+			course.setSynced(false);
 		});
 
 		courseList.forEach(course -> {

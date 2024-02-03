@@ -26,6 +26,7 @@ public class CanvasApp extends Application {
 
 	@Override
 	public void init() throws Exception {
+
 		// init spring application context
 		ApplicationContextInitializer<GenericApplicationContext> initializer = new ApplicationContextInitializer<GenericApplicationContext>() {
 			@Override
