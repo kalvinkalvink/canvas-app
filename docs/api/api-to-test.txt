@@ -1,0 +1,4 @@
+Get a users most recently graded submissions
+https://{{domain}}/api/v1/users/:id/graded_submissions
+Get a single submission
+https://{{domain}}/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id

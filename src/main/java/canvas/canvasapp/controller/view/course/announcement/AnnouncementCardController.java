@@ -16,10 +16,6 @@ import java.util.Date;
 @Controller
 @FxmlView("/view/component/course/announcement/announcement-card.fxml")
 public class AnnouncementCardController {
-	@Autowired
-	private CourseViewService courseViewService;
-	@FXML
-	private AnchorPane announcementAnchorPane;
 	@FXML
 	private Label announcementTitleLabel;
 	@FXML

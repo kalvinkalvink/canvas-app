@@ -25,12 +25,8 @@ public class ByDateCardController {
 	private FxWeaver fxWeaver;
 	@Autowired
 	DateFormatterUtil dateFormatterUtil;
-	@Autowired
-	public ByDateCardController(FxWeaver fxWeaver) {
-		this.fxWeaver = fxWeaver;
-	}
 	public void setDueDate(Date dueDate){
-		dueDateLabel.setText(dateFormatterUtil.format(dateFormatterUtil.convertToLocalDate(dueDate)));
+		dueDateLabel.setText(dateFormatterUtil.format(DateFormatterUtil.convertToLocalDate(dueDate)));
 	}
 	public void addAssignment(Node node){
 		this.assignmentVBox.getChildren().add(node);

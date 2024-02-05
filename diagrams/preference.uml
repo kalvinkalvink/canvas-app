@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.event.listener.application.StageListener</OriginalElement>
+  <nodes>
+    <node x="-129.0" y="-52.0">canvas.canvasapp.service.application.CanvasPreferenceService</node>
+    <node x="-195.0" y="356.0">canvas.canvasapp.controller.view.PreferenceController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="canvas.canvasapp.controller.view.PreferenceController" target="canvas.canvasapp.service.application.CanvasPreferenceService" relationship="TO_ONE">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="152.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.9610062893081761" showDependencies="true" x="4.068717277486826" y="274.94895287958116" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

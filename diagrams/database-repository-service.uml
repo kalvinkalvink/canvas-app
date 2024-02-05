@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.repository</OriginalElement>
+  <nodes>
+    <node x="831.6556339370829" y="-326.31639656816014">canvas.canvasapp.repository.FileRepository</node>
+    <node x="-151.2421353670162" y="-205.55052430886562">canvas.canvasapp.repository.FolderRepository</node>
+    <node x="691.1542802669209" y="351.90564346997144">canvas.canvasapp.service.database.CourseService</node>
+    <node x="1.379408960915157" y="-311.5">canvas.canvasapp.repository.AssignmentRepository</node>
+    <node x="384.80886558627253" y="-388.0194280266921">canvas.canvasapp.model</node>
+    <node x="-151.2421353670162" y="-58.63250714966637">canvas.canvasapp.service.database.FolderService</node>
+    <node x="-170.27613346043847" y="131.23498570066738">canvas.canvasapp.service.database.AssignmentService</node>
+    <node x="653.5954242135366" y="-218.35311725452812">canvas.canvasapp.repository.CourseRepository</node>
+    <node x="407.12893231649196" y="143.23498570066738">canvas.canvasapp.service.database.AnnouncementService</node>
+    <node x="274.53370438894206" y="-175.02832030505243">canvas.canvasapp.repository.AnnouncementRepository</node>
+    <node x="527.4919923736894" y="-57.577353670162054">canvas.canvasapp.service.database.IDatabaseUpdateEvent</node>
+    <node x="823.0882364156339" y="143.23498570066738">canvas.canvasapp.service.database.FileService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="canvas.canvasapp.service.database.FolderService" target="canvas.canvasapp.repository.FolderRepository" relationship="TO_ONE">
+      <point x="-67.0" y="-79.5" />
+      <point x="-17.242135367016203" y="-58.63250714966637" />
+      <point x="0.0" y="33.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.CourseService" target="canvas.canvasapp.repository.CourseRepository" relationship="TO_ONE">
+      <point x="72.0" y="-139.5" />
+      <point x="797.5954242135366" y="351.90564346997144" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.FileService" target="canvas.canvasapp.repository.FileRepository" relationship="TO_ONE">
+      <point x="8.081715919923681" y="-65.7289990467113" />
+      <point x="956.1699523355576" y="134.27626310772166" />
+      <point x="956.6556339370829" y="134.27626310772166" />
+      <point x="0.0" y="32.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.AnnouncementService" target="canvas.canvasapp.repository.AnnouncementRepository" relationship="TO_ONE">
+      <point x="83.75" y="-79.5" />
+      <point x="442.033704388942" y="143.23498570066738" />
+      <point x="442.033704388942" y="-104.02832030505243" />
+      <point x="0.0" y="35.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.CourseService" target="canvas.canvasapp.service.database.IDatabaseUpdateEvent" relationship="REALIZATION">
+      <point x="-72.0" y="-139.5" />
+      <point x="763.1542802669209" y="45.091126787416634" />
+      <point x="642.9919923736894" y="45.091126787416634" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.FileService" target="canvas.canvasapp.service.database.IDatabaseUpdateEvent" relationship="REALIZATION">
+      <point x="-62.5" y="-67.5" />
+      <point x="885.5882364156339" y="45.091126787416634" />
+      <point x="642.9919923736894" y="45.091126787416634" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.AssignmentService" target="canvas.canvasapp.service.database.IDatabaseUpdateEvent" relationship="REALIZATION">
+      <point x="139.0" y="-91.5" />
+      <point x="246.72386653956153" y="45.091126787416634" />
+      <point x="642.9919923736894" y="45.091126787416634" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.FolderService" target="canvas.canvasapp.service.database.IDatabaseUpdateEvent" relationship="REALIZATION">
+      <point x="67.0" y="-79.5" />
+      <point x="49.7578646329838" y="45.091126787416634" />
+      <point x="642.9919923736894" y="45.091126787416634" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.AnnouncementService" target="canvas.canvasapp.service.database.IDatabaseUpdateEvent" relationship="REALIZATION">
+      <point x="-83.75" y="-79.5" />
+      <point x="490.87893231649196" y="45.091126787416634" />
+      <point x="642.9919923736894" y="45.091126787416634" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.service.database.AssignmentService" target="canvas.canvasapp.repository.AssignmentRepository" relationship="TO_ONE">
+      <point x="43.65554242135363" y="-85.18285605338406" />
+      <point x="0.0" y="32.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.9600458308693081" showDependencies="true" x="319.3674843599616" y="-136.12248977382097" />
+  <SelectedNodes>
+    <node>canvas.canvasapp.model</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

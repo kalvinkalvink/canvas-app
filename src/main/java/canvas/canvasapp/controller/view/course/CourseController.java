@@ -27,7 +27,7 @@ import org.springframework.stereotype.Controller;
 public class CourseController {
 
 
-	private CoursePage currentPage = null;
+	private final CoursePage currentPage = null;
 
 	@Autowired
 	CourseViewService courseViewService;

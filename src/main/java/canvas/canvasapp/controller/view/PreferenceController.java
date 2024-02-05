@@ -44,20 +44,20 @@ public class PreferenceController {
 	private ListProperty<String> courseItems;
 	////////// setting /////////
 	// selected course //
-	private ListProperty<String> courseDisplaySelections = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final ListProperty<String> courseDisplaySelections = new SimpleListProperty<>(FXCollections.observableArrayList());
 	// course color
 	private Setting[] courseColorSettingArray;
 	private ArrayList<SimpleObjectProperty<Color>> colorSimpleObjectPropertyList;
 
 	// syncing //
-	private ListProperty<String> courseSyncSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
-	private BooleanProperty syncCourseBooleanProperty = new SimpleBooleanProperty();
-	private SimpleObjectProperty<File> syncFolderBasePathStringProperty = new SimpleObjectProperty<>();
-	private SimpleIntegerProperty syncIntervalIntegerProperty = new SimpleIntegerProperty(10);
+	private final ListProperty<String> courseSyncSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final BooleanProperty syncCourseBooleanProperty = new SimpleBooleanProperty();
+	private final SimpleObjectProperty<File> syncFolderBasePathStringProperty = new SimpleObjectProperty<>();
+	private final SimpleIntegerProperty syncIntervalIntegerProperty = new SimpleIntegerProperty(10);
 
 	// canvas api
-	private SimpleStringProperty canvasApiBaseUrlStringProperty = new SimpleStringProperty();
-	private SimpleStringProperty canvasApiTokenStringProperty = new SimpleStringProperty();
+	private final SimpleStringProperty canvasApiBaseUrlStringProperty = new SimpleStringProperty();
+	private final SimpleStringProperty canvasApiTokenStringProperty = new SimpleStringProperty();
 	///////// setting end ///////
 
 

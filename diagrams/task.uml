@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.event.listener.application.StageListener</OriginalElement>
+  <nodes>
+    <node x="-179.5" y="102.6330749354006">canvas.canvasapp.task.fetch.FetchSelectedCourseFileTask</node>
+    <node x="-180.0" y="305.3669250645994">canvas.canvasapp.task.fetch.FetchSelectedCourseAssignmentTask</node>
+    <node x="-180.0" y="406.7338501291988">canvas.canvasapp.task.fetch.FetchSelectedCourseAnnouncementTask</node>
+    <node x="336.6421188630492" y="281.3669250645994">canvas.canvasapp.task.file.FileDownloadTask</node>
+    <node x="-179.5" y="1.2661498708012004">canvas.canvasapp.task.fetch.FetchCourseTask</node>
+    <node x="-179.5" y="204.0">canvas.canvasapp.task.fetch.FetchSelectedCourseFolderTask</node>
+    <node x="336.6421188630492" y="171.53229974160206">canvas.canvasapp.task.fetch.SyncSelectedCourseFileTask</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="1.0655286343612336" showDependencies="true" x="205.96589147286818" y="288.2" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

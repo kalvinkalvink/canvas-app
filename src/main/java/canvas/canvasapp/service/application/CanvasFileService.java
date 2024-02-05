@@ -1,6 +1,6 @@
 package canvas.canvasapp.service.application;
 
-import canvas.canvasapp.task.executor.FileFixedThreadPoolExecutor;
+import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
 import canvas.canvasapp.task.file.FileDownloadTask;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ public class CanvasFileService {
 	@Autowired
 	private ApplicationContext applicationContext;
 	@Autowired
-	private FileFixedThreadPoolExecutor fileFixedThreadPoolExecutor;
+	private FixedThreadPoolExecutor fixedThreadPoolExecutor;
 
 	public void downloadFile(String fileUrl, String savePath, boolean autoCreateParentDirectory) {
 		FileDownloadTask fileDownloadTask = applicationContext.getBean(FileDownloadTask.class);
 		fileDownloadTask.setDownloadOption(fileUrl, savePath, autoCreateParentDirectory);
-		fileFixedThreadPoolExecutor.executeTask(fileDownloadTask);
+		fixedThreadPoolExecutor.executeTask(fileDownloadTask);
 	}
 }

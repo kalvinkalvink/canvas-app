@@ -9,7 +9,7 @@ import java.util.prefs.Preferences;
 @Slf4j
 @Service
 public class CanvasPreferenceService {
-	private Preferences canvasPreference;
+	private final Preferences canvasPreference;
 
 	private CanvasPreferenceService() {
 		this.canvasPreference = Preferences.userNodeForPackage(getClass());

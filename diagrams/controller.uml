@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.controller</OriginalElement>
+  <nodes>
+    <node x="182.6216744186047" y="602.4389043927649">canvas.canvasapp.controller.view.dashboard.ByDateCardController</node>
+    <node x="-238.3694573643411" y="85.88709043927642">canvas.canvasapp.controller.StartupController</node>
+    <node x="-106.97391214470281" y="485.69774677002573">canvas.canvasapp.controller.view.course.announcement.AnnouncementController</node>
+    <node x="-489.88683204134367" y="391.3954935400517">canvas.canvasapp.controller.view.course.CourseListController</node>
+    <node x="182.6216744186047" y="473.6977467700258">canvas.canvasapp.controller.view.course.assignment.CourseAssignmentItemController</node>
+    <node x="157.93900775193805" y="240.2349974160204">canvas.canvasapp.controller.view.course.announcement.AnnouncementCardController</node>
+    <node x="-106.97391214470281" y="592.5693436692508">canvas.canvasapp.controller.view.course.grade.GradeController</node>
+    <node x="-106.97391214470281" y="240.54356589147278">canvas.canvasapp.controller.view.course.assignment.AssignmentController</node>
+    <node x="-489.88683204134367" y="240.54356589147278">canvas.canvasapp.controller.view.dashboard.DashboardAssignmentItemController</node>
+    <node x="-489.88683204134367" y="497.6977467700258">canvas.canvasapp.controller.view.course.CourseController</node>
+    <node x="-488.4781395348837" y="725.0347493540052">canvas.canvasapp.controller.view.course.file.FilesController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="1.013216320375335" showDependencies="true" x="42.02142635658913" y="481.95200000000006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

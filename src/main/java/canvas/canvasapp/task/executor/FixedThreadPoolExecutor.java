@@ -11,7 +11,7 @@ import java.util.concurrent.*;
 @Component
 public class FixedThreadPoolExecutor {
 	private final int threadPoolSize = 8;
-	private ExecutorService executorService;
+	private final ExecutorService executorService;
 
 	public FixedThreadPoolExecutor() {
 		ThreadFactory threadFactory = new ThreadFactoryBuilder()

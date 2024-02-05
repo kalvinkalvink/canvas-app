@@ -1,6 +1,5 @@
 package canvas.canvasapp.controller.task;
 
-import canvas.canvasapp.task.executor.FileFixedThreadPoolExecutor;
 import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
 import canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor;
 import canvas.canvasapp.task.executor.SingleThreadPoolExecutor;
@@ -15,13 +14,11 @@ public class ThreadPoolController {
 	ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
 	@Autowired
 	FixedThreadPoolExecutor fixedThreadPoolExecutor;
-	@Autowired
-	FileFixedThreadPoolExecutor fileFixedThreadPoolExecutor;
+
 
 	public void stopAllThreadPool() {
 		singleThreadPoolExecutor.shutdown();
 		scheduledThreadPoolExecutor.shutdown();
 		fixedThreadPoolExecutor.shutdown();
-		fileFixedThreadPoolExecutor.shutdown();
 	}
 }

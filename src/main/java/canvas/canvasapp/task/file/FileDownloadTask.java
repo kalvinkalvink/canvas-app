@@ -26,7 +26,7 @@ import java.nio.file.Paths;
 public class FileDownloadTask implements Runnable {
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
-	private boolean skipIfFileExist = true;
+	private final boolean skipIfFileExist = true;
 
 	private String fileUrl;
 	private String savePath;

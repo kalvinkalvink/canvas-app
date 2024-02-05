@@ -8,7 +8,7 @@ import java.util.concurrent.*;
 
 @Component
 public class SingleThreadPoolExecutor {
-	private ExecutorService executorService;
+	private final ExecutorService executorService;
 
 	public SingleThreadPoolExecutor() {
 		ThreadFactory threadFactory = new ThreadFactoryBuilder()

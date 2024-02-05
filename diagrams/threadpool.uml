@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.task.executor</OriginalElement>
+  <nodes>
+    <node x="679.458370635631" y="438.0107430617726">canvas.canvasapp.task.executor.SingleThreadPoolExecutor</node>
+    <node x="309.4055505819158" y="237.5058191584602">canvas.canvasapp.controller.task.ThreadPoolController</node>
+    <node x="174.4055505819158" y="438.0107430617726">canvas.canvasapp.task.executor.FixedThreadPoolExecutor</node>
+    <node x="-330.6472694717994" y="438.0107430617726">canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="canvas.canvasapp.controller.task.ThreadPoolController" target="canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="418.4055505819158" y="386.0" />
+      <point x="-86.6472694717994" y="386.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="canvas.canvasapp.controller.task.ThreadPoolController" target="canvas.canvasapp.task.executor.FixedThreadPoolExecutor" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="0.0" y="80.0" />
+    </edge>
+    <edge source="canvas.canvasapp.controller.task.ThreadPoolController" target="canvas.canvasapp.task.executor.SingleThreadPoolExecutor" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="418.4055505819158" y="386.0" />
+      <point x="923.458370635631" y="386.0" />
+      <point x="0.0" y="80.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.6937888198757766" showDependencies="true" x="396.9999999999998" y="414.806624888093" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -13,7 +13,7 @@ public enum AppSetting {
 
 	private static final String AppName = "canvasapp";
 	@Getter
-	private String key;
+	private final String key;
 
 	private static String join(String... path) {
 		return AppName + "." + String.join(".", path);

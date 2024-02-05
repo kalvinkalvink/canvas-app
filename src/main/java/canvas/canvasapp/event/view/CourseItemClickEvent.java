@@ -5,7 +5,7 @@ import canvas.canvasapp.model.Course;
 import org.springframework.context.ApplicationEvent;
 
 public class CourseItemClickEvent extends ApplicationEvent {
-    private Course course;
+    private final Course course;
 
     public CourseItemClickEvent(Object source, Course coursePage) {
         super(source);

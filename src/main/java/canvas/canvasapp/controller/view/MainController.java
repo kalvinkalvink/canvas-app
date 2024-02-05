@@ -3,7 +3,6 @@ package canvas.canvasapp.controller.view;
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
-import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
@@ -34,8 +33,6 @@ import java.io.IOException;
 public class MainController {
 	@Autowired
 	private FxWeaver fxWeaver;
-	@Autowired
-	private CanvasPreferenceService canvasPreferenceService;
 	@Autowired
 	FolderService folderService;
 	@Autowired

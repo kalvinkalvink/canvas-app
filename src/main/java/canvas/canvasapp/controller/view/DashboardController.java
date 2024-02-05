@@ -35,8 +35,6 @@ public class DashboardController {
 
 	@FXML
 	private ListView<VBox> assigmentListView;
-	@Autowired
-	SceneController sceneController;
 
 	@Autowired
 	AssignmentService assignmentService;

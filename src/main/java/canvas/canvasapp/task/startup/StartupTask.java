@@ -48,7 +48,7 @@ public class StartupTask implements Runnable {
 		while (!canvasApi.isInitialized()) {
 			log.info("Waiting for canvas api to init before running startup task");
 			Thread.sleep(5000);
-		} ;
+		}
 		initFixedThreadPoolTask();
 		initScheduledThreadPoolTask();
 		initSingleThreadPoolTask();

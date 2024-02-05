@@ -1,0 +1,17 @@
+{
+  "id": 161517,
+  "name": "Kai Chuen CHOY",
+  "created_at": "2021-07-23T03:20:32+08:00",
+  "sortable_name": "CHOY, Kai Chuen",
+  "short_name": "Kai Chuen CHOY",
+  "avatar_url": "https://canvas.cityu.edu.hk/images/messages/avatar-50.png",
+  "last_name": "CHOY",
+  "first_name": "Kai Chuen",
+  "locale": null,
+  "effective_locale": "en",
+  "permissions": {
+    "can_update_name": false,
+    "can_update_avatar": true,
+    "limit_parent_app_web_access": false
+  }
+}

@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 @FxmlView("/view/component/course/assignment/course-assignment.fxml")
 public class CourseAssignmentItemController {
-	@Autowired
-	private CourseService courseService;
 	@FXML
 	private Label assignmentNameLabel;
 	@FXML

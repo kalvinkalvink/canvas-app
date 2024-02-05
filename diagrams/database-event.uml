@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>canvas.canvasapp.event</OriginalElement>
+  <nodes>
+    <node x="-530.8248644986448" y="743.4035682023487">canvas.canvasapp.event.task.database.FolderUpdateEvent</node>
+    <node x="-228.83841463414635" y="743.4035682023487">canvas.canvasapp.event.task.database.FileUpdatedEevnt</node>
+    <node x="-673.9728997289973" y="653.25">canvas.canvasapp.event.task.database.CourseUpdatedEvent</node>
+    <node x="-266.75790424570914" y="848.9173441734417">canvas.canvasapp.event.listener.database.FolderUpdatedEventListener</node>
+    <node x="-399.6768292682927" y="653.25">canvas.canvasapp.event.task.database.AssignmentUpdatedEvent</node>
+    <node x="-639.2264001806682" y="848.9173441734417">canvas.canvasapp.event.listener.database.CourseUpdatedEventListener</node>
+    <node x="-108.0" y="653.25">canvas.canvasapp.event.task.database.AnnouncementUpdatedEvent</node>
+    <node x="-422.22628726287263" y="464.0336495031617">canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher" target="canvas.canvasapp.event.task.database.FolderUpdateEvent" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-258.22628726287263" y="601.0" />
+      <point x="-419.82486449864484" y="601.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher" target="canvas.canvasapp.event.task.database.CourseUpdatedEvent" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-258.22628726287263" y="601.0" />
+      <point x="-556.9728997289973" y="601.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher" target="canvas.canvasapp.event.task.database.AssignmentUpdatedEvent" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-258.22628726287263" y="601.0" />
+      <point x="-268.6768292682927" y="601.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher" target="canvas.canvasapp.event.task.database.FileUpdatedEevnt" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-258.22628726287263" y="601.0" />
+      <point x="-122.83841463414635" y="601.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher" target="canvas.canvasapp.event.task.database.AnnouncementUpdatedEvent" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="-258.22628726287263" y="601.0" />
+      <point x="33.0" y="601.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0121142857142857" showDependencies="true" x="-205.35354561878955" y="667.3678861788618" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
