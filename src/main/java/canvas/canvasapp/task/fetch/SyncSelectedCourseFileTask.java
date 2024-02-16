@@ -1,4 +1,4 @@
-package canvas.canvasapp.task.fetch;
+package canvas.canvasapp.task.schedule.fetch;
 
 import canvas.canvasapp.helpers.type.application.AppSetting;
 import canvas.canvasapp.model.Course;

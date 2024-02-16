@@ -1,4 +1,4 @@
-package canvas.canvasapp.task.fetch;
+package canvas.canvasapp.task.schedule.fetch;
 
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.util.CanvasApi;
