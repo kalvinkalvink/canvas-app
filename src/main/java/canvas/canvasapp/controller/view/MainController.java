@@ -21,11 +21,14 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Slf4j
 @Controller("mainController")
@@ -73,7 +76,10 @@ public class MainController {
 	public void test(ActionEvent event) throws Exception {
 		String pptxPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture03.pptx";
 		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture02.pdf";
-		documentFormatConverterService.pptxToPdf(pptxPath, pdfPath);
+//		documentFormatConverterService.pptxToPdf(pptxPath, pdfPath);
+		Path path = Paths.get(pptxPath);
+		System.out.println("Basename:" + FilenameUtils.getBaseName(path.toString()));
+		System.out.println("extension:" + FilenameUtils.getExtension(path.toString()));
 
 
 //		String docPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.docx";

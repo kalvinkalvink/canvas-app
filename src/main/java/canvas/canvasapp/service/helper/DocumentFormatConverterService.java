@@ -1,5 +1,6 @@
 package canvas.canvasapp.service.helper;
 
+import canvas.canvasapp.util.FileTypeUtils;
 import com.spire.presentation.FileFormat;
 import com.spire.presentation.Presentation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,34 +23,27 @@ import java.util.List;
 @Slf4j
 @Service
 public class DocumentFormatConverterService {
-	enum DocType{
-		PPTX,DOCX
+
+	@Async
+	public void documentToPdf(String documentPath) {        // inplace conversion
+		log.debug("Converting {} to pdf", documentPath);
+		documentToPdf(documentPath, FilenameUtils.removeExtension(documentPath) + ".pdf");
 	}
 
-	public void documentToPpt(String docPath, String destPath){
-		Path fileName = Paths.get(docPath).getFileName();
-		String baseName = FilenameUtils.getBaseName(fileName.toString());
-		String extension = FilenameUtils.getExtension(fileName.toString());
-		if(extension.equals(DocType.DOCX.toString())){
-			docxToPdf(docPath, destPath);
-		}else if(extension.equals(DocType.PPTX.toString())){
-			pptxToPdf(docPath, destPath);
-		}else {
+	@Async
+	public void documentToPdf(String documentPath, String destPath) {
+		log.debug("Converting {} to pdf", documentPath);
+		if (FileTypeUtils.isWord(documentPath)) {
+			wordToPdf(documentPath, destPath);
+		} else if (FileTypeUtils.isPpt(documentPath)) {
+			pptToPdf(documentPath, destPath);
+		} else {
 			log.warn("File type not ");
 		}
 	}
-	@Async
-	public void docxToPdf(String docPath, String destPath) {
 
-
-
-
-	}
-
-	@Async
-	public void pptxToPdf(String docPath, String destPath) {
+	private void wordToPdf(String docPath, String destPath) {
 		try {
-			log.debug("Converting {} to pdf", docPath);
 			Path saveFilePath = Paths.get(destPath);
 			Path saveDirectory = saveFilePath.getParent();
 			Path fileName = saveFilePath.getFileName();
@@ -70,9 +64,40 @@ public class DocumentFormatConverterService {
 				ppt.saveToFile(pageIndex, endPageNum, tempFile.getPath(), FileFormat.PDF);
 			}
 			mergePdf(tempPdfFileList, destPath);
-			FileSystemUtils.deleteRecursively(tempPdfDirectory.toFile());		// delete the temp directory
+			FileSystemUtils.deleteRecursively(tempPdfDirectory.toFile());        // delete the temp directory
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+
+
+	}
+
+
+	private void pptToPdf(String pptPath, String destPath) {
+		try {
+			Path saveFilePath = Paths.get(destPath);
+			Path saveDirectory = saveFilePath.getParent();
+			Path fileName = saveFilePath.getFileName();
+
+			Presentation ppt = new Presentation();
+
+			ppt.loadFromFile(pptPath);
+			int slideCount = ppt.getSlides().size();
+			// spilt and save the ppt into multiple pdf because the library cannot convert more than 10 pages at once
+			List<File> tempPdfFileList = new ArrayList<>();
+			Path tempPdfDirectory = Files.createTempDirectory("canvas-app-temp-pdf");    // crete temp directory to save temp pdf
+			for (int pageIndex = 0, fileSubfix = 0; pageIndex < slideCount; pageIndex += 10, fileSubfix++) {
+				int endPageNum = pageIndex + 9;
+				if (endPageNum > slideCount)
+					endPageNum = slideCount - 1;
+				File tempFile = File.createTempFile(FilenameUtils.removeExtension(fileName.getFileName().toString()), ".pdf", tempPdfDirectory.toFile());
+				tempPdfFileList.add(tempFile);    // add to list
+				ppt.saveToFile(pageIndex, endPageNum, tempFile.getPath(), FileFormat.PDF);
+			}
+			mergePdf(tempPdfFileList, destPath);
+			FileSystemUtils.deleteRecursively(tempPdfDirectory.toFile());        // delete the temp directory
+		} catch (Exception e) {
+			log.error(String.format("Cannot convert document '%s' to pdf", pptPath), e);
 		}
 	}
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
+
 @Slf4j
 @Service
 public class CanvasFileService {
@@ -15,9 +17,9 @@ public class CanvasFileService {
 	@Autowired
 	private FixedThreadPoolExecutor fixedThreadPoolExecutor;
 
-	public void downloadFile(String fileUrl, String savePath, boolean autoCreateParentDirectory) {
+	public CompletableFuture<Void> downloadFile(String fileUrl, String savePath, boolean autoCreateParentDirectory) {
 		FileDownloadTask fileDownloadTask = applicationContext.getBean(FileDownloadTask.class);
 		fileDownloadTask.setDownloadOption(fileUrl, savePath, autoCreateParentDirectory);
-		fixedThreadPoolExecutor.executeTask(fileDownloadTask);
+		return CompletableFuture.runAsync(fileDownloadTask);
 	}
 }

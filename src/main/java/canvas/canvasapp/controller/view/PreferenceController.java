@@ -54,6 +54,8 @@ public class PreferenceController {
 	private final BooleanProperty syncCourseBooleanProperty = new SimpleBooleanProperty();
 	private final SimpleObjectProperty<File> syncFolderBasePathStringProperty = new SimpleObjectProperty<>();
 	private final SimpleIntegerProperty syncIntervalIntegerProperty = new SimpleIntegerProperty(10);
+	// document to pdf conversion
+	private final BooleanProperty autoConvertDocumentToPdfBooleanProperty = new SimpleBooleanProperty();
 
 	// canvas api
 	private final SimpleStringProperty canvasApiBaseUrlStringProperty = new SimpleStringProperty();
@@ -85,6 +87,7 @@ public class PreferenceController {
 							),
 							Group.of("Sync Course Setting",
 									Setting.of("Sync Course", syncCourseBooleanProperty),
+									Setting.of("Auto convert downloaded documents to pdf (docx and pptx)", autoConvertDocumentToPdfBooleanProperty),
 									Setting.of("Syncing Base Folder Path", syncFolderBasePathStringProperty, "Browse", Paths.get(System.getProperty("user.home")).toFile(), true),
 									Setting.of("Sync Interval (in seconds)", syncIntervalIntegerProperty)
 							)
@@ -114,10 +117,12 @@ public class PreferenceController {
 	private void savePreferenceToPref() {
 		// course sync //
 		canvasPreferenceService.store(AppSetting.COURSE_SYNC_INTERVAL, Integer.toString(syncIntervalIntegerProperty.get()));
-		// check if sync folder base path is null
-		File syncFolderFile = syncFolderBasePathStringProperty.get();
+		// convert document to pdf
+		canvasPreferenceService.store(AppSetting.AUTO_CONVERT_DOC_TO_PDF, autoConvertDocumentToPdfBooleanProperty.getValue());
+
+		File syncFolderFile = syncFolderBasePathStringProperty.get();	// check if sync folder base path is null
 		canvasPreferenceService.store(AppSetting.COURSE_SYNC_FOLDER_PATH, Objects.nonNull(syncFolderFile) ? syncFolderFile.toString() : System.getProperty("user.home"));
-		canvasPreferenceService.store(AppSetting.SYNC_COURSE, syncCourseBooleanProperty.getValue().toString());
+		canvasPreferenceService.store(AppSetting.SYNC_COURSE, syncCourseBooleanProperty.getValue());
 		// course sync end //
 		// canvas api //
 		if (Objects.nonNull(canvasApiBaseUrlStringProperty.getValue()) && Objects.nonNull(canvasApiTokenStringProperty.getValue())) {

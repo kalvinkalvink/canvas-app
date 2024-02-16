@@ -3,7 +3,7 @@ package canvas.canvasapp.util;
 import canvas.canvasapp.helpers.type.doc.DocType;
 import org.apache.commons.io.FilenameUtils;
 
-public class ExtesionUtils {
+public class FileTypeUtils {
 	public static boolean isDoc(String path) {
 		return isWord(path) || isPpt(path);
 	}

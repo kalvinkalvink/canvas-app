@@ -40,7 +40,6 @@ public class FileDownloadTask implements Runnable {
 	@Override
 	public void run() {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-
 			Path filePath = Paths.get(savePath);
 			if (skipIfFileExist && filePath.toFile().exists()) {
 				log.debug("Skipping {} download because file already exist", filePath.getFileName());
