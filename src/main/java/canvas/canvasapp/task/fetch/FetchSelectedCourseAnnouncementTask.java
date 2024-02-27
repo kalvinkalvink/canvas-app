@@ -1,6 +1,6 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.AnnouncementService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.util.CanvasApi;
@@ -32,7 +32,7 @@ public class FetchSelectedCourseAnnouncementTask implements Runnable {
 		if (!canvasApi.isInitialized()) return;
 		log.info("Fetching selected course annnouncement data from canvas");
 		List<Course> selectedCourseList = courseService.findAllSelected();
-		List<canvas.canvasapp.model.Announcement> fetchedAnnouncementList = new ArrayList<>();
+		List<canvas.canvasapp.model.db.Announcement> fetchedAnnouncementList = new ArrayList<>();
 		selectedCourseList.stream()
 				.map(selectedCourse -> {
 					try {
@@ -43,7 +43,7 @@ public class FetchSelectedCourseAnnouncementTask implements Runnable {
 						return new ArrayList<Announcement>();
 					}
 				}).flatMap(List::stream)
-				.map(canvasAnnouncement -> new canvas.canvasapp.model.Announcement()
+				.map(canvasAnnouncement -> new canvas.canvasapp.model.db.Announcement()
 						.setId(canvasAnnouncement.getId())
 						.setTitle(canvasAnnouncement.getTitle())
 						.setCreatedAt(canvasAnnouncement.getCreatedAt())

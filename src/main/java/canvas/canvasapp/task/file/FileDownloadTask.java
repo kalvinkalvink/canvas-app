@@ -1,7 +1,7 @@
 package canvas.canvasapp.task.file;
 
-import canvas.canvasapp.helpers.type.application.AppSetting;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
+import canvas.canvasapp.type.application.AppSetting;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -37,6 +37,7 @@ public class FileDownloadTask implements Runnable {
 		this.savePath = savePath;
 		this.autoCreateParentDirectory = autoCreateParentDirectory;
 	}
+
 	@Override
 	public void run() {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -61,12 +62,12 @@ public class FileDownloadTask implements Runnable {
 					fileOutputStream.write(data);
 				}
 			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
+				log.error("File not found while downloading file", e);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			log.error(String.format("Failed to download file from url: %s", fileUrl), e);
 		}
 	}
 

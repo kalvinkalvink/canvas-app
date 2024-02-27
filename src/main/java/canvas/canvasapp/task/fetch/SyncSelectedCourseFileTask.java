@@ -1,16 +1,14 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.helpers.type.application.AppSetting;
-import canvas.canvasapp.model.Course;
-import canvas.canvasapp.model.File;
-import canvas.canvasapp.model.Folder;
-import canvas.canvasapp.repository.CourseRepository;
+import canvas.canvasapp.helpers.CourseFileHelper;
+import canvas.canvasapp.helpers.DocumentToPdfConverter;
+import canvas.canvasapp.model.db.Course;
+import canvas.canvasapp.model.db.File;
 import canvas.canvasapp.service.application.CanvasFileService;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
-import canvas.canvasapp.service.database.FolderService;
-import canvas.canvasapp.service.helper.DocumentFormatConverterService;
+import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.util.CanvasApi;
 import canvas.canvasapp.util.FileTypeUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +24,8 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Component
 public class SyncSelectedCourseFileTask implements Runnable {
-
-	@Autowired
-	private CourseRepository courseRepository;
 	@Autowired
 	private CourseService courseService;
-	@Autowired
-	private FolderService folderService;
 	@Autowired
 	private FileService fileService;
 	@Autowired
@@ -42,7 +35,9 @@ public class SyncSelectedCourseFileTask implements Runnable {
 	@Autowired
 	private CanvasApi canvasApi;
 	@Autowired
-	private DocumentFormatConverterService documentFormatConverterService;
+	private DocumentToPdfConverter documentToPdfConverter;
+	@Autowired
+	private CourseFileHelper courseFileHelper;
 
 	@Override
 	public void run() {
@@ -67,27 +62,20 @@ public class SyncSelectedCourseFileTask implements Runnable {
 						// fetch course folders and files
 						List<File> courseFileList = fileService.findByCourseId(courseToSync.getId());
 						courseFileList.forEach(file -> {
-							Folder folder = file.getFolder();
-							Path path = Paths.get(folder.getFullName());
-							if (path.getNameCount() > 1) {    // not only "course file" folder
-								// remove the first folder name
-								path = path.subpath(1, path.getNameCount());
-							}
-
-							// prepend course name to path
-							Path courseFileRelativePath = Paths.get(courseToSync.getName()).resolve(path);
-							// append course file relatiev path to the sync base folder path
-							String fileName = file.getDisplayName().replace(":", "_");    // sanitize filename
-							Path destCourseFilePath = syncFolderPath.resolve(courseFileRelativePath).resolve(fileName);
-							String destinationPath = FilenameUtils.separatorsToSystem(destCourseFilePath.toString());
+							Path destDocumentPath = courseFileHelper.courseFileToSystemFile(courseToSync, file);
+							String destinationPath = FilenameUtils.separatorsToSystem(destDocumentPath.toString());
 							log.debug("Saving file to {}", destinationPath);
- 							CompletableFuture<Void> downloadFileCompletableFuture = canvasFileService.downloadFile(file.getUrl(), destinationPath, true);
+							CompletableFuture<Void> downloadFileCompletableFuture = canvasFileService.downloadFile(file.getUrl(), destinationPath, true);
 
 
 							// convert to pdf if needed
 							downloadFileCompletableFuture.thenAccept((Void) -> {
 								if (canvasPreferenceService.get(AppSetting.AUTO_CONVERT_DOC_TO_PDF, false) && FileTypeUtils.isDoc(destinationPath)) {
-									documentFormatConverterService.documentToPdf(destCourseFilePath.toString());
+									try {
+										documentToPdfConverter.convertDocumentToPdf(destinationPath);
+									} catch (Exception e) {
+										log.error(String.format("Error while converting document '%s' to pdf", destinationPath), e);
+									}
 								}
 							});
 						});

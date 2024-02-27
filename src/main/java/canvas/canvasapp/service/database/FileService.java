@@ -1,7 +1,8 @@
 package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
-import canvas.canvasapp.model.File;
+import canvas.canvasapp.model.db.File;
+import canvas.canvasapp.model.db.Folder;
 import canvas.canvasapp.repository.FileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class FileService implements IDatabaseUpdateEvent {
 
 	public List<File> findByCourseId(Long courseId) {
 		return fileRepository.findByCourseId(courseId);
+	}
+
+	public List<File> findAllByFolder(Folder folder) {
+		return fileRepository.findAllByFolder(folder);
 	}
 
 	// setter

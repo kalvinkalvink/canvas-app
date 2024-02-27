@@ -1,7 +1,6 @@
 package canvas.canvasapp.event.view;
 
-import canvas.canvasapp.helpers.type.view.course.CoursePage;
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import org.springframework.context.ApplicationEvent;
 
 public class CourseItemClickEvent extends ApplicationEvent {

@@ -1,7 +1,8 @@
 package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
-import canvas.canvasapp.model.Folder;
+import canvas.canvasapp.model.db.Course;
+import canvas.canvasapp.model.db.Folder;
 import canvas.canvasapp.repository.FolderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,14 @@ public class FolderService implements IDatabaseUpdateEvent {
 
 	public Optional<Folder> findById(Long folderId) {
 		return folderRepository.findById(folderId);
+	}
+
+	public Optional<Folder> findRootFolder(Course course) {
+		return folderRepository.findByParentFolderIdIsNullAndCourse(course);
+	}
+
+	public List<Folder> findAllChildFolder(Folder folder){
+		return folderRepository.findAllByParentFolderId(folder.getId());
 	}
 
 	// setter

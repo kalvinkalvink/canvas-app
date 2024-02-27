@@ -1,7 +1,7 @@
 package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
-import canvas.canvasapp.model.Assignment;
+import canvas.canvasapp.model.db.Assignment;
 import canvas.canvasapp.repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

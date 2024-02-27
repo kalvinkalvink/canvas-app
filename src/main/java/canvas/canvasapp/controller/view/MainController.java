@@ -3,10 +3,11 @@ package canvas.canvasapp.controller.view;
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
+import canvas.canvasapp.lib.document.PptxToPDFConverter;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
-import canvas.canvasapp.service.helper.DocumentFormatConverterService;
+import canvas.canvasapp.type.application.TAB;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -40,15 +42,9 @@ public class MainController {
 	FolderService folderService;
 	@Autowired
 	FileService fileService;
-	@Autowired
-	DocumentFormatConverterService documentFormatConverterService;
 
 	// tab menu
-	enum TAB {
-		DASHBOARD_TAB,
-		COURSE_TAB,
-		FILES_TAB
-	}
+
 
 	@FXML
 	private Button dashboardTabButton;
@@ -84,14 +80,18 @@ public class MainController {
 
 //		String docPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.docx";
 //		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.pdf";
-	//		documentFormatConverterService.docToPdf(docPath, pdfPath);
+		//		documentFormatConverterService.docToPdf(docPath, pdfPath);
 
 	}
 
 	@FXML
-	public void test2(ActionEvent event) throws IOException {
-		System.out.println(System.getProperty("java.io.tmpdir"));
+	public void test2(ActionEvent event) throws Exception {
+		String pptName = "C:\\Users\\kalvinkalvink\\Downloads\\canvas-course-sync\\CS4486 Artificial Intelligence\\Lectures\\lecture01.pptx";
+		String pdfName = "C:\\Users\\kalvinkalvink\\Downloads\\canvas-course-sync\\CS4486 Artificial Intelligence\\Lectures\\lecture01.pdf";
+//		pdfDocumentService.replaceText("C:\\Users\\kalvinkalvink\\Downloads\\canvas-course-sync\\CS4486 Artificial Intelligence\\Lectures\\lecture03.pdf", "Evaluation Warning", "1123");
 
+		PptxToPDFConverter pptxToPDFConverter = new PptxToPDFConverter(new FileInputStream(pptName), new FileOutputStream(pdfName), true, true);
+		pptxToPDFConverter.convert();
 	}
 
 	@FXML
@@ -115,6 +115,7 @@ public class MainController {
 		switch (tab) {
 			case DASHBOARD_TAB -> contentPaneChildren.add(fxWeaver.loadView(DashboardController.class));
 			case COURSE_TAB -> contentPaneChildren.add(fxWeaver.loadView(CourseController.class));
+			case FILES_TAB -> contentPaneChildren.add(fxWeaver.loadView(FileController.class));
 		}
 
 	}
@@ -144,5 +145,6 @@ public class MainController {
 	@FXML
 	private void showFilesTab() {
 		log.debug("Files tab button clicked");
+		showTabContent(TAB.FILES_TAB);
 	}
 }

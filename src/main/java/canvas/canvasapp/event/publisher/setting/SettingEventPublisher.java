@@ -1,7 +1,7 @@
 package canvas.canvasapp.event.publisher.setting;
 
 import canvas.canvasapp.event.setting.CanvasApiIInfoUpdatedEvent;
-import canvas.canvasapp.helpers.type.setting.SettingEvent;
+import canvas.canvasapp.type.setting.SettingEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

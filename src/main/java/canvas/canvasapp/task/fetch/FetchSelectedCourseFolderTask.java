@@ -1,6 +1,6 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FolderService;
 import canvas.canvasapp.util.CanvasApi;
@@ -35,7 +35,7 @@ public class FetchSelectedCourseFolderTask implements Runnable {
 		List<Course> selectedCourseList = courseService.findAllSelected();
 		FolderReader folderReader = canvasApi.getReader(FolderReader.class);
 
-		List<canvas.canvasapp.model.Folder> courseFolderList = new ArrayList<>();
+		List<canvas.canvasapp.model.db.Folder> courseFolderList = new ArrayList<>();
 		selectedCourseList.stream()
 				.map(selectedCourse -> {
 					try {
@@ -45,7 +45,7 @@ public class FetchSelectedCourseFolderTask implements Runnable {
 						return new ArrayList<Folder>();
 					}
 				}).flatMap(List::stream)
-				.map(canvasFolder -> new canvas.canvasapp.model.Folder()
+				.map(canvasFolder -> new canvas.canvasapp.model.db.Folder()
 						.setId(canvasFolder.getId())
 						.setName(canvasFolder.getName())
 						.setFullName(canvasFolder.getFullName())

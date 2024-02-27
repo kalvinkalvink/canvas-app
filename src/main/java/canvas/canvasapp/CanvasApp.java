@@ -15,25 +15,27 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+
 @Service
 public class CanvasApp extends Application {
 	private ConfigurableApplicationContext applicationContext;
-
+	public static HostServices hostServices;
 	@Autowired
 	StartupController startupController;
 	@Autowired
 	ThreadPoolController threadPoolController;
 
+
 	@Override
 	public void init() throws Exception {
-
+		hostServices = getHostServices();
 		// init spring application context
 		ApplicationContextInitializer<GenericApplicationContext> initializer = new ApplicationContextInitializer<GenericApplicationContext>() {
 			@Override
 			public void initialize(GenericApplicationContext applicationContext) {
-				applicationContext.registerBean(Application.class, ()->CanvasApp.this);
-				applicationContext.registerBean(Parameters.class, ()->getParameters());
-				applicationContext.registerBean(HostServices.class, ()->getHostServices());
+				applicationContext.registerBean(Application.class, () -> CanvasApp.this);
+				applicationContext.registerBean(Parameters.class, () -> getParameters());
+				applicationContext.registerBean(HostServices.class, () -> getHostServices());
 
 			}
 		};

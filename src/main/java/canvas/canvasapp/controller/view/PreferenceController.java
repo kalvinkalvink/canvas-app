@@ -2,9 +2,9 @@ package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.event.publisher.setting.SettingEventPublisher;
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
-import canvas.canvasapp.helpers.type.application.AppSetting;
-import canvas.canvasapp.helpers.type.setting.SettingEvent;
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.type.application.AppSetting;
+import canvas.canvasapp.type.setting.SettingEvent;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import com.dlsc.preferencesfx.PreferencesFx;

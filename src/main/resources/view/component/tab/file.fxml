@@ -1,0 +1,21 @@
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.*?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" animated="false" collapsible="false"
+            text="Course Files"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="canvas.canvasapp.controller.view.FileController">
+    <content>
+        <VBox >
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <TextField fx:id="fileSearchTextField" promptText="Search classes" HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <TreeView fx:id="fileTreeView" VBox.vgrow="ALWAYS"/>
+            </children>
+        </VBox>
+    </content>
+</TitledPane>

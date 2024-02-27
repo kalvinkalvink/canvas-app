@@ -1,7 +1,7 @@
 package canvas.canvasapp.service.database;
 
 import canvas.canvasapp.event.publisher.database.DatabaseUpdatedEventPublisher;
-import canvas.canvasapp.model.Announcement;
+import canvas.canvasapp.model.db.Announcement;
 import canvas.canvasapp.repository.AnnouncementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

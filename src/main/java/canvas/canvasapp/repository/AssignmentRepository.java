@@ -1,6 +1,6 @@
 package canvas.canvasapp.repository;
 
-import canvas.canvasapp.model.Assignment;
+import canvas.canvasapp.model.db.Assignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

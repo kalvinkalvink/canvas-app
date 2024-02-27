@@ -1,6 +1,6 @@
 package canvas.canvasapp.util;
 
-import canvas.canvasapp.helpers.type.doc.DocType;
+import canvas.canvasapp.type.doc.DocType;
 import org.apache.commons.io.FilenameUtils;
 
 public class FileTypeUtils {

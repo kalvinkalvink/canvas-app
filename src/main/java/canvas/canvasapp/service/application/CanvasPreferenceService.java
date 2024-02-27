@@ -1,6 +1,6 @@
 package canvas.canvasapp.service.application;
 
-import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.type.application.AppSetting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

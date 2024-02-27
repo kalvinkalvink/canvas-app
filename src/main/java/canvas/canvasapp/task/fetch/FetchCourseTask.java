@@ -42,18 +42,18 @@ public class FetchCourseTask implements Runnable {
 //				System.out.printf("%d, %s, %s\n",canvasCoruse.getId(), canvasCoruse.getName(), canvasCoruse.getCourseCode());
 //			});
 
-//			List<canvas.canvasapp.model.Course> all = courseRepository.findAll();
+//			List<canvas.canvasapp.model.db.Course> all = courseRepository.findAll();
 //			all.forEach(course -> {
 //				System.out.printf("%d %s %s\n", course.getId(), course.getName(), course.getSelected());
 //			});
 
-			List<canvas.canvasapp.model.Course> courseList = canvasCourseList.stream()
+			List<canvas.canvasapp.model.db.Course> courseList = canvasCourseList.stream()
 					.filter(canvasCourse -> Objects.nonNull(canvasCourse.getName()) && Objects.nonNull(canvasCourse.getId()))
 					.filter(canvasCourse -> courseService.findById(canvasCourse.getId()).isEmpty())
 					.filter(canvasCourse -> courseService.findByName(canvasCourse.getName()).isEmpty())
 					.filter(DistinctByPredicate.distinctBy(Course::getName))	// filter duplicated course name
 					.peek(canvasCourse -> log.debug("Added {} {} to db", canvasCourse.getId(), canvasCourse.getName()))
-					.map(canvasCourse -> new canvas.canvasapp.model.Course()
+					.map(canvasCourse -> new canvas.canvasapp.model.db.Course()
 							.setId(canvasCourse.getId())
 							.setName(canvasCourse.getName())
 							.setCourseCode(canvasCourse.getCourseCode())

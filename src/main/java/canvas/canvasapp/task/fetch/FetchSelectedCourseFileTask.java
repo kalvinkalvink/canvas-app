@@ -1,6 +1,7 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
+import canvas.canvasapp.model.db.File;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
@@ -38,12 +39,12 @@ public class FetchSelectedCourseFileTask implements Runnable {
 
 		FileReader fileReader = canvasApi.getReader(FileReader.class);
 		selectedCourseList.forEach(selectedCourse -> {
-			List<canvas.canvasapp.model.File> courseFileList = new ArrayList<>();
+			List<File> courseFileList = new ArrayList<>();
 					log.trace("Fetching file for selected course {}", selectedCourse.getName());
 					try {
 						fileReader.listCourseFile(new ListCourseFileOptions(selectedCourse.getId().toString())).stream()
 								.peek(canvasFile -> log.trace("Fetching course file {}", canvasFile.getFilename()))
-								.map(canvasFile -> new canvas.canvasapp.model.File()
+								.map(canvasFile -> new File()
 										.setId(canvasFile.getId())
 										.setUuid(canvasFile.getUuid())
 										.setDisplayName(canvasFile.getDisplayName())

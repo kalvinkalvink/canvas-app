@@ -1,11 +1,11 @@
 package canvas.canvasapp.controller.view.course;
 
-import canvas.canvasapp.controller.view.course.announcement.AnnouncementController;
-import canvas.canvasapp.controller.view.course.assignment.AssignmentController;
-import canvas.canvasapp.controller.view.course.file.FilesController;
-import canvas.canvasapp.controller.view.course.grade.GradeController;
-import canvas.canvasapp.helpers.type.view.course.CoursePage;
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.controller.view.course.announcement.CourseAnnouncementController;
+import canvas.canvasapp.controller.view.course.assignment.CourseAssignmentController;
+import canvas.canvasapp.controller.view.course.file.CourseFilesController;
+import canvas.canvasapp.controller.view.course.grade.CourseGradeController;
+import canvas.canvasapp.type.view.course.CoursePage;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.view.course.CourseViewService;
 import javafx.collections.ObservableList;
@@ -74,12 +74,12 @@ public class CourseController {
 		// setting page to stackpane
 		ObservableList<Node> stackPaneChildren = courseContentStackPane.getChildren();
 		stackPaneChildren.clear();
-		FxControllerAndView<AnnouncementController, Node> fxControllerAndView = null;
+		FxControllerAndView<CourseAnnouncementController, Node> fxControllerAndView = null;
 		switch (coursePage) {
-			case ANNOUNCEMENT -> stackPaneChildren.add(fxWeaver.loadView(AnnouncementController.class));
-			case ASSIGNMENT -> stackPaneChildren.add(fxWeaver.loadView(AssignmentController.class));
-			case FILE -> stackPaneChildren.add(fxWeaver.loadView(FilesController.class));
-			case GRADE -> stackPaneChildren.add(fxWeaver.loadView(GradeController.class));
+			case ANNOUNCEMENT -> stackPaneChildren.add(fxWeaver.loadView(CourseAnnouncementController.class));
+			case ASSIGNMENT -> stackPaneChildren.add(fxWeaver.loadView(CourseAssignmentController.class));
+			case FILE -> stackPaneChildren.add(fxWeaver.loadView(CourseFilesController.class));
+			case GRADE -> stackPaneChildren.add(fxWeaver.loadView(CourseGradeController.class));
 		}
 	}
 

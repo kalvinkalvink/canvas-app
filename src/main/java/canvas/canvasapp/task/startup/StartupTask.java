@@ -1,6 +1,6 @@
 package canvas.canvasapp.task.startup;
 
-import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
 import canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor;

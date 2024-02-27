@@ -1,7 +1,7 @@
 package canvas.canvasapp.controller.view.course;
 
 import canvas.canvasapp.controller.view.MainController;
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.view.course.CourseViewService;
 import javafx.fxml.FXML;
@@ -44,7 +44,6 @@ public class CourseListController {
                     return courseButton;
                 })
                 .toArray(Button[]::new);
-        System.out.println(courseButtonArray);
         courseListVBox.getChildren().addAll(courseButtonArray);
     }
 }

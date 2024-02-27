@@ -1,7 +1,7 @@
 package canvas.canvasapp.service.view.course;
 
 import canvas.canvasapp.event.view.CourseItemClickEvent;
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

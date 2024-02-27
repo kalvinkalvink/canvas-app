@@ -1,6 +1,6 @@
 package canvas.canvasapp.task.fetch;
 
-import canvas.canvasapp.model.Course;
+import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.AssignmentService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.util.CanvasApi;
@@ -38,7 +38,7 @@ public class FetchSelectedCourseAssignmentTask implements Runnable {
 		// read selected course
 		List<Course> selectedCourseList = courseService.findAllSelected();
 		log.debug("Selected course list size: {}", selectedCourseList.size());
-		List<canvas.canvasapp.model.Assignment> assignmentList = new ArrayList<>();
+		List<canvas.canvasapp.model.db.Assignment> assignmentList = new ArrayList<>();
 		selectedCourseList.stream()
 				.map(selectedCourse -> {
 					try {
@@ -49,7 +49,7 @@ public class FetchSelectedCourseAssignmentTask implements Runnable {
 					}
 				})
 				.flatMap(List::stream)
-				.map(canvasAssignment -> new canvas.canvasapp.model.Assignment()
+				.map(canvasAssignment -> new canvas.canvasapp.model.db.Assignment()
 						.setId(canvasAssignment.getId())
 						.setName(canvasAssignment.getName())
 						.setCreatedAt(canvasAssignment.getCreatedAt())

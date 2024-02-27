@@ -1,7 +1,7 @@
 package canvas.canvasapp.event.listener.setting;
 
 import canvas.canvasapp.event.setting.CanvasApiIInfoUpdatedEvent;
-import canvas.canvasapp.helpers.type.application.AppSetting;
+import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.util.CanvasApi;
 import org.springframework.beans.factory.annotation.Autowired;

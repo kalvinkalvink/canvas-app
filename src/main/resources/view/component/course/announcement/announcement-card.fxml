@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane fx:id="announcementAnchorPane" fx:controller="canvas.canvasapp.controller.view.course.announcement.AnnouncementCardController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="announcementAnchorPane" fx:controller="canvas.canvasapp.controller.view.course.announcement.CourseAnnouncementCardController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="announcementTitleLabel" layoutX="28.0" layoutY="23.0" text="Announcement Title" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>
