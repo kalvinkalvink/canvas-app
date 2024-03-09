@@ -25,8 +25,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 @FxmlView("/view/component/tab/course.fxml")
 public class CourseController {
-
-
 	private final CoursePage currentPage = null;
 
 	@Autowired
@@ -82,6 +80,4 @@ public class CourseController {
 			case GRADE -> stackPaneChildren.add(fxWeaver.loadView(CourseGradeController.class));
 		}
 	}
-
-
 }

@@ -14,8 +14,8 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.Date;
 import java.util.Objects;
-
 
 @Entity
 @Getter
@@ -36,6 +36,7 @@ public class Course {
 	private Boolean selected;
 	@Column(nullable = false)
 	private Boolean synced;
+	private Date createdAt;
 
 	@Convert(converter = ColorConverter.class)
 	private Color color;

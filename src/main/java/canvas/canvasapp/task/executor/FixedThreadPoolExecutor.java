@@ -18,18 +18,26 @@ public class FixedThreadPoolExecutor {
 				.setNameFormat("fixed-thread-pool-%d")
 				.setUncaughtExceptionHandler(new TaskUncaughtExceptionHandler())
 				.build();
-		this.executorService = Executors.newFixedThreadPool(threadPoolSize,threadFactory);
+		this.executorService = Executors.newFixedThreadPool(threadPoolSize, threadFactory);
 	}
-	public Future<?> submitTask(Runnable task){
+
+	public <T> Future<T> submitTask(Callable<T> task) {
 		return executorService.submit(task);
 	}
-	public void executeTask(Runnable task){
+
+	public Future<?> submitTask(Runnable task) {
+		return executorService.submit(task);
+	}
+
+	public void executeTask(Runnable task) {
 		executorService.execute(task);
 	}
-	public ExecutorCompletionService<Void> getNewExecutorCompleteService(){
+
+	public ExecutorCompletionService<Void> getNewExecutorCompleteService() {
 		return new ExecutorCompletionService<Void>(executorService);
 	}
-	public void shutdown(){
+
+	public void shutdown() {
 		executorService.shutdown();
 	}
 

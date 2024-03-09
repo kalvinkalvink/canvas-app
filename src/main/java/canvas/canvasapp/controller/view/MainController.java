@@ -8,6 +8,8 @@ import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
 import canvas.canvasapp.type.application.TAB;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -136,10 +138,17 @@ public class MainController {
 	private void showCourseTab() {
 		log.debug("Course tab button clicked");
 		// show course list for selection
-		Stage courseListWindow = new Stage();
-		courseListWindow.setScene(new Scene((Parent) fxWeaver.load(CourseListController.class).getView().get()));
-		courseListWindow.setTitle("Course List");
-		courseListWindow.show();
+		Stage courseListStage = new Stage();
+		courseListStage.setTitle("Course List");
+		courseListStage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+				if (!newValue)
+					courseListStage.close();
+			}
+		});
+		courseListStage.setScene(new Scene((Parent) fxWeaver.load(CourseListController.class).getView().get()));
+		courseListStage.show();
 	}
 
 	@FXML

@@ -33,19 +33,9 @@ public class FetchCourseTask implements Runnable {
 		try {
 			log.info("Fetching courses data from canvas");
 			log.debug("Course database size: {}", courseService.count());
-
 			CourseReader courseReader = canvasApi.getReader(CourseReader.class);
 			List<Course> canvasCourseList = courseReader.listCurrentUserCourses(new ListCurrentUserCoursesOptions());
 			log.debug("Fetched {} courses from canvas", canvasCourseList.size());
-
-//			canvasCourseList.stream().forEach(canvasCoruse->{
-//				System.out.printf("%d, %s, %s\n",canvasCoruse.getId(), canvasCoruse.getName(), canvasCoruse.getCourseCode());
-//			});
-
-//			List<canvas.canvasapp.model.db.Course> all = courseRepository.findAll();
-//			all.forEach(course -> {
-//				System.out.printf("%d %s %s\n", course.getId(), course.getName(), course.getSelected());
-//			});
 
 			List<canvas.canvasapp.model.db.Course> courseList = canvasCourseList.stream()
 					.filter(canvasCourse -> Objects.nonNull(canvasCourse.getName()) && Objects.nonNull(canvasCourse.getId()))
@@ -59,6 +49,7 @@ public class FetchCourseTask implements Runnable {
 							.setCourseCode(canvasCourse.getCourseCode())
 							.setSelected(false)
 							.setSynced(false)
+							.setCreatedAt(canvasCourse.getCreatedAt())
 					).distinct()
 					.collect(Collectors.toList());
 			courseService.saveAll(courseList);

@@ -47,13 +47,16 @@ public class CourseService implements IDatabaseUpdateEvent {
 
 	// setter
 
-
+	public void save(Course course){
+		courseRepository.save(course);
+	}
 	public void setAllSelectedFalse() {
 		courseRepository.setAllSelectedToFalse();
 	}
 
 	public void saveAll(List<Course> courseList) {
 		courseRepository.saveAll(courseList);
+
 	}
 
 	// other

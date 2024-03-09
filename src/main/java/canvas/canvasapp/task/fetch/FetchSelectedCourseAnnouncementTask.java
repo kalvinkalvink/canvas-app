@@ -13,7 +13,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -37,7 +40,7 @@ public class FetchSelectedCourseAnnouncementTask implements Runnable {
 				.map(selectedCourse -> {
 					try {
 						AnnouncementReader announcementReader = canvasApi.getReader(AnnouncementReader.class);
-						return announcementReader.listCourseAnnouncement(new ListCourseAnnouncementOptions(selectedCourse.getId().toString()));
+						return announcementReader.listCourseAnnouncement(new ListCourseAnnouncementOptions(selectedCourse.getId().toString()).startDate(selectedCourse.getCreatedAt()).endDate(Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant())));
 					} catch (IOException e) {
 						log.error("Error fetching course {} assignment", selectedCourse.getName());
 						return new ArrayList<Announcement>();

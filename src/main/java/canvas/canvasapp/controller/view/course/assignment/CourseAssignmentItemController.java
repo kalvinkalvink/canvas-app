@@ -1,14 +1,20 @@
 package canvas.canvasapp.controller.view.course.assignment;
 
-import canvas.canvasapp.service.database.CourseService;
+import canvas.canvasapp.model.db.Assignment;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.Date;
+import java.util.Objects;
 
 
 @Slf4j
@@ -20,11 +26,18 @@ public class CourseAssignmentItemController {
 	@FXML
 	private HBox dateInfoHBox;
 
-	public void setAssignmentName(String name) {
-		assignmentNameLabel.setText(name);
-	}
-
-	public void addToDateInfoHBox(Node node) {
-		dateInfoHBox.getChildren().add(node);
+	private Assignment assignment;
+	public void setAssignment(Assignment assignment){
+		this.assignment = assignment;
+		Date todayDate = new Date();
+		// setting name
+		assignmentNameLabel.setText(assignment.getName());
+		// setting date info box
+		ObservableList<Node> dateInfoHBoxChildren = dateInfoHBox.getChildren();
+		if (Objects.nonNull(assignment.getUnlockAt()) && assignment.getUnlockAt().after(todayDate)) {
+			dateInfoHBoxChildren.add(new Text(String.format("Not Available until %s", assignment.getUnlockAt())));
+			dateInfoHBoxChildren.add(new Separator(Orientation.VERTICAL));
+		}
+		dateInfoHBoxChildren.add(new Text(String.format("Due %s", assignment.getDueAt())));
 	}
 }

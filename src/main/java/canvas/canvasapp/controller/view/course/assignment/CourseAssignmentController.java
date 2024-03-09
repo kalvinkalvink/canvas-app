@@ -4,14 +4,19 @@ import canvas.canvasapp.model.db.Assignment;
 import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.AssignmentService;
 import canvas.canvasapp.service.view.course.CourseViewService;
+import canvas.canvasapp.util.CanvasApi;
+import edu.ksu.canvas.interfaces.AssignmentReader;
+import edu.ksu.canvas.requestOptions.GetSingleAssignmentOptions;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TitledPane;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -19,9 +24,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -30,9 +34,11 @@ public class CourseAssignmentController {
 	@Autowired
 	FxWeaver fxWeaver;
 	@Autowired
-	CourseViewService courseViewService;
+	private CourseViewService courseViewService;
 	@Autowired
-	AssignmentService assignmentService;
+	private AssignmentService assignmentService;
+	@Autowired
+	private CanvasApi canvasApi;
 
 	@FXML
 	Accordion assignmentAccordion;
@@ -45,13 +51,17 @@ public class CourseAssignmentController {
 	private void initialize() {
 		Course course = courseViewService.getCourse();
 		log.info("Initializing course {} assignemnt", course.getName());
+		AssignmentReader assignmentReader = canvasApi.getReader(AssignmentReader.class);
+
+
 		List<Assignment> courseAssignmentList = assignmentService.getAssignmentsByCourseId(course.getId());
 		ArrayList<Assignment> upcomingAssignmentList = new ArrayList<>();
 		ArrayList<Assignment> pastAssignmentList = new ArrayList<>();
 
 		Date todayDate = new Date();
 		courseAssignmentList.forEach(assignment -> {
-			if (assignment.getDueAt().before(todayDate)) pastAssignmentList.add(assignment);
+			if (Objects.nonNull(assignment.getDueAt()) && assignment.getDueAt().before(todayDate))
+				pastAssignmentList.add(assignment);
 			else upcomingAssignmentList.add(assignment);
 		});
 		// upcoming assignment
@@ -60,26 +70,57 @@ public class CourseAssignmentController {
 			FxControllerAndView<CourseAssignmentItemController, Node> fxControllerAndView = fxWeaver.load(CourseAssignmentItemController.class);
 			// adding info to assignemnt card
 			CourseAssignmentItemController controller = fxControllerAndView.getController();
-			controller.setAssignmentName(upcomingAssignment.getName());
-			if (upcomingAssignment.getUnlockAt().after(todayDate)) {
-				controller.addToDateInfoHBox(new Text(String.format("Not Available until %s", upcomingAssignment.getUnlockAt())));
-				controller.addToDateInfoHBox(new Separator(Orientation.VERTICAL));
-			}
-			controller.addToDateInfoHBox(new Text(String.format("Due %s", upcomingAssignment.getDueAt())));
-			fxControllerAndView.getView().ifPresent(upcomingAssignmentListView.getItems()::add);
+			controller.setAssignment(upcomingAssignment);
+			fxControllerAndView.getView().ifPresent(courseAssignmentView -> {
+				setOnAssignmentClickAction(courseAssignmentView, assignmentReader, course, upcomingAssignment);
+				upcomingAssignmentListView.getItems().add(courseAssignmentView);
+			});
 		});
+		;
 		upcomingAssignmentTiledPane.setContent(upcomingAssignmentListView);
+
 		// past assignment
 		ListView<Node> pastAssignmentListView = new ListView<>();
 		pastAssignmentList.forEach(pastAssignment -> {
 			FxControllerAndView<CourseAssignmentItemController, Node> fxControllerAndView = fxWeaver.load(CourseAssignmentItemController.class);
 			// adding info to assignment card
 			CourseAssignmentItemController controller = fxControllerAndView.getController();
-			controller.setAssignmentName(pastAssignment.getName());
-			controller.addToDateInfoHBox(new Text(String.format("Due %s", pastAssignment.getDueAt())));
+			controller.setAssignment(pastAssignment);
+			fxControllerAndView.getView().ifPresent(courseAssignmentView -> {
+				setOnAssignmentClickAction(courseAssignmentView, assignmentReader, course, pastAssignment);
+			});
 		});
 		pastAssignmentTiledPane.setContent(pastAssignmentListView);
-
 		assignmentAccordion.setExpandedPane(upcomingAssignmentTiledPane);
+	}
+
+	public void setOnAssignmentClickAction(Node courseAssignmentView, AssignmentReader assignmentReader, Course course, Assignment courseAssignment) {
+		courseAssignmentView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				if (mouseEvent.getClickCount() != 2) return;        // only handle double click
+				try {
+					Optional<edu.ksu.canvas.model.assignment.Assignment> singleAssignment = assignmentReader.getSingleAssignment(new GetSingleAssignmentOptions(course.getId().toString(), courseAssignment.getId()));
+					singleAssignment.ifPresent(canvasAssignment -> {
+						// display the assignment details ui
+						FxControllerAndView<CourseAssignmentDetailsController, Node> courseAssignmentPopupControllerNodeFxControllerAndView = fxWeaver.load(CourseAssignmentDetailsController.class);
+						CourseAssignmentDetailsController controller = courseAssignmentPopupControllerNodeFxControllerAndView.getController();
+						controller.setAssignment(canvasAssignment);
+						controller.initView();
+
+						// create new window
+						courseAssignmentPopupControllerNodeFxControllerAndView.getView().ifPresent(courseAssignmentDetailsView -> {
+							// create a popup window
+							Stage courseAssignmentDetailsStage = new Stage();
+							courseAssignmentDetailsStage.setTitle("Course assignment details");
+							courseAssignmentDetailsStage.setScene(new Scene((Parent) courseAssignmentDetailsView, 500, 700));
+							courseAssignmentDetailsStage.show();
+						});
+					});
+				} catch (IOException e) {
+					log.error("Failed to fetch course {} assignment {}", course.getId(), courseAssignment.getId());
+				}
+			}
+		});
 	}
 }

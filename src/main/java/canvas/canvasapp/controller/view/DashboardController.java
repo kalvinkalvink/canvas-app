@@ -83,7 +83,10 @@ public class DashboardController {
 						dashboardAssignmentItemController.setAssignmentname(assignment.getName());
 						byDateCardController.addAssignment(assignmentItemFxControllerAndView.getView().get());
 					});
-					assigmentListView.getItems().add(byDateCardFxControllerAndView.getView().get());
+					byDateCardFxControllerAndView.getView().ifPresentOrElse(assigmentListView.getItems()::add, () -> {
+						log.error("Error while loading By date car view for course.");
+					});
+
 				}
 			});
 		});
