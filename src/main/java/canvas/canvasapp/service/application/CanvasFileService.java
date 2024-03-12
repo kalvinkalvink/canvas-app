@@ -1,6 +1,6 @@
 package canvas.canvasapp.service.application;
 
-import canvas.canvasapp.model.application.HttpResponse;
+import canvas.canvasapp.model.application.network.HttpResponse;
 import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
 import canvas.canvasapp.task.file.FileDownloadTask;
 import canvas.canvasapp.task.file.SubmitAssignmentTask;

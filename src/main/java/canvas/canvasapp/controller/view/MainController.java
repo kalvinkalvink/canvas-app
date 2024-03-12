@@ -2,6 +2,7 @@ package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
+import canvas.canvasapp.controller.view.guide.UserGuideController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
 import canvas.canvasapp.lib.document.PptxToPDFConverter;
 import canvas.canvasapp.service.database.CourseService;
@@ -155,5 +156,13 @@ public class MainController {
 	private void showFilesTab() {
 		log.debug("Files tab button clicked");
 		showTabContent(TAB.FILES_TAB);
+	}
+
+	@FXML
+	public void userGuideButtonClicked(ActionEvent event) {
+		Stage userGuideStage = new Stage();
+		Node userGuideNode = fxWeaver.loadView(UserGuideController.class);
+		userGuideStage.setScene(new Scene((Parent) userGuideNode));
+		userGuideStage.show();
 	}
 }

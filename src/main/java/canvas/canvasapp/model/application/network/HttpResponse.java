@@ -1,4 +1,4 @@
-package canvas.canvasapp.model.application;
+package canvas.canvasapp.model.application.network;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -1,7 +1,7 @@
 package canvas.canvasapp.task.file;
 
 
-import canvas.canvasapp.model.application.HttpResponse;
+import canvas.canvasapp.model.application.network.HttpResponse;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.type.application.AppSetting;
 import lombok.extern.slf4j.Slf4j;

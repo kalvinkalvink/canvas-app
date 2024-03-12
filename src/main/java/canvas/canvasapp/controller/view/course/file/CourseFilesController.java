@@ -14,9 +14,7 @@ import canvas.canvasapp.type.application.AppSetting;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +25,7 @@ import org.springframework.stereotype.Controller;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -46,36 +45,31 @@ public class CourseFilesController {
 	@Autowired
 	private CourseFileHelper courseFileHelper;
 
+	private Course selectedCourse;
+
 	@FXML
 	private void initialize() {
+		this.selectedCourse = courseViewService.getCourse();
 		String syncFolderBasePath = FilenameUtils.separatorsToSystem(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, ""));
-		Course selectedCourse = courseViewService.getCourse();
+		setupCellFactory();
+	}
 
+	private void setupCellFactory() {
 		// setting treeview cell factory
 		filesTreeView.setCellFactory(new Callback<TreeView<CourseTreeViewItem>, TreeCell<CourseTreeViewItem>>() {
 			@Override
 			public TreeCell<CourseTreeViewItem> call(TreeView<CourseTreeViewItem> courseTreeViewItemTreeView) {
-				TreeCell<CourseTreeViewItem> fileTreeCell = new TreeCell<>(){
+				TreeCell<CourseTreeViewItem> fileTreeCell = new TreeCell<>() {
 					@Override
 					protected void updateItem(CourseTreeViewItem courseTreeViewItem, boolean empty) {
 						super.updateItem(courseTreeViewItem, empty);
-						setText((empty|| courseTreeViewItem==null)?"":courseTreeViewItem.getName());
+						setText((empty || courseTreeViewItem == null) ? "" : courseTreeViewItem.getName());
 					}
 				};
-				fileTreeCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent mouseEvent) {
-						if(mouseEvent.getClickCount()==2){
-							File canvasFile = fileTreeCell.getTreeItem().getValue().getCanvasFile();
-
-							Path systemFilePath = courseFileHelper.courseFileToSystemFile(selectedCourse, canvasFile);
-							java.io.File systemFile = systemFilePath.toFile();
-							if(systemFile.exists() && systemFile.isFile()){
-								CanvasApp.hostServices.showDocument(systemFile.getPath());
-							}
-						}
-					}
-				});
+//				if(fileTreeCell.getTreeItem().isLeaf()){	// only leaf file have context menu
+//					setTreeViewCellOnClick(fileTreeCell);
+//					setTreeViewCellContedtmenu(fileTreeCell);
+//				}
 				return fileTreeCell;
 			}
 		});
@@ -85,20 +79,70 @@ public class CourseFilesController {
 		filesTreeView.setShowRoot(false);
 	}
 
-	private TreeItem<CourseTreeViewItem> createTreeRoot() {
-//		List<Pair<File, List<String>>> sortedFileList = new ArrayList<>();
-//		for (File file : fileList){
-//			String folderPath = file.getFolder().getFullName();
-//			List<String> pathComponent = Arrays.asList(folderPath.split(Pattern.quote(java.io.File.separator)));
-//			sortedFileList.add(new Pair<File, List<String>>(file, pathComponent));
-//		}
-//
-//		sortedFileList.sort(Comparator.comparing(fileListPair -> Integer.valueOf(fileListPair.getValue().size())));
-//		for (Pair<File, List<String>> filePair:
-//			 sortedFileList) {
-//			System.out.println(filePair.getKey().getFolder().getFullName());
-//		}
+	private void setTreeViewCellOnClick(TreeCell<CourseTreeViewItem> fileTreeCell) {
+		fileTreeCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+					System.out.println("clicked");
+					File canvasFile = fileTreeCell.getTreeItem().getValue().getCanvasFile();
 
+					Path systemFilePath = courseFileHelper.courseFileToSystemFile(selectedCourse, canvasFile);
+					java.io.File systemFile = systemFilePath.toFile();
+					if (systemFile.exists() && systemFile.isFile()) {
+						CanvasApp.hostServices.showDocument(systemFile.getPath());
+					}
+				}
+			}
+		});
+	}
+
+	private void setTreeViewCellContedtmenu(TreeCell<CourseTreeViewItem> fileTreeCell) {
+		ContextMenu fileTreeViewcontextMenu = new ContextMenu();
+
+		// setup menu item
+		MenuItem openFileMenuItem = new MenuItem("Open File");
+		MenuItem openFolderMenuItem = new MenuItem("Open Folder");
+		MenuItem convertToPdfMenuItem = new MenuItem("Convert to PDF");
+
+		// setup menu item function
+		openFileMenuItem.setOnAction(e -> {
+			Optional<java.io.File> optionalTreeViewSelectedItemFile = getTreeViewSelectedItemFile();
+			optionalTreeViewSelectedItemFile.ifPresent(systemFile -> {
+				if (systemFile.exists() && systemFile.isFile()) {
+					CanvasApp.hostServices.showDocument(systemFile.getPath());
+				}
+			});
+
+		});
+		openFolderMenuItem.setOnAction(e -> {
+			Optional<java.io.File> optionalTreeViewSelectedItemFile = getTreeViewSelectedItemFile();
+			optionalTreeViewSelectedItemFile.ifPresent(systemFile -> {
+				// get file parent
+				java.io.File folder = systemFile.toPath().getParent().toFile();
+				if (folder.exists() && !folder.isFile()) {
+					CanvasApp.hostServices.showDocument(systemFile.getPath());
+				}
+			});
+		});
+		convertToPdfMenuItem.setOnAction(e -> {
+
+		});
+		fileTreeViewcontextMenu.getItems().addAll(openFileMenuItem, openFolderMenuItem, convertToPdfMenuItem);
+		fileTreeCell.setContextMenu(fileTreeViewcontextMenu);
+	}
+
+	private Optional<java.io.File> getTreeViewSelectedItemFile() {
+		TreeItem<CourseTreeViewItem> selectedItem = filesTreeView.getSelectionModel().getSelectedItem();
+		if (Objects.isNull(selectedItem)) return Optional.empty();
+		File selectedCanvasFile = selectedItem.getValue().getCanvasFile();
+		System.out.println(selectedCanvasFile.getFolder());
+		Path systemFilePath = courseFileHelper.courseFileToSystemFile(selectedCourse, selectedCanvasFile);
+
+		return Optional.of(systemFilePath.toFile());
+	}
+
+	private TreeItem<CourseTreeViewItem> createTreeRoot() {
 		Optional<Folder> optionalRootFolder = folderService.findRootFolder(courseViewService.getCourse());
 		TreeItem<CourseTreeViewItem> root = new TreeItem<>();
 		optionalRootFolder.ifPresent(folder -> populateFolderChildren(root, folder));
@@ -127,9 +171,11 @@ public class CourseFilesController {
 			List<File> fileList = fileService.findAllByFolder(currentFolder);
 			fileList.forEach(file -> {
 				TreeItem<CourseTreeViewItem> courseTreeViewItemTreeItem = new TreeItem<>();
+
 				courseTreeViewItemTreeItem.setValue(new CourseTreeViewItem()
 						.setName(file.getFilename())
 						.setCanvasFile(file));
+
 				children.add(courseTreeViewItemTreeItem);
 			});
 		}

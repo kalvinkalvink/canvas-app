@@ -18,6 +18,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.0</junit.version>
         <java.version>21</java.version>
+
+        <!-- wix -->
+        <wix.groupId>org.wixtoolset</wix.groupId>
+        <wix.version>3.11.1</wix.version>
     </properties>
 
     <dependencies>
@@ -169,11 +173,6 @@
             <version>1.0.5</version>
         </dependency>
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.6</version>
-        </dependency>
-        <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
             <version>1.0.5</version>
@@ -197,15 +196,22 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
+        <!-- wix -->
+        <dependency>
+            <groupId>org.wixtoolset</groupId>
+            <artifactId>wix-toolset</artifactId>
+            <version>3.11.1</version>
+            <type>pom</type>
+        </dependency>
 
     </dependencies>
-    <repositories>
-        <repository>
-            <id>com.e-iceblue</id>
-            <name>e-iceblue</name>
-            <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>com.e-iceblue</id>-->
+    <!--            <name>e-iceblue</name>-->
+    <!--            <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 
 
     <build>
@@ -262,9 +268,9 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>canvas.canvasapp.CanvasSpringApp</mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <launcher>canvasapp</launcher>
+                            <jlinkZipName>canvasapp</jlinkZipName>
+                            <jlinkImageName>canvasapp</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
@@ -281,6 +287,26 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <!-- WiX Toolset Maven Plugin -->
+<!--            <plugin>-->
+<!--                <groupId>org.wixtoolset</groupId>-->
+<!--                <artifactId>wix-maven-plugin</artifactId>-->
+<!--                <version>2.2.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>generate-msi</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>compile</goal>-->
+<!--                            <goal>light</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; Configuration options for the WiX Toolset Maven Plugin &ndash;&gt;-->
+<!--                    &lt;!&ndash; See plugin documentation for available options &ndash;&gt;-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

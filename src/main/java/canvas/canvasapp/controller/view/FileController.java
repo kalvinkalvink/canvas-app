@@ -32,6 +32,7 @@ public class FileController {
 
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+
 	@FXML
 	private void initialize() {
 		fileTreeView.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
@@ -49,9 +50,9 @@ public class FileController {
 				fileTreeCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent mouseEvent) {
-						if(mouseEvent.getClickCount() == 2){
+						if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
 							File file = fileTreeCell.getTreeItem().getValue();
-							if(file.exists() && file.isFile()){
+							if (file.exists() && file.isFile()) {
 								CanvasApp.hostServices.showDocument(file.getPath());
 							}
 						}
@@ -66,6 +67,7 @@ public class FileController {
 		fileTreeView.setRoot(rootNode);
 		fileTreeView.setShowRoot(false);
 	}
+
 	private TreeItem<File> createNode(final File f) {
 		return new TreeItem<File>(f) {
 			private boolean isLeaf;

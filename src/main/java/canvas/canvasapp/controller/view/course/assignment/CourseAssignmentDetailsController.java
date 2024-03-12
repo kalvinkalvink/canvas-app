@@ -1,7 +1,7 @@
 package canvas.canvasapp.controller.view.course.assignment;
 
 import canvas.canvasapp.CanvasApp;
-import canvas.canvasapp.model.application.HttpResponse;
+import canvas.canvasapp.model.application.network.HttpResponse;
 import canvas.canvasapp.service.application.CanvasFileService;
 import canvas.canvasapp.util.CanvasApi;
 import canvas.canvasapp.util.DateFormatterUtil;

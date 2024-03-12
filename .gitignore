@@ -40,3 +40,5 @@ build/
 
 /db/
 /logs/
+
+/src/main/resources/images/**/*.png

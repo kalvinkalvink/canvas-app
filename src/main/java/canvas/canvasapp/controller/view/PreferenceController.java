@@ -2,11 +2,11 @@ package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.event.publisher.setting.SettingEventPublisher;
 import canvas.canvasapp.event.task.database.CourseUpdatedEvent;
-import canvas.canvasapp.type.application.AppSetting;
-import canvas.canvasapp.type.setting.SettingEvent;
 import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
+import canvas.canvasapp.type.application.AppSetting;
+import canvas.canvasapp.type.setting.SettingEvent;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.model.Category;
@@ -53,7 +53,8 @@ public class PreferenceController {
 	private final ListProperty<String> courseSyncSelections = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private final BooleanProperty syncCourseBooleanProperty = new SimpleBooleanProperty();
 	private final SimpleObjectProperty<File> syncFolderBasePathStringProperty = new SimpleObjectProperty<>();
-	private final SimpleIntegerProperty syncIntervalIntegerProperty = new SimpleIntegerProperty(10);
+	private final SimpleIntegerProperty syncFileIntervalIntegerProperty = new SimpleIntegerProperty(300);
+	private final SimpleIntegerProperty syncDataIntervalIntegerProperty = new SimpleIntegerProperty(120);
 	// document to pdf conversion
 	private final BooleanProperty autoConvertDocumentToPdfBooleanProperty = new SimpleBooleanProperty();
 
@@ -89,7 +90,10 @@ public class PreferenceController {
 									Setting.of("Sync Course", syncCourseBooleanProperty),
 									Setting.of("Auto convert downloaded documents to pdf (docx and pptx)", autoConvertDocumentToPdfBooleanProperty),
 									Setting.of("Syncing Base Folder Path", syncFolderBasePathStringProperty, "Browse", Paths.get(System.getProperty("user.home")).toFile(), true),
-									Setting.of("Sync Interval (in seconds)", syncIntervalIntegerProperty)
+									Setting.of("Sync Interval (in seconds)", syncFileIntervalIntegerProperty)
+							),
+							Group.of("Sync Data Setting",
+									Setting.of("Data syncing interval", syncDataIntervalIntegerProperty)
 							)
 					),
 					Category.of("Canvas",
@@ -116,14 +120,17 @@ public class PreferenceController {
 
 	private void savePreferenceToPref() {
 		// course sync //
-		canvasPreferenceService.store(AppSetting.COURSE_SYNC_INTERVAL, Integer.toString(syncIntervalIntegerProperty.get()));
+		canvasPreferenceService.store(AppSetting.COURSE_SYNC_INTERVAL, Integer.toString(syncFileIntervalIntegerProperty.get()));
 		// convert document to pdf
 		canvasPreferenceService.store(AppSetting.AUTO_CONVERT_DOC_TO_PDF, autoConvertDocumentToPdfBooleanProperty.getValue());
 
-		File syncFolderFile = syncFolderBasePathStringProperty.get();	// check if sync folder base path is null
+		File syncFolderFile = syncFolderBasePathStringProperty.get();    // check if sync folder base path is null
 		canvasPreferenceService.store(AppSetting.COURSE_SYNC_FOLDER_PATH, Objects.nonNull(syncFolderFile) ? syncFolderFile.toString() : System.getProperty("user.home"));
 		canvasPreferenceService.store(AppSetting.SYNC_COURSE, syncCourseBooleanProperty.getValue());
 		// course sync end //
+		// data sync //
+		canvasPreferenceService.store(AppSetting.DATA_SYNC_INTERVAL, syncDataIntervalIntegerProperty.getValue());
+		// data sync end //
 		// canvas api //
 		if (Objects.nonNull(canvasApiBaseUrlStringProperty.getValue()) && Objects.nonNull(canvasApiTokenStringProperty.getValue())) {
 			canvasPreferenceService.store(AppSetting.CANVAS_BASE_URL, canvasApiBaseUrlStringProperty.getValue());
