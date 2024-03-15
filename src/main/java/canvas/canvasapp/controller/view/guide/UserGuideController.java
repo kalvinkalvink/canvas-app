@@ -12,12 +12,13 @@ import javafx.scene.text.Text;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -33,124 +34,134 @@ import java.util.stream.Stream;
 @Controller
 @FxmlView("/view/component/guide/guide.fxml")
 public class UserGuideController {
-	@FXML
-	Text imageCounterText;
-	@FXML
-	VBox guideListVBox;
-	@FXML
-	ImageView imageView;
-	@FXML
-	Button previousImageButton;
-	@FXML
-	Button nextImageButton;
+    @FXML
+    Text imageCounterText;
+    @FXML
+    VBox guideListVBox;
+    @FXML
+    ImageView imageView;
+    @FXML
+    Button previousImageButton;
+    @FXML
+    Button nextImageButton;
 
 
-	@Autowired
-	private CanvasPreferenceService canvasPreferenceService;
-	// guide list
-	private String basePath = "/images/guide/";
-	private List<Guide> guideList;
-	private Guide selectedGuide;
-	private int currentImageGuideIndex;
-	private List<File> guideImageList;
+    @Autowired
+    private CanvasPreferenceService canvasPreferenceService;
+    @Autowired
+    private ResourceLoader resourceLoader;
+    // guide list
+    private String basePath = "images/guide/";
+    private List<Guide> guideList;
+    private Guide selectedGuide;
+    private int currentImageGuideIndex;
+    private List<InputStream> guideImageList;
 
-	public UserGuideController() throws URISyntaxException, IOException {
-		// setup guide
-		Guide setupCanvasTokenGuide = new Guide()
-				.setName("Setup Canvas Token")
-				.setGuideFolderName("canvas-token");
-		Guide setupCourseSyncGuide = new Guide()
-				.setName("Setup Course Sync")
-				.setGuideFolderName("course-sync");
-		Guide setupFileSyncGuide = new Guide()
-				.setName("Setup File Sync")
-				.setGuideFolderName("file-sync");
+    public UserGuideController() throws URISyntaxException, IOException {
+        // setup guide
+        Guide setupCanvasTokenGuide = new Guide()
+                .setName("Setup Canvas Token")
+                .setGuideFolderName("canvas-token");
+        Guide setupCourseSyncGuide = new Guide()
+                .setName("Setup Course Sync")
+                .setGuideFolderName("course-sync");
+        Guide setupFileSyncGuide = new Guide()
+                .setName("Setup File Sync")
+                .setGuideFolderName("file-sync");
 
-		guideList = Arrays.asList(
-				setupCanvasTokenGuide,
-				setupCourseSyncGuide,
-				setupFileSyncGuide
-		);
+        guideList = Arrays.asList(
+                setupCanvasTokenGuide,
+                setupCourseSyncGuide,
+                setupFileSyncGuide
+        );
 
-		// scan guide folder for guide
+        // scan guide folder for guide
 
-		selectedGuide = guideList.getFirst();
-		guideImageList = getGuideImageList(selectedGuide);
-		currentImageGuideIndex = 0;
-	}
+        selectedGuide = guideList.getFirst();
+        guideImageList = getGuideImageList(selectedGuide);
+        currentImageGuideIndex = 0;
+    }
 
-	@FXML
-	void initialize() throws FileNotFoundException {
-		// add navigate button to guide list
-		guideList.forEach(guide -> {
-			Button guideButton = new Button(guide.getName());
-			guideButton.setPrefWidth(Double.MAX_VALUE);
-			guideButton.setOnAction(event -> {
-				// set current selected guide
-				selectedGuide = guide;
-				try {
-					// scan guide folder for guide
-					guideImageList = getGuideImageList(guide);
-					// set init guide image
-					if (!guideImageList.isEmpty()) {        // display image if not empty
-						displayImage();
-					}
-				} catch (IOException | URISyntaxException e) {
-					log.error(String.format("Failed to load %s image %d", guide.getName(), currentImageGuideIndex), e);
-				}
-			});
-			guideListVBox.getChildren().add(guideButton);
-		});
+    @FXML
+    void initialize() throws FileNotFoundException {
+        // add navigate button to guide list
+        guideList.forEach(guide -> {
+            Button guideButton = new Button(guide.getName());
+            guideButton.setPrefWidth(Double.MAX_VALUE);
+            guideButton.setOnAction(event -> {
+                // set current selected guide
+                selectedGuide = guide;
+                try {
+                    // scan guide folder for guide
+                    guideImageList = getGuideImageList(guide);
+                    // set init guide image
+                    if (!guideImageList.isEmpty()) {        // display image if not empty
+                        displayImage();
+                    }
+                } catch (IOException | URISyntaxException e) {
+                    log.error(String.format("Failed to load %s image %d", guide.getName(), currentImageGuideIndex), e);
+                }
+            });
+            guideListVBox.getChildren().add(guideButton);
+        });
 
 
-		// set image counter to front
-		imageCounterText.toFront();
-		displayImage();
-	}
+        // set image counter to front
+        imageCounterText.toFront();
+        displayImage();
+    }
 
-	private List<File> getGuideImageList(Guide guide) throws URISyntaxException, IOException {
-		String folderPath = basePath + guide.getGuideFolderName();
-		URL uri = getClass().getResource(folderPath);
-		if (Objects.isNull(uri)) return new ArrayList<>();
-		Path guideFolderPath = Paths.get(uri.toURI());
-		try (Stream<Path> entries = Files.walk(guideFolderPath, 1)) {
-			return entries.filter(path -> path.toString().contains(".png"))
-					.map(Path::toFile)
-					.toList();
-		}
-	}
+    private List<InputStream> getGuideImageList(Guide guide) throws URISyntaxException, IOException {
+        ArrayList<InputStream> fileList = new ArrayList<>();
 
-	private void displayImage() throws FileNotFoundException {
-		if (guideImageList.isEmpty()) {
-			log.warn("No guide image for guide {}", selectedGuide.getName());
-			return;
-		}
-		File imageFile = guideImageList.get(currentImageGuideIndex);
-		FileInputStream fileInputStream = new FileInputStream(imageFile);
-		Image image = new Image(fileInputStream);
-		imageView.setImage(image);
+        ResourcePatternResolver resourcePatternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
+        Resource[] resources = resourcePatternResolver.getResources("classpath:" + basePath + guide.getGuideFolderName()+"/*");
+        for (Resource resource : resources) {
+            fileList.add(resource.getInputStream());
+        }
+        return fileList;
 
-		// set iamge counter
-		imageCounterText.setText(String.format("%d/%d", currentImageGuideIndex + 1, guideImageList.size()));
-	}
+//        String folderPath = basePath + guide.getGuideFolderName();
+//        URL uri = getClass().getClassLoader().getResource(folderPath);
+//        if (Objects.isNull(uri)) return new ArrayList<>();
+//        Path guideFolderPath = Paths.get(uri.toURI());
+//        try (Stream<Path> entries = Files.walk(guideFolderPath, 1)) {
+//            return entries.filter(path -> path.toString().contains(".png"))
+//                    .map(Path::toFile)
+//                    .toList();
+//        }
+    }
 
-	public void previousImageButtonClicked(ActionEvent event) throws FileNotFoundException {
-		// check if reached beginning
-		if (currentImageGuideIndex <= 0) {
-			return;
-		}
-		// set image
-		currentImageGuideIndex -= 1;
-		displayImage();
-	}
+    private void displayImage() throws FileNotFoundException {
+        if (guideImageList.isEmpty()) {
+            log.warn("No guide image for guide {}", selectedGuide.getName());
+            return;
+        }
+        InputStream imageFileInputStream = guideImageList.get(currentImageGuideIndex);
+        Image image = new Image(imageFileInputStream);
+        imageView.setImage(image);
 
-	public void nextImageButtonClicked(ActionEvent event) throws FileNotFoundException {
-		// check if reached end
-		if (currentImageGuideIndex >= guideImageList.size() - 1) {
-			return;
-		}
-		// set image
-		currentImageGuideIndex += 1;
-		displayImage();
-	}
+        // set iamge counter
+        imageCounterText.setText(String.format("%d/%d", currentImageGuideIndex + 1, guideImageList.size()));
+    }
+
+    public void previousImageButtonClicked(ActionEvent event) throws FileNotFoundException {
+        // check if reached beginning
+        if (currentImageGuideIndex <= 0) {
+            return;
+        }
+        // set image
+        currentImageGuideIndex -= 1;
+        displayImage();
+    }
+
+    public void nextImageButtonClicked(ActionEvent event) throws FileNotFoundException {
+        // check if reached end
+        if (currentImageGuideIndex >= guideImageList.size() - 1) {
+            return;
+        }
+        // set image
+        currentImageGuideIndex += 1;
+        displayImage();
+    }
 }
