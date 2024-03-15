@@ -19,11 +19,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Slf4j
 @Controller
@@ -88,11 +92,11 @@ public class UserGuideController {
 					// scan guide folder for guide
 					guideImageList = getGuideImageList(guide);
 					// set init guide image
-					displayImage(guideImageList.get(currentImageGuideIndex));
-				} catch (IOException e) {
+					if (!guideImageList.isEmpty()) {        // display image if not empty
+						displayImage();
+					}
+				} catch (IOException | URISyntaxException e) {
 					log.error(String.format("Failed to load %s image %d", guide.getName(), currentImageGuideIndex), e);
-				} catch (URISyntaxException e) {
-					throw new RuntimeException(e);
 				}
 			});
 			guideListVBox.getChildren().add(guideButton);
@@ -101,21 +105,27 @@ public class UserGuideController {
 
 		// set image counter to front
 		imageCounterText.toFront();
-
-		displayImage(guideImageList.get(currentImageGuideIndex));
+		displayImage();
 	}
 
 	private List<File> getGuideImageList(Guide guide) throws URISyntaxException, IOException {
 		String folderPath = basePath + guide.getGuideFolderName();
-
-		Path guideFolderPath = Paths.get(getClass().getResource(folderPath).toURI());
-		return Files.walk(guideFolderPath, 1)
-				.filter(path -> path.toString().contains(".png"))
-				.map(path -> path.toFile())
-				.toList();
+		URL uri = getClass().getResource(folderPath);
+		if (Objects.isNull(uri)) return new ArrayList<>();
+		Path guideFolderPath = Paths.get(uri.toURI());
+		try (Stream<Path> entries = Files.walk(guideFolderPath, 1)) {
+			return entries.filter(path -> path.toString().contains(".png"))
+					.map(Path::toFile)
+					.toList();
+		}
 	}
 
-	private void displayImage(File imageFile) throws FileNotFoundException {
+	private void displayImage() throws FileNotFoundException {
+		if (guideImageList.isEmpty()) {
+			log.warn("No guide image for guide {}", selectedGuide.getName());
+			return;
+		}
+		File imageFile = guideImageList.get(currentImageGuideIndex);
 		FileInputStream fileInputStream = new FileInputStream(imageFile);
 		Image image = new Image(fileInputStream);
 		imageView.setImage(image);
@@ -131,7 +141,7 @@ public class UserGuideController {
 		}
 		// set image
 		currentImageGuideIndex -= 1;
-		displayImage(guideImageList.get(currentImageGuideIndex));
+		displayImage();
 	}
 
 	public void nextImageButtonClicked(ActionEvent event) throws FileNotFoundException {
@@ -141,6 +151,6 @@ public class UserGuideController {
 		}
 		// set image
 		currentImageGuideIndex += 1;
-		displayImage(guideImageList.get(currentImageGuideIndex));
+		displayImage();
 	}
 }
