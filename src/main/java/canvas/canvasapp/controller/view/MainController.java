@@ -1,13 +1,15 @@
 package canvas.canvasapp.controller.view;
 
+import canvas.canvasapp.CanvasApp;
 import canvas.canvasapp.controller.view.course.CourseController;
 import canvas.canvasapp.controller.view.course.CourseListController;
 import canvas.canvasapp.controller.view.guide.UserGuideController;
 import canvas.canvasapp.event.view.CourseItemClickEvent;
 import canvas.canvasapp.lib.document.PptxToPDFConverter;
-import canvas.canvasapp.service.database.CourseService;
+import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.FileService;
 import canvas.canvasapp.service.database.FolderService;
+import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.type.application.TAB;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
@@ -58,9 +61,9 @@ public class MainController {
 	private TAB currentTab;
 
 	@Autowired
-	PreferenceController preferenceController;
+	private PreferenceController preferenceController;
 	@Autowired
-	CourseService courseService;
+	private CanvasPreferenceService canvasPreferenceService;
 
 	@FXML
 	private StackPane tabContentStackPane;
@@ -164,5 +167,13 @@ public class MainController {
 		Node userGuideNode = fxWeaver.loadView(UserGuideController.class);
 		userGuideStage.setScene(new Scene((Parent) userGuideNode));
 		userGuideStage.show();
+	}
+
+	@FXML
+	public void canvasLogoClicked(MouseEvent mouseEvent) {
+		// open canvas website
+		String canvasBaseUrl = canvasPreferenceService.get(AppSetting.CANVAS_BASE_URL, "");
+		if (!canvasBaseUrl.isEmpty())
+			CanvasApp.hostServices.showDocument(canvasBaseUrl);
 	}
 }

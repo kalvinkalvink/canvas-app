@@ -81,10 +81,11 @@ public class StartupTask implements Runnable {
 		int courseFileSyncTimeInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.COURSE_SYNC_INTERVAL, "300"));
 		SyncSelectedCourseFileTask syncSelectedCourseFileTask = applicationContext.getBean(SyncSelectedCourseFileTask.class);
 		scheduledThreadPoolExecutor.scheduleTask(syncSelectedCourseFileTask, 10, courseFileSyncTimeInterval);// schedule at 5 mins
-		// sync course
+		// sync course data
 		int dataSyncInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.DATA_SYNC_INTERVAL, "300"));
 		FetchCourseTask fetchCourseTask = applicationContext.getBean(FetchCourseTask.class);
 		scheduledThreadPoolExecutor.scheduleTask(fetchCourseTask, 120, dataSyncInterval);
+
 	}
 
 

@@ -3,11 +3,10 @@ package canvas.canvasapp.controller.view.course;
 import canvas.canvasapp.controller.view.course.announcement.CourseAnnouncementController;
 import canvas.canvasapp.controller.view.course.assignment.CourseAssignmentController;
 import canvas.canvasapp.controller.view.course.file.CourseFilesController;
-import canvas.canvasapp.controller.view.course.grade.CourseGradeController;
-import canvas.canvasapp.type.view.course.CoursePage;
 import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.view.course.CourseViewService;
+import canvas.canvasapp.type.view.course.CoursePage;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -38,8 +37,6 @@ public class CourseController {
 	@FXML
 	Button assignmentButton;
 	@FXML
-	Button gradeButton;
-	@FXML
 	Button fileButton;
 	@FXML
 	StackPane courseContentStackPane;
@@ -59,11 +56,11 @@ public class CourseController {
 		// set announcement page to content pane
 		this.showPage(CoursePage.ANNOUNCEMENT);
 	}
-	private void initButtonEvent(){
+
+	private void initButtonEvent() {
 		announcementButton.setOnAction(event -> showPage(CoursePage.ANNOUNCEMENT));
 		assignmentButton.setOnAction(event -> showPage(CoursePage.ASSIGNMENT));
 		fileButton.setOnAction(event -> showPage(CoursePage.FILE));
-		gradeButton.setOnAction(event -> showPage(CoursePage.GRADE));
 	}
 
 	private void showPage(CoursePage coursePage) {
@@ -77,7 +74,6 @@ public class CourseController {
 			case ANNOUNCEMENT -> stackPaneChildren.add(fxWeaver.loadView(CourseAnnouncementController.class));
 			case ASSIGNMENT -> stackPaneChildren.add(fxWeaver.loadView(CourseAssignmentController.class));
 			case FILE -> stackPaneChildren.add(fxWeaver.loadView(CourseFilesController.class));
-			case GRADE -> stackPaneChildren.add(fxWeaver.loadView(CourseGradeController.class));
 		}
 	}
 }

@@ -20,7 +20,6 @@
                <children>
                   <Button fx:id="announcementButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Announcement" textFill="#3369a3eb" />
                   <Button fx:id="assignmentButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Assignments" textFill="#3369a3eb" />
-                  <Button fx:id="gradeButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Grades" textFill="#3369a3eb" />
                   <Button fx:id="fileButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Files" textFill="#3369a3eb" />
                </children>
             </VBox>

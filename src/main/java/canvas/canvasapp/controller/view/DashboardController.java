@@ -52,6 +52,7 @@ public class DashboardController {
 				new Text("Course selected do not have assignments")
 		);
 		assigmentListView.setPlaceholder(noAssignmentPlaceHolderVBox);
+		assigmentListView.setMouseTransparent(true);
 		initView();
 	}
 

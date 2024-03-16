@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,8 +20,6 @@ public class ByDateCardController {
 	Label dueDateLabel;
 	@FXML
 	VBox assignmentVBox;
-	@Autowired
-	private FxWeaver fxWeaver;
 	@Autowired
 	DateFormatterUtil dateFormatterUtil;
 	public void setDueDate(Date dueDate){

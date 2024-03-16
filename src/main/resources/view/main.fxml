@@ -43,7 +43,7 @@
             <children>
                 <VBox prefWidth="50.0" style="-fx-background-color: #2e3c46;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ImageView id="canvas-logo" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="canvas-logo" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#canvasLogoClicked" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/CanvasLogo.png" />
                             </image>
