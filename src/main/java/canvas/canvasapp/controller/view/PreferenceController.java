@@ -7,8 +7,10 @@ import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.type.setting.SettingEvent;
+import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimplePasswordControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -60,7 +62,8 @@ public class PreferenceController {
 
 	// canvas api
 	private final SimpleStringProperty canvasApiBaseUrlStringProperty = new SimpleStringProperty();
-	private final SimpleStringProperty canvasApiTokenStringProperty = new SimpleStringProperty();
+	private final StringProperty canvasApiTokenStringProperty = new SimpleStringProperty();
+
 	///////// setting end ///////
 
 
@@ -72,7 +75,6 @@ public class PreferenceController {
 
 
 	private void initPreference() {
-
 		initData();
 		Platform.runLater(() -> {
 			preferencesFx = PreferencesFx.of(PreferenceController.class,
@@ -99,7 +101,8 @@ public class PreferenceController {
 					Category.of("Canvas",
 							Group.of("Api Config",
 									Setting.of("Canvas Api Url", canvasApiBaseUrlStringProperty),
-									Setting.of("Canvas Api Token", canvasApiTokenStringProperty)
+									Setting.of("Canvas Api Token", Field.ofPasswordType(canvasApiTokenStringProperty)
+											.render(SimplePasswordControl::new), canvasApiTokenStringProperty)
 							))
 			).addEventHandler(PreferencesFxEvent.EVENT_PREFERENCES_SAVED, new EventHandler<PreferencesFxEvent>() {
 				// preferebce menu close

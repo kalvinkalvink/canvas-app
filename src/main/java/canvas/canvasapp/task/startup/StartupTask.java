@@ -23,6 +23,7 @@ import java.util.concurrent.Executors;
 @Service
 @Scope("prototype")
 public class StartupTask implements Runnable {
+
 	// canvas api
 	@Autowired
 	private CanvasApi canvasApi;
@@ -35,9 +36,10 @@ public class StartupTask implements Runnable {
 	private SingleThreadPoolExecutor singleThreadPoolExecutor;
 	@Autowired
 	private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
-	// task
+	// preference
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+
 
 	@SneakyThrows
 	@Override
@@ -89,6 +91,4 @@ public class StartupTask implements Runnable {
 	private void initSingleThreadPoolTask() {
 
 	}
-
-
 }

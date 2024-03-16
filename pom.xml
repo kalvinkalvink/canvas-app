@@ -36,18 +36,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>21</version>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>edu.ksu.canvas</groupId>
@@ -89,11 +77,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
@@ -288,25 +271,25 @@
                 </configuration>
             </plugin>
             <!-- WiX Toolset Maven Plugin -->
-<!--            <plugin>-->
-<!--                <groupId>org.wixtoolset</groupId>-->
-<!--                <artifactId>wix-maven-plugin</artifactId>-->
-<!--                <version>2.2.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>generate-msi</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>compile</goal>-->
-<!--                            <goal>light</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; Configuration options for the WiX Toolset Maven Plugin &ndash;&gt;-->
-<!--                    &lt;!&ndash; See plugin documentation for available options &ndash;&gt;-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.wixtoolset</groupId>-->
+            <!--                <artifactId>wix-maven-plugin</artifactId>-->
+            <!--                <version>2.2.1</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>generate-msi</id>-->
+            <!--                        <phase>package</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>compile</goal>-->
+            <!--                            <goal>light</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    &lt;!&ndash; Configuration options for the WiX Toolset Maven Plugin &ndash;&gt;-->
+            <!--                    &lt;!&ndash; See plugin documentation for available options &ndash;&gt;-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 </project>

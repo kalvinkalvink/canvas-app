@@ -34,7 +34,7 @@ public class DashboardController {
 	private final FxWeaver fxWeaver;
 
 	@FXML
-	private ListView<VBox> assigmentListView;
+	ListView<VBox> assigmentListView;
 
 	@Autowired
 	AssignmentService assignmentService;
@@ -44,7 +44,7 @@ public class DashboardController {
 	}
 
 	@FXML
-	private void initialize() {
+	void initialize() {
 		// setting placeholder when no assignment is displayed
 		VBox noAssignmentPlaceHolderVBox = new VBox(
 				new Text("No Assignment yet"),
@@ -58,6 +58,7 @@ public class DashboardController {
 	private void initView() {
 		log.info("Initializing dashboard view");
 		Platform.runLater(() -> {
+			if (Objects.isNull(assigmentListView)) return;
 			assigmentListView.getItems().clear();
 			Map<Date, List<Assignment>> assignmentByDueDate = assignmentService.getUpcomingAssignmentForSelectedCourse();
 			assignmentByDueDate.forEach(new BiConsumer<Date, List<Assignment>>() {

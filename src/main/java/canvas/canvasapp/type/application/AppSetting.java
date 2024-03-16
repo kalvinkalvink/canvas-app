@@ -11,7 +11,10 @@ public enum AppSetting {
 	AUTO_CONVERT_DOC_TO_PDF(join("document", "convert", "auto")),
 	// canvas api
 	CANVAS_BASE_URL(join("canvas", "api", "url")),
-	CANVAS_API_TOKEN(join("canvas", "api", "token"));
+	CANVAS_API_TOKEN(join("canvas", "api", "token")),
+
+	// user guide
+	NO_SHOW_START_UP_GUIDE(join("startup", "guide", "show"));
 
 	private static final String AppName = "canvasapp";
 	@Getter
