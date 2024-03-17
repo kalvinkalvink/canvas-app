@@ -1,0 +1,41 @@
+2024-03-17 22:19:56,774 [JavaFX-Launcher] INFO  o.springframework.boot.SpringApplication           - Starting application using Java 21 with PID 3064 (started by kalvinkalvink in D:\pc_backup\programming_project\fyp\canvas-app)
+2024-03-17 22:19:56,775 [JavaFX-Launcher] INFO  o.springframework.boot.SpringApplication           - No active profile set, falling back to 1 default profile: "default"
+2024-03-17 22:19:56,796 [JavaFX-Launcher] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor    - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-03-17 22:19:57,078 [JavaFX-Launcher] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-17 22:19:57,119 [JavaFX-Launcher] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-03-17 22:19:57,306 [JavaFX-Launcher] INFO  o.hibernate.jpa.internal.util.LogHelper            - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-17 22:19:57,335 [JavaFX-Launcher] INFO  org.hibernate.Version                              - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-17 22:19:57,349 [JavaFX-Launcher] INFO  o.h.c.internal.RegionFactoryInitiator              - HHH000026: Second-level cache disabled
+2024-03-17 22:19:57,461 [JavaFX-Launcher] INFO  o.s.o.j.p.SpringPersistenceUnitInfo                - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-17 22:19:57,473 [JavaFX-Launcher] INFO  com.zaxxer.hikari.HikariDataSource                 - HikariPool-1 - Starting...
+2024-03-17 22:19:57,595 [JavaFX-Launcher] INFO  com.zaxxer.hikari.pool.HikariPool                  - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./db/canvasdb user=CANVAS
+2024-03-17 22:19:57,597 [JavaFX-Launcher] INFO  com.zaxxer.hikari.HikariDataSource                 - HikariPool-1 - Start completed.
+2024-03-17 22:19:58,126 [JavaFX-Launcher] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-17 22:19:58,160 [JavaFX-Launcher] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-17 22:19:58,412 [JavaFX-Launcher] INFO  o.s.d.j.r.query.QueryEnhancerFactory               - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-17 22:19:58,871 [JavaFX-Launcher] INFO  o.springframework.boot.SpringApplication           - Started application in 2.329 seconds (process running for 3.136)
+2024-03-17 22:19:58,873 [fixed-thread-pool-0] INFO  c.canvasapp.task.startup.StartupTask               - Waiting for canvas api to init before running startup task
+2024-03-17 22:19:59,085 [JavaFX Application Thread] INFO  c.c.controller.view.PreferenceController           - Saving preference
+2024-03-17 22:19:59,123 [JavaFX Application Thread] INFO  c.c.controller.view.DashboardController            - Initializing dashboard view
+2024-03-17 22:19:59,123 [fixed-thread-pool-2] INFO  c.c.t.f.FetchSelectedCourseAnnouncementTask        - Fetching selected course annnouncement data from canvas
+2024-03-17 22:19:59,123 [fixed-thread-pool-1] INFO  c.c.t.f.FetchSelectedCourseAssignmentTask          - Fetching selected course assignments
+2024-03-17 22:19:59,123 [fixed-thread-pool-3] INFO  c.c.t.f.FetchSelectedCourseFolderTask              - Fetching selected course folder
+2024-03-17 22:19:59,191 [JavaFX Application Thread] INFO  c.c.controller.view.MainController                 - Main Controller initializing
+2024-03-17 22:19:59,196 [JavaFX Application Thread] INFO  c.c.controller.view.DashboardController            - Initializing dashboard view
+2024-03-17 22:20:00,694 [fixed-thread-pool-1] INFO  c.c.controller.view.DashboardController            - Initializing dashboard view
+2024-03-17 22:20:00,748 [fixed-thread-pool-3] INFO  c.c.t.f.FetchSelectedCourseFolderTask              - Fetched selected course folder
+2024-03-17 22:20:00,748 [fixed-thread-pool-4] INFO  c.c.t.fetch.FetchSelectedCourseFileTask            - Fetching selected course file
+2024-03-17 22:20:03,876 [fixed-thread-pool-5] INFO  c.canvasapp.task.fetch.FetchCourseTask             - Fetching courses data from canvas
+2024-03-17 22:20:05,395 [fixed-thread-pool-5] INFO  c.c.controller.view.DashboardController            - Initializing dashboard view
+2024-03-17 22:20:05,395 [fixed-thread-pool-6] INFO  c.c.t.f.FetchSelectedCourseAssignmentTask          - Fetching selected course assignments
+2024-03-17 22:20:05,395 [fixed-thread-pool-7] INFO  c.c.t.f.FetchSelectedCourseAnnouncementTask        - Fetching selected course annnouncement data from canvas
+2024-03-17 22:20:05,395 [fixed-thread-pool-2] INFO  c.c.t.f.FetchSelectedCourseFolderTask              - Fetching selected course folder
+2024-03-17 22:20:06,510 [fixed-thread-pool-2] INFO  c.c.t.f.FetchSelectedCourseFolderTask              - Fetched selected course folder
+2024-03-17 22:20:06,510 [fixed-thread-pool-1] INFO  c.c.t.fetch.FetchSelectedCourseFileTask            - Fetching selected course file
+2024-03-17 22:20:06,534 [fixed-thread-pool-6] INFO  c.c.controller.view.DashboardController            - Initializing dashboard view
+2024-03-17 22:20:13,879 [scheduled-thread-pool-0] INFO  c.c.t.fetch.SyncSelectedCourseFileTask             - Syncing 0 course files to base folder: C:\Users\kalvinkalvink\Downloads\canvas-course-sync
+2024-03-17 22:20:13,879 [scheduled-thread-pool-0] INFO  c.c.t.fetch.SyncSelectedCourseFileTask             - []
+2024-03-17 22:20:13,879 [scheduled-thread-pool-0] INFO  c.c.t.fetch.SyncSelectedCourseFileTask             - Sync selected course files complete
+2024-03-17 22:21:53,701 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-17 22:21:53,704 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource                 - HikariPool-1 - Shutdown initiated...
+2024-03-17 22:21:53,705 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource                 - HikariPool-1 - Shutdown completed.

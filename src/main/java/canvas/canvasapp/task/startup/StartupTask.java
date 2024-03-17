@@ -84,7 +84,7 @@ public class StartupTask implements Runnable {
 		// sync course data
 		int dataSyncInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.DATA_SYNC_INTERVAL, "300"));
 		FetchCourseTask fetchCourseTask = applicationContext.getBean(FetchCourseTask.class);
-		scheduledThreadPoolExecutor.scheduleTask(fetchCourseTask, 120, dataSyncInterval);
+		scheduledThreadPoolExecutor.scheduleTask(fetchCourseTask, dataSyncInterval, dataSyncInterval);
 
 	}
 

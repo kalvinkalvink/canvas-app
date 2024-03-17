@@ -1,0 +1,32 @@
+* {
+    /* normal */
+    -fx-tab-not-selected-color: white;
+    -fx-tab-background-color: #2e3c46;
+    /* pressed */
+    -fx-tab-selected-color: #0374b5;
+}
+
+#tabVBox {
+    -fx-background-color: -fx-tab-background-color;
+}
+
+/* normal style */
+.tab-button {
+    -fx-text-fill: -fx-tab-not-selected-color;
+    -fx-font-size: 9px;
+}
+
+.tab-button SVGPath  {
+    -fx-fill: white;
+}
+
+/* presses style */
+.tab-button-selected  {
+    -fx-font-size: 9px;
+    -fx-text-fill: -fx-tab-selected-color;
+    -fx-background-color: white;
+}
+
+.tab-button-selected SVGPath{
+    -fx-fill: -fx-tab-selected-color;
+}

@@ -167,7 +167,6 @@
         </dependency>
 
         <!-- pdf end -->
-
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext-core</artifactId>
@@ -179,12 +178,31 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
+        <!-- system notification -->
+        <dependency>
+            <groupId>com.sshtools</groupId>
+            <artifactId>two-slices-swt</artifactId>
+            <version>0.9.3</version>
+        </dependency>
+        <!-- system tray -->
+        <dependency>
+            <groupId>com.dustinredmond.fxtrayicon</groupId>
+            <artifactId>FXTrayIcon</artifactId>
+            <version>2.5.0</version>
+        </dependency>
         <!-- wix -->
         <dependency>
             <groupId>org.wixtoolset</groupId>
             <artifactId>wix-toolset</artifactId>
             <version>3.11.1</version>
             <type>pom</type>
+        </dependency>
+
+        <!-- plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.3.0</version>
         </dependency>
 
     </dependencies>
@@ -216,7 +234,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-5</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>

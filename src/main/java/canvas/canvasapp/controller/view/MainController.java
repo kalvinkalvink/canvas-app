@@ -21,22 +21,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Slf4j
 @Controller("mainController")
@@ -50,15 +46,10 @@ public class MainController {
 	FileService fileService;
 
 	// tab menu
-
-
-	@FXML
-	private Button dashboardTabButton;
-	@FXML
-	private Button courseTabBtn;
-	@FXML
-	private Button filesTabBtn;
 	private TAB currentTab;
+
+	@FXML
+	private VBox tabButtonVBox;
 
 	@Autowired
 	private PreferenceController preferenceController;
@@ -76,17 +67,7 @@ public class MainController {
 
 	@FXML
 	public void test(ActionEvent event) throws Exception {
-		String pptxPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture03.pptx";
-		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\lecture02.pdf";
-//		documentFormatConverterService.pptxToPdf(pptxPath, pdfPath);
-		Path path = Paths.get(pptxPath);
-		System.out.println("Basename:" + FilenameUtils.getBaseName(path.toString()));
-		System.out.println("extension:" + FilenameUtils.getExtension(path.toString()));
-
-
-//		String docPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.docx";
-//		String pdfPath = "C:\\Users\\kalvinkalvink\\Downloads\\56663496-Interim-report-1.pdf";
-		//		documentFormatConverterService.docToPdf(docPath, pdfPath);
+//		Toast.toast(ToastType.INFO, "Information", "Here is some information you cannot do without.");
 
 	}
 
@@ -106,14 +87,19 @@ public class MainController {
 	}
 
 	private void showTabContent(TAB tab) {
-//		if (currentTab != null && tab == currentTab) return;        // stop if current in that tab
 		this.currentTab = tab;
 		// switch tab button color
-		switch (tab) {
-			case DASHBOARD_TAB -> {
-				dashboardTabButton.setBackground(Background.fill(Paint.valueOf("ffffff")));
-			}
-		}
+		ObservableList<Node> tabVBoxChildren = tabButtonVBox.getChildren();
+		tabVBoxChildren.forEach(buttonNode -> {
+			Button tabButton = (Button) buttonNode;
+			tabButton.getStyleClass().remove("tab-button-selected");
+			tabButton.getStyleClass().remove("tab-button");
+
+			if (tabButton.getText().equals(tab.getName()))
+				tabButton.getStyleClass().add("tab-button-selected");
+			else
+				tabButton.getStyleClass().add("tab-button");
+		});
 
 		// clear and set content
 		ObservableList<Node> contentPaneChildren = this.tabContentStackPane.getChildren();
@@ -129,7 +115,7 @@ public class MainController {
 	@EventListener
 	private void courseListItemClickEventListener(CourseItemClickEvent courseItemClickEvent) {
 		log.debug("Course list item clicked: {}", courseItemClickEvent.getCourse().getName());
-		this.showTabContent(TAB.COURSE_TAB);
+		showTabContent(TAB.COURSE_TAB);
 	}
 
 	@FXML

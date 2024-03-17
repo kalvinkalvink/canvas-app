@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="canvas.canvasapp.controller.view.MainController">
     <children>
@@ -41,64 +40,59 @@
 
         <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="243.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
             <children>
-                <VBox prefWidth="50.0" style="-fx-background-color: #2e3c46;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
+            <StackPane fx:id="tabContentStackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <VBox fx:id="tabVBox" stylesheets="@../css/view/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
                         <ImageView id="canvas-logo" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#canvasLogoClicked" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/CanvasLogo.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="dashboardTabButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#showDashboardTab" prefHeight="50.0" prefWidth="50.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
-                            <graphic>
-                                <Group>
-                                    <children>
-                                        <SVGPath content="M273.09,180.75H197.47V164.47h62.62A122.16,122.16,0,1,0,17.85,142a124,124,0,0,0,2,22.51H90.18v16.29H6.89l-1.5-6.22A138.51,138.51,0,0,1,1.57,142C1.57,65.64,63.67,3.53,140,3.53S278.43,65.64,278.43,142a137.67,137.67,0,0,1-3.84,32.57ZM66.49,87.63,50.24,71.38,61.75,59.86,78,76.12Zm147,0L202,76.12l16.25-16.25,11.51,11.51ZM131.85,53.82v-23h16.29v23Zm15.63,142.3a31.71,31.71,0,0,1-28-16.81c-6.4-12.08-15.73-72.29-17.54-84.25a8.15,8.15,0,0,1,13.58-7.2c8.88,8.21,53.48,49.72,59.88,61.81a31.61,31.61,0,0,1-27.9,46.45ZM121.81,116.2c4.17,24.56,9.23,50.21,12,55.49A15.35,15.35,0,1,0,161,157.3C158.18,152,139.79,133.44,121.81,116.2Z" fill="WHITE" scaleX="0.1" scaleY="0.1" />
-                                    </children>
-                                </Group>
-                            </graphic>
-                            <font>
-                                <Font size="7.0" />
-                            </font>
-                            <padding>
-                                <Insets top="5.0" />
-                            </padding>
-                        </Button>
-                        <Button fx:id="courseTabBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#showCourseTab" prefHeight="50.0" prefWidth="50.0" text="Course" textAlignment="CENTER" textFill="WHITE">
-                            <graphic>
-                                <Group>
-                                    <children>
-                                        <SVGPath content="M73.31,198c-11.93,0-22.22,8-24,18.73a26.67,26.67,0,0,0-.3,3.63v.3a22,22,0,0,0,5.44,14.65,22.47,22.47,0,0,0,17.22,8H200V228.19h-134V213.08H200V198Zm21-105.74h90.64V62H94.3ZM79.19,107.34V46.92H200v60.42Zm7.55,30.21V122.45H192.49v15.11ZM71.65,16.71A22.72,22.72,0,0,0,49,39.36V190.88a41.12,41.12,0,0,1,24.32-8h157V16.71ZM33.88,39.36A37.78,37.78,0,0,1,71.65,1.6H245.36V198H215.15v45.32h22.66V258.4H71.65a37.85,37.85,0,0,1-37.76-37.76Z" fill="WHITE" scaleX="0.1" scaleY="0.1" />
-                                    </children>
-                                </Group>
-                            </graphic>
-                            <font>
-                                <Font size="7.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="filesTabBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#showFilesTab" prefHeight="50.0" prefWidth="50.0" text="Files" textAlignment="CENTER" textFill="WHITE">
-                            <graphic>
-                                <Group>
-                                    <children>
-                                        <SVGPath content="M0 96C0 60.7 28.7 32 64 32H196.1c19.1 0 37.4 7.6 50.9 21.1L289.9 96H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16H286.6c-10.6 0-20.8-4.2-28.3-11.7L213.1 87c-4.5-4.5-10.6-7-17-7H64z" fill="WHITE" scaleX="0.05" scaleY="0.05" />
-                                    </children>
-                                </Group>
-                            </graphic>
-                            <font>
-                                <Font size="7.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <padding>
-                                <Insets top="5.0" />
-                            </padding>
-                        </Button>
-                    </children>
-                </VBox>
-            <StackPane fx:id="tabContentStackPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      <VBox fx:id="tabButtonVBox" prefWidth="50.0">
+                          <children>
+                              <Button fx:id="dashboardTabButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#showDashboardTab" prefHeight="50.0" prefWidth="50.0" styleClass="tab-button" text="Dashboard">
+                                  <graphic>
+                                      <Group>
+                                          <children>
+                                              <SVGPath content="M273.09,180.75H197.47V164.47h62.62A122.16,122.16,0,1,0,17.85,142a124,124,0,0,0,2,22.51H90.18v16.29H6.89l-1.5-6.22A138.51,138.51,0,0,1,1.57,142C1.57,65.64,63.67,3.53,140,3.53S278.43,65.64,278.43,142a137.67,137.67,0,0,1-3.84,32.57ZM66.49,87.63,50.24,71.38,61.75,59.86,78,76.12Zm147,0L202,76.12l16.25-16.25,11.51,11.51ZM131.85,53.82v-23h16.29v23Zm15.63,142.3a31.71,31.71,0,0,1-28-16.81c-6.4-12.08-15.73-72.29-17.54-84.25a8.15,8.15,0,0,1,13.58-7.2c8.88,8.21,53.48,49.72,59.88,61.81a31.61,31.61,0,0,1-27.9,46.45ZM121.81,116.2c4.17,24.56,9.23,50.21,12,55.49A15.35,15.35,0,1,0,161,157.3C158.18,152,139.79,133.44,121.81,116.2Z" scaleX="0.1" scaleY="0.1" />
+                                          </children>
+                                      </Group>
+                                  </graphic>
+                                  <padding>
+                                      <Insets top="5.0" />
+                                  </padding>
+                              </Button>
+                              <Button fx:id="courseTabBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#showCourseTab" prefHeight="50.0" prefWidth="50.0" styleClass="tab-button" text="Course">
+                                  <graphic>
+                                      <Group>
+                                          <children>
+                                              <SVGPath content="M73.31,198c-11.93,0-22.22,8-24,18.73a26.67,26.67,0,0,0-.3,3.63v.3a22,22,0,0,0,5.44,14.65,22.47,22.47,0,0,0,17.22,8H200V228.19h-134V213.08H200V198Zm21-105.74h90.64V62H94.3ZM79.19,107.34V46.92H200v60.42Zm7.55,30.21V122.45H192.49v15.11ZM71.65,16.71A22.72,22.72,0,0,0,49,39.36V190.88a41.12,41.12,0,0,1,24.32-8h157V16.71ZM33.88,39.36A37.78,37.78,0,0,1,71.65,1.6H245.36V198H215.15v45.32h22.66V258.4H71.65a37.85,37.85,0,0,1-37.76-37.76Z" scaleX="0.1" scaleY="0.1" />
+                                          </children>
+                                      </Group>
+                                  </graphic>
+                                  <VBox.margin>
+                                      <Insets />
+                                  </VBox.margin>
+                              </Button>
+                              <Button fx:id="filesTabBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#showFilesTab" prefHeight="50.0" prefWidth="50.0" styleClass="tab-button" text="Files">
+                                  <graphic>
+                                      <Group>
+                                          <children>
+                                              <SVGPath content="M0 96C0 60.7 28.7 32 64 32H196.1c19.1 0 37.4 7.6 50.9 21.1L289.9 96H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16H286.6c-10.6 0-20.8-4.2-28.3-11.7L213.1 87c-4.5-4.5-10.6-7-17-7H64z" scaleX="0.05" scaleY="0.05" />
+                                          </children>
+                                      </Group>
+                                  </graphic>
+                                  <VBox.margin>
+                                      <Insets />
+                                  </VBox.margin>
+                                  <padding>
+                                      <Insets top="5.0" />
+                                  </padding>
+                              </Button>
+                          </children>
+                      </VBox>
+               </children>
+            </VBox>
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="15.0" prefWidth="200.0" />
