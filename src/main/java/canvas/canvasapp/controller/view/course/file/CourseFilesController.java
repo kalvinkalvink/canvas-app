@@ -113,7 +113,6 @@ public class CourseFilesController {
 					CanvasApp.hostServices.showDocument(systemFile.getPath());
 				}
 			});
-
 		});
 		openFolderMenuItem.setOnAction(e -> {
 			Optional<java.io.File> optionalTreeViewSelectedItemFile = getTreeViewSelectedItemFile();
