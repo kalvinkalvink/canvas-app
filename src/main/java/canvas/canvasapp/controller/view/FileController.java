@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -32,11 +30,38 @@ public class FileController {
 
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+	// context menu
+	private final ContextMenu folderContextMenu = new ContextMenu();
+	private final ContextMenu fileContextMenu = new ContextMenu();
 
 	@FXML
 	private void initialize() {
-		fileTreeView.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
+		setupContextMenu();
+		setupCellFactory();
+	}
 
+	private void setupContextMenu() {
+		// folder
+		MenuItem openFolderMenuItem = new MenuItem("open folder");
+		// file
+		MenuItem openFileMenuItem = new MenuItem("open file");
+		MenuItem convertToPdfMenuItem = new MenuItem("convert to pdf");
+
+		// set context menu function //
+		// folder
+		openFolderMenuItem.setOnAction(event -> System.out.println("open folder"));
+		// file
+		openFileMenuItem.setOnAction(event -> System.out.println("open file"));
+		convertToPdfMenuItem.setOnAction(event -> System.out.println("convert to pdf"));
+
+		// add menu item to context menu
+		folderContextMenu.getItems().addAll(openFolderMenuItem);
+		fileContextMenu.getItems().addAll(openFileMenuItem, convertToPdfMenuItem);
+	}
+
+
+	private void setupCellFactory() {
+		fileTreeView.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
 			@Override
 			public TreeCell<File> call(TreeView<File> fileTreeView) {
 				TreeCell<File> fileTreeCell = new TreeCell<>() {
@@ -44,24 +69,32 @@ public class FileController {
 					protected void updateItem(File file, boolean empty) {
 						super.updateItem(file, empty);
 						setText((empty || file == null) ? "" : file.getName());
+						if (Objects.nonNull(file) && file.isFile()) {        // leaf
+							setContextMenu(fileContextMenu);
+							setOnMouseClicked(new EventHandler<MouseEvent>() {
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+										File file = getTreeItem().getValue();
+										if (file.exists() && file.isFile()) {
+											CanvasApp.hostServices.showDocument(file.getPath());
+										}
+									}
+								}
+							});
+						} else {        // folder node
+							setContextMenu(folderContextMenu);
+						}
 					}
 				};
 				// setting on click action
-				fileTreeCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent mouseEvent) {
-						if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
-							File file = fileTreeCell.getTreeItem().getValue();
-							if (file.exists() && file.isFile()) {
-								CanvasApp.hostServices.showDocument(file.getPath());
-							}
-						}
-					}
-				});
 				return fileTreeCell;
 			}
 		});
 		String syncFolderBasePath = FilenameUtils.separatorsToSystem(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, ""));
+		if (syncFolderBasePath.isEmpty()) {    // don't show root directory when no sync path is selected
+			return;
+		}
 		File rootFile = new File(syncFolderBasePath);
 		TreeItem<File> rootNode = createNode(rootFile);
 		fileTreeView.setRoot(rootNode);

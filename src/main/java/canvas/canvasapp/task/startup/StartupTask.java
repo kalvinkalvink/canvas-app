@@ -5,6 +5,8 @@ import canvas.canvasapp.task.executor.FixedThreadPoolExecutor;
 import canvas.canvasapp.task.executor.ScheduledThreadPoolExecutor;
 import canvas.canvasapp.task.executor.SingleThreadPoolExecutor;
 import canvas.canvasapp.task.fetch.FetchCourseTask;
+import canvas.canvasapp.task.fetch.FetchSelectedCourseAnnouncementTask;
+import canvas.canvasapp.task.fetch.FetchSelectedCourseAssignmentTask;
 import canvas.canvasapp.task.fetch.SyncSelectedCourseFileTask;
 import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.util.CanvasApi;
@@ -83,9 +85,11 @@ public class StartupTask implements Runnable {
 		scheduledThreadPoolExecutor.scheduleTask(syncSelectedCourseFileTask, 10, courseFileSyncTimeInterval);// schedule at 5 mins
 		// sync course data
 		int dataSyncInterval = Integer.parseInt(canvasPreferenceService.get(AppSetting.DATA_SYNC_INTERVAL, "300"));
-		FetchCourseTask fetchCourseTask = applicationContext.getBean(FetchCourseTask.class);
-		scheduledThreadPoolExecutor.scheduleTask(fetchCourseTask, dataSyncInterval, dataSyncInterval);
-
+		// schedule fetch announcement and assignemnt
+		FetchSelectedCourseAssignmentTask fetchSelectedCourseAssignmentTask = applicationContext.getBean(FetchSelectedCourseAssignmentTask.class);
+		FetchSelectedCourseAnnouncementTask fetchSelectedCourseAnnouncementTask = applicationContext.getBean(FetchSelectedCourseAnnouncementTask.class);
+		scheduledThreadPoolExecutor.scheduleTask(fetchSelectedCourseAssignmentTask, dataSyncInterval, dataSyncInterval);
+		scheduledThreadPoolExecutor.scheduleTask(fetchSelectedCourseAnnouncementTask, dataSyncInterval, dataSyncInterval);
 	}
 
 

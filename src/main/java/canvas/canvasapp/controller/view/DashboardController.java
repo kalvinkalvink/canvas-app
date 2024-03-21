@@ -52,7 +52,7 @@ public class DashboardController {
 				new Text("Course selected do not have assignments")
 		);
 		assigmentListView.setPlaceholder(noAssignmentPlaceHolderVBox);
-		assigmentListView.setMouseTransparent(true);
+//		assigmentListView.setMouseTransparent(true);
 		initView();
 	}
 
@@ -88,12 +88,9 @@ public class DashboardController {
 					byDateCardFxControllerAndView.getView().ifPresentOrElse(assigmentListView.getItems()::add, () -> {
 						log.error("Error while loading By date car view for course.");
 					});
-
 				}
 			});
 		});
-
-
 	}
 
 	@EventListener

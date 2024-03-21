@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
@@ -47,12 +48,15 @@ public class CourseFilesController {
 
 	private Course selectedCourse;
 
+
 	@FXML
 	private void initialize() {
 		this.selectedCourse = courseViewService.getCourse();
 		String syncFolderBasePath = FilenameUtils.separatorsToSystem(canvasPreferenceService.get(AppSetting.COURSE_SYNC_FOLDER_PATH, ""));
+
 		setupCellFactory();
 	}
+
 
 	private void setupCellFactory() {
 		// setting treeview cell factory
@@ -64,12 +68,25 @@ public class CourseFilesController {
 					protected void updateItem(CourseTreeViewItem courseTreeViewItem, boolean empty) {
 						super.updateItem(courseTreeViewItem, empty);
 						setText((empty || courseTreeViewItem == null) ? "" : courseTreeViewItem.getName());
+						if (Objects.nonNull(courseTreeViewItem) && Objects.nonNull(courseTreeViewItem.getCanvasFile())) {
+							setOnMouseClicked(new EventHandler<MouseEvent>() {
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2) {
+										File canvasFile = courseTreeViewItem.getCanvasFile();
+
+										Path systemFilePath = courseFileHelper.courseFileToSystemFile(selectedCourse, canvasFile);
+										java.io.File systemFile = systemFilePath.toFile();
+										if (systemFile.exists() && systemFile.isFile()) {
+											CanvasApp.hostServices.showDocument(systemFile.getPath());
+										}
+									}
+								}
+							});
+						}
+
 					}
 				};
-//				if(fileTreeCell.getTreeItem().isLeaf()){	// only leaf file have context menu
-//					setTreeViewCellOnClick(fileTreeCell);
-//					setTreeViewCellContedtmenu(fileTreeCell);
-//				}
 				return fileTreeCell;
 			}
 		});
@@ -79,23 +96,6 @@ public class CourseFilesController {
 		filesTreeView.setShowRoot(false);
 	}
 
-	private void setTreeViewCellOnClick(TreeCell<CourseTreeViewItem> fileTreeCell) {
-		fileTreeCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
-					System.out.println("clicked");
-					File canvasFile = fileTreeCell.getTreeItem().getValue().getCanvasFile();
-
-					Path systemFilePath = courseFileHelper.courseFileToSystemFile(selectedCourse, canvasFile);
-					java.io.File systemFile = systemFilePath.toFile();
-					if (systemFile.exists() && systemFile.isFile()) {
-						CanvasApp.hostServices.showDocument(systemFile.getPath());
-					}
-				}
-			}
-		});
-	}
 
 	private void setTreeViewCellContedtmenu(TreeCell<CourseTreeViewItem> fileTreeCell) {
 		ContextMenu fileTreeViewcontextMenu = new ContextMenu();
@@ -179,6 +179,4 @@ public class CourseFilesController {
 			});
 		}
 	}
-
-
 }

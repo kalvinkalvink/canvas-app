@@ -118,7 +118,6 @@ public class PreferenceController {
 				startSavedPreference = true;
 			}
 		});
-
 	}
 
 	private void savePreferenceToPref() {
