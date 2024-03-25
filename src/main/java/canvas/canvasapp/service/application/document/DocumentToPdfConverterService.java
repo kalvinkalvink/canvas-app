@@ -1,5 +1,6 @@
-package canvas.canvasapp.helpers;
+package canvas.canvasapp.service.application.document;
 
+import canvas.canvasapp.helpers.DocTypeHelper;
 import canvas.canvasapp.lib.document.DocToPDFConverter;
 import canvas.canvasapp.lib.document.DocxToPDFConverter;
 import canvas.canvasapp.lib.document.PptToPDFConverter;
@@ -16,25 +17,27 @@ import java.io.FileOutputStream;
 
 @Slf4j
 @Service
-public class DocumentToPdfConverter {
+public class DocumentToPdfConverterService {
 	@Autowired
 	private DocTypeHelper docTypeHelper;
+
 	@Async
 	public void convertDocumentToPdf(String sourceFilePath) throws Exception {
 		// inplace conversion
 		convertDocumentToPdf(sourceFilePath, FilenameUtils.removeExtension(sourceFilePath) + ".pdf");
 	}
+
 	@Async
 	public void convertDocumentToPdf(String sourceFilePath, String destFilePath) throws Exception {
 		File sourceFile = new File(sourceFilePath);
 		File destFile = new File(destFilePath);
 		// skip if desk pdf exist
-		if(!destFile.isDirectory()&&destFile.exists()){
+		if (!destFile.isDirectory() && destFile.exists()) {
 			log.debug("Skipping pdf conversion because '{}' already exist", destFilePath);
 			return;
 		}
 		// skip if not document file
-		if (!docTypeHelper.isOfficeDocument(sourceFilePath)) {
+		if (!isExtensionSupprted(sourceFilePath)) {
 			log.error("Document to pdf convert not supported for {}", sourceFilePath);
 			return;
 		}
@@ -52,5 +55,9 @@ public class DocumentToPdfConverter {
 		} else if (docTypeHelper.isPptx(sourceFilePath)) {
 			new PptxToPDFConverter(fileInputStream, fileOutputStream, true, true).convert();
 		}
+	}
+
+	public boolean isExtensionSupprted(String fileName) {
+		return docTypeHelper.isOfficeDocument(fileName);
 	}
 }

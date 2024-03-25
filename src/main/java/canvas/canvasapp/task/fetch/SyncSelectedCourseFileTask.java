@@ -1,7 +1,7 @@
 package canvas.canvasapp.task.fetch;
 
 import canvas.canvasapp.helpers.CourseFileHelper;
-import canvas.canvasapp.helpers.DocumentToPdfConverter;
+import canvas.canvasapp.service.application.document.DocumentToPdfConverterService;
 import canvas.canvasapp.model.db.Course;
 import canvas.canvasapp.model.db.File;
 import canvas.canvasapp.service.application.CanvasFileService;
@@ -35,7 +35,7 @@ public class SyncSelectedCourseFileTask implements Runnable {
 	@Autowired
 	private CanvasApi canvasApi;
 	@Autowired
-	private DocumentToPdfConverter documentToPdfConverter;
+	private DocumentToPdfConverterService documentToPdfConverterService;
 	@Autowired
 	private CourseFileHelper courseFileHelper;
 
@@ -72,7 +72,7 @@ public class SyncSelectedCourseFileTask implements Runnable {
 							downloadFileCompletableFuture.thenAccept((Void) -> {
 								if (canvasPreferenceService.get(AppSetting.AUTO_CONVERT_DOC_TO_PDF, false) && FileTypeUtils.isDoc(destinationPath)) {
 									try {
-										documentToPdfConverter.convertDocumentToPdf(destinationPath);
+										documentToPdfConverterService.convertDocumentToPdf(destinationPath);
 									} catch (Exception e) {
 										log.error(String.format("Error while converting document '%s' to pdf", destinationPath), e);
 									}

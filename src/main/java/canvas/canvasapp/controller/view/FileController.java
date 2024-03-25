@@ -2,12 +2,14 @@ package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.CanvasApp;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
+import canvas.canvasapp.service.application.document.DocumentToPdfConverterService;
 import canvas.canvasapp.type.application.AppSetting;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class FileController {
 
 	@Autowired
 	private CanvasPreferenceService canvasPreferenceService;
+	@Autowired
+	private DocumentToPdfConverterService documentToPdfConverterService;
 	// context menu
 	private final ContextMenu folderContextMenu = new ContextMenu();
 	private final ContextMenu fileContextMenu = new ContextMenu();
@@ -41,6 +45,9 @@ public class FileController {
 	}
 
 	private void setupContextMenu() {
+		// reset all context menu
+		folderContextMenu.getItems().clear();
+		fileContextMenu.getItems().clear();
 		// folder
 		MenuItem openFolderMenuItem = new MenuItem("open folder");
 		// file
@@ -49,10 +56,32 @@ public class FileController {
 
 		// set context menu function //
 		// folder
-		openFolderMenuItem.setOnAction(event -> System.out.println("open folder"));
+		openFolderMenuItem.setOnAction(event -> {
+			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
+			CanvasApp.hostServices.showDocument(file.getPath());
+		});
 		// file
-		openFileMenuItem.setOnAction(event -> System.out.println("open file"));
-		convertToPdfMenuItem.setOnAction(event -> System.out.println("convert to pdf"));
+		openFileMenuItem.setOnAction(event -> {
+			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
+			CanvasApp.hostServices.showDocument(file.getPath());
+		});
+		convertToPdfMenuItem.setOnAction(event -> {
+			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
+
+			// check if file extension is supported for conversion
+			if (!documentToPdfConverterService.isExtensionSupprted(file.getName())) {
+				log.error("File extension {} conversion not supported", file.getName());
+				return;
+			}
+			// get file parent folder
+			String parent = file.getParent();
+			// convert to pdf in place
+			try {
+				documentToPdfConverterService.convertDocumentToPdf(file.getPath());
+			} catch (Exception e) {
+				log.error(String.format("Failed to convert %s to pdf", file.getPath()), e);
+			}
+		});
 
 		// add menu item to context menu
 		folderContextMenu.getItems().addAll(openFolderMenuItem);
@@ -74,7 +103,7 @@ public class FileController {
 							setOnMouseClicked(new EventHandler<MouseEvent>() {
 								@Override
 								public void handle(MouseEvent mouseEvent) {
-									if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2) {
+									if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2) {
 										File file = getTreeItem().getValue();
 										if (file.exists() && file.isFile()) {
 											CanvasApp.hostServices.showDocument(file.getPath());
