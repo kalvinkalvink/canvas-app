@@ -1,6 +1,6 @@
 package canvas.canvasapp.helpers;
 
-import canvas.canvasapp.type.doc.DocType;
+import canvas.canvasapp.type.file.EXTENSION;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +12,22 @@ public class DocTypeHelper {
 
 	public boolean isDoc(String filename) {
 		String extension = FilenameUtils.getExtension(filename).toLowerCase();
-		return extension.equals(DocType.DOC.toString());
+		return extension.equals(EXTENSION.DOC.toString());
 	}
 
 	public boolean isDocx(String filename) {
 		String extension = FilenameUtils.getExtension(filename).toLowerCase();
-		return extension.equals(DocType.DOCX.toString());
+		return extension.equals(EXTENSION.DOCX.toString());
 	}
 
 	public boolean isPpt(String filename) {
 		String extension = FilenameUtils.getExtension(filename).toLowerCase();
-		return extension.equals(DocType.PPT.toString());
+		return extension.equals(EXTENSION.PPT.toString());
 	}
 
 	public boolean isPptx(String filename) {
 		String extension = FilenameUtils.getExtension(filename).toLowerCase();
-		return extension.equals(DocType.PPTX.toString());
+		return extension.equals(EXTENSION.PPTX.toString());
 	}
 
 	public boolean isMsDoc(String fileName) {

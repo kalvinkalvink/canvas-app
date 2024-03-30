@@ -1,6 +1,6 @@
 package canvas.canvasapp.util;
 
-import canvas.canvasapp.type.doc.DocType;
+import canvas.canvasapp.type.file.EXTENSION;
 import org.apache.commons.io.FilenameUtils;
 
 public class FileTypeUtils {
@@ -10,11 +10,11 @@ public class FileTypeUtils {
 
 	public static boolean isWord(String path) {
 		String extesion = FilenameUtils.getExtension(path);
-		return extesion.equals(DocType.DOCX.toString()) || extesion.equals(DocType.DOC.toString());
+		return extesion.equals(EXTENSION.DOCX.toString()) || extesion.equals(EXTENSION.DOC.toString());
 	}
 
 	public static boolean isPpt(String path) {
 		String extesion = FilenameUtils.getExtension(path);
-		return extesion.equals(DocType.PPTX.toString()) || extesion.equals(DocType.PPT.toString());
+		return extesion.equals(EXTENSION.PPTX.toString()) || extesion.equals(EXTENSION.PPT.toString());
 	}
 }

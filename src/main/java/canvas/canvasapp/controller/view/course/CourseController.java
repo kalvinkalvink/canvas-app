@@ -1,13 +1,17 @@
 package canvas.canvasapp.controller.view.course;
 
+import canvas.canvasapp.CanvasApp;
 import canvas.canvasapp.controller.view.course.announcement.CourseAnnouncementController;
 import canvas.canvasapp.controller.view.course.assignment.CourseAssignmentController;
 import canvas.canvasapp.controller.view.course.file.CourseFilesController;
 import canvas.canvasapp.model.db.Course;
+import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.database.CourseService;
 import canvas.canvasapp.service.view.course.CourseViewService;
+import canvas.canvasapp.type.application.AppSetting;
 import canvas.canvasapp.type.view.course.CoursePage;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,9 +31,11 @@ public class CourseController {
 	private final CoursePage currentPage = null;
 
 	@Autowired
-	CourseViewService courseViewService;
+	private CanvasPreferenceService canvasPreferenceService;
 	@Autowired
-	CourseService courseService;
+	private CourseViewService courseViewService;
+	@Autowired
+	private CourseService courseService;
 	@FXML
 	Text courseNameText;
 	@FXML
@@ -40,6 +46,8 @@ public class CourseController {
 	Button fileButton;
 	@FXML
 	StackPane courseContentStackPane;
+	@FXML
+	public Button openCoursePageButton;
 	private final FxWeaver fxWeaver;
 
 	public CourseController(FxWeaver fxWeaver) {
@@ -75,5 +83,12 @@ public class CourseController {
 			case ASSIGNMENT -> stackPaneChildren.add(fxWeaver.loadView(CourseAssignmentController.class));
 			case FILE -> stackPaneChildren.add(fxWeaver.loadView(CourseFilesController.class));
 		}
+	}
+
+	public void openCoursePageButtonClicked(ActionEvent event) {
+		String canvasBaseUrl = canvasPreferenceService.get(AppSetting.CANVAS_BASE_URL, "");
+		Course course = courseViewService.getCourse();
+		String courseLink = canvasBaseUrl + "/courses/" + course.getId();
+		CanvasApp.hostServices.showDocument(courseLink);
 	}
 }

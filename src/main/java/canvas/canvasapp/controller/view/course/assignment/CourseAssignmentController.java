@@ -146,7 +146,8 @@ public class CourseAssignmentController {
 
 	@EventListener
 	public void assignmentUpdatedEventListener(AssignmentUpdatedEvent assignmentUpdatedEvent) {
-		if (Objects.isNull(courseViewService.getCourse())) return;    // no course selected
+		if (Objects.isNull(courseViewService.getCourse()) || Objects.isNull(upcomingAssignmentTiledPane))
+			return;    // no course selected
 		log.debug("Updating course assignment because course table updated");
 		initView();
 	}

@@ -1,7 +1,6 @@
 package canvas.canvasapp.controller.view.course.assignment;
 
 import canvas.canvasapp.CanvasApp;
-import canvas.canvasapp.model.application.network.HttpResponse;
 import canvas.canvasapp.service.application.CanvasFileService;
 import canvas.canvasapp.util.CanvasApi;
 import canvas.canvasapp.util.DateFormatterUtil;
@@ -9,27 +8,20 @@ import edu.ksu.canvas.model.assignment.Assignment;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 @Slf4j
 @FxmlView("/view/component/course/assignment/course-assignment-details.fxml")
@@ -93,31 +85,32 @@ public class CourseAssignmentDetailsController {
 
 	@FXML
 	void submitButtonClicked() {
+		CanvasApp.hostServices.showDocument(assignment.getHtmlUrl());
 		// show choose file menu
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Choose Assignment File");
-		File file = fileChooser.showOpenDialog(null);
-
-		// upload file
-		try {
-			Future<HttpResponse> submitAssignmentFuture = canvasFileService.submitAssignment(file, assignment.getCourseId(), assignment.getId().toString());
-			HttpResponse uploadAssignemntClosableHttpResponse = submitAssignmentFuture.get();
-			int statusCode = uploadAssignemntClosableHttpResponse.getStatusCode();
-			Alert uploadAssignmentAlert = new Alert(Alert.AlertType.INFORMATION);
-			uploadAssignmentAlert.setTitle("upload Assignment");
-			if (statusCode >= 200 && statusCode < 300) {
-				uploadAssignmentAlert.setHeaderText("Upload assignment successfully");
-				uploadAssignmentAlert.setContentText("Upload success");
-			} else {
-				uploadAssignmentAlert.setAlertType(Alert.AlertType.ERROR);
-				uploadAssignmentAlert.setHeaderText("Upload assignment failed");
-				String response = EntityUtils.toString(uploadAssignemntClosableHttpResponse.getHttpEntity());
-				uploadAssignmentAlert.setContentText(response);
-			}
-
-			uploadAssignmentAlert.showAndWait();
-		} catch (InterruptedException | ExecutionException | IOException e) {
-			log.error(String.format("Error while trying to upload assignemnt %s file", assignment.getName()), e);
-		}
+//		FileChooser fileChooser = new FileChooser();
+//		fileChooser.setTitle("Choose Assignment File");
+//		File file = fileChooser.showOpenDialog(null);
+//
+//		// upload file
+//		try {
+//			Future<HttpResponse> submitAssignmentFuture = canvasFileService.submitAssignment(file, assignment.getCourseId(), assignment.getId().toString());
+//			HttpResponse uploadAssignemntClosableHttpResponse = submitAssignmentFuture.get();
+//			int statusCode = uploadAssignemntClosableHttpResponse.getStatusCode();
+//			Alert uploadAssignmentAlert = new Alert(Alert.AlertType.INFORMATION);
+//			uploadAssignmentAlert.setTitle("upload Assignment");
+//			if (statusCode >= 200 && statusCode < 300) {
+//				uploadAssignmentAlert.setHeaderText("Upload assignment successfully");
+//				uploadAssignmentAlert.setContentText("Upload success");
+//			} else {
+//				uploadAssignmentAlert.setAlertType(Alert.AlertType.ERROR);
+//				uploadAssignmentAlert.setHeaderText("Upload assignment failed");
+//				String response = EntityUtils.toString(uploadAssignemntClosableHttpResponse.getHttpEntity());
+//				uploadAssignmentAlert.setContentText(response);
+//			}
+//
+//			uploadAssignmentAlert.showAndWait();
+//		} catch (InterruptedException | ExecutionException | IOException e) {
+//			log.error(String.format("Error while trying to upload assignemnt %s file", assignment.getName()), e);
+//		}
 	}
 }

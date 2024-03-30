@@ -39,7 +39,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="20.0" layoutY="180.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0">
+      <VBox layoutX="20.0" layoutY="180.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
                <font>

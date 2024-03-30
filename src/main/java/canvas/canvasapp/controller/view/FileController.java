@@ -1,9 +1,13 @@
 package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.CanvasApp;
+import canvas.canvasapp.helpers.DocTypeHelper;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.application.document.DocumentToPdfConverterService;
 import canvas.canvasapp.type.application.AppSetting;
+import com.dlsc.preferencesfx.view.FilterableTreeItem;
+import com.sshtools.twoslices.Toast;
+import com.sshtools.twoslices.ToastType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -34,9 +38,16 @@ public class FileController {
 	private CanvasPreferenceService canvasPreferenceService;
 	@Autowired
 	private DocumentToPdfConverterService documentToPdfConverterService;
+	@Autowired
+	private DocTypeHelper docTypeHelper;
+
+	private FilterableTreeItem<File> fileTreeRoot;
+
 	// context menu
+	// folder
 	private final ContextMenu folderContextMenu = new ContextMenu();
 	private final ContextMenu fileContextMenu = new ContextMenu();
+	private final ContextMenu officeDocumentFileContextMenu = new ContextMenu();
 
 	@FXML
 	private void initialize() {
@@ -45,47 +56,91 @@ public class FileController {
 	}
 
 	private void setupContextMenu() {
+		setupFolderContextmenu();
+		setupFileContextMenu();
+		setupOfficeDocumentContextMenu();
+	}
+
+	private void setupFolderContextmenu() {
 		// reset all context menu
 		folderContextMenu.getItems().clear();
-		fileContextMenu.getItems().clear();
-		// folder
-		MenuItem openFolderMenuItem = new MenuItem("open folder");
-		// file
-		MenuItem openFileMenuItem = new MenuItem("open file");
-		MenuItem convertToPdfMenuItem = new MenuItem("convert to pdf");
 
+		MenuItem openFolderMenuItem = new MenuItem("open folder");
 		// set context menu function //
-		// folder
 		openFolderMenuItem.setOnAction(event -> {
 			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
 			CanvasApp.hostServices.showDocument(file.getPath());
 		});
-		// file
-		openFileMenuItem.setOnAction(event -> {
-			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
-			CanvasApp.hostServices.showDocument(file.getPath());
+		folderContextMenu.getItems().addAll(openFolderMenuItem);
+	}
+
+	private void setupFileContextMenu() {
+		// reset all context menu
+		fileContextMenu.getItems().clear();
+		MenuItem deleteFileMenuItem = new MenuItem("delete");
+		deleteFileMenuItem.setOnAction(event -> {
+			MultipleSelectionModel<TreeItem<File>> fileTreeViewSelectionModel = fileTreeView.getSelectionModel();
+			File file = fileTreeViewSelectionModel.getSelectedItem().getValue();
+			log.trace("Deleting file {}", file.getName());
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + file.getName() + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+			alert.showAndWait();
+			if (alert.getResult() == ButtonType.YES) {    // delete file
+				boolean fileDeleted = file.delete();
+				if (fileDeleted) {
+					TreeItem<File> selectedItem = fileTreeViewSelectionModel.getSelectedItem();
+					selectedItem.getParent().getChildren().remove(selectedItem);
+					log.trace("File {} deleted", file.getName());
+				} else {
+					log.trace("Failed to delete file {}", file.getName());
+				}
+			}
+		});
+		fileContextMenu.getItems().addAll(deleteFileMenuItem);
+	}
+
+	private void setupOfficeDocumentContextMenu() {
+		// reset all context menu
+		officeDocumentFileContextMenu.getItems().clear();
+
+		MenuItem deleteFileMenuItem = new MenuItem("delete");
+		MenuItem convertToPdfMenuItem = new MenuItem("convert to pdf");
+
+		deleteFileMenuItem.setOnAction(event -> {
+			MultipleSelectionModel<TreeItem<File>> fileTreeViewSelectionModel = fileTreeView.getSelectionModel();
+			File file = fileTreeViewSelectionModel.getSelectedItem().getValue();
+			log.trace("Deleting file {}", file.getName());
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + file.getName() + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+			alert.showAndWait();
+			if (alert.getResult() == ButtonType.YES) {    // delete file
+				boolean fileDeleted = file.delete();
+				if (fileDeleted) {
+					TreeItem<File> selectedItem = fileTreeViewSelectionModel.getSelectedItem();
+					selectedItem.getParent().getChildren().remove(selectedItem);
+					log.trace("File {} deleted", file.getName());
+				} else {
+					log.trace("Failed to delete file {}", file.getName());
+				}
+			}
 		});
 		convertToPdfMenuItem.setOnAction(event -> {
 			File file = fileTreeView.getSelectionModel().getSelectedItem().getValue();
-
+			log.trace("Converting {} to pdf", file.getName());
 			// check if file extension is supported for conversion
 			if (!documentToPdfConverterService.isExtensionSupprted(file.getName())) {
 				log.error("File extension {} conversion not supported", file.getName());
 				return;
 			}
-			// get file parent folder
-			String parent = file.getParent();
-			// convert to pdf in place
+			Toast.toast(ToastType.INFO, "PDF Converter", String.format("Converting %s to PDF", file.getName()));
 			try {
+				// convert to pdf in place
 				documentToPdfConverterService.convertDocumentToPdf(file.getPath());
+				setupCellFactory();
 			} catch (Exception e) {
 				log.error(String.format("Failed to convert %s to pdf", file.getPath()), e);
 			}
-		});
 
-		// add menu item to context menu
-		folderContextMenu.getItems().addAll(openFolderMenuItem);
-		fileContextMenu.getItems().addAll(openFileMenuItem, convertToPdfMenuItem);
+		});
+		officeDocumentFileContextMenu.getItems().addAll(convertToPdfMenuItem, deleteFileMenuItem);
 	}
 
 
@@ -99,7 +154,12 @@ public class FileController {
 						super.updateItem(file, empty);
 						setText((empty || file == null) ? "" : file.getName());
 						if (Objects.nonNull(file) && file.isFile()) {        // leaf
-							setContextMenu(fileContextMenu);
+
+							if (docTypeHelper.isOfficeDocument(file.getName())) {    // document file
+								setContextMenu(officeDocumentFileContextMenu);
+							} else {
+								setContextMenu(fileContextMenu);
+							}
 							setOnMouseClicked(new EventHandler<MouseEvent>() {
 								@Override
 								public void handle(MouseEvent mouseEvent) {

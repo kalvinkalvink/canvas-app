@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class UserGuideController {
 	private List<Guide> guideList;
 	private Guide selectedGuide;
 	private int currentImageGuideIndex;
-	private List<InputStream> guideImageList;
+	private int currentImageListLen;
 
 	public UserGuideController() throws URISyntaxException, IOException {
 		// setup guide
@@ -80,7 +79,7 @@ public class UserGuideController {
 		// scan guide folder for guide
 
 		selectedGuide = guideList.getFirst();
-		guideImageList = getGuideImageList(selectedGuide);
+//		guideImageList = getGuideImageList(selectedGuide);
 		currentImageGuideIndex = 0;
 	}
 
@@ -96,16 +95,8 @@ public class UserGuideController {
 			guideButton.setOnAction(event -> {
 				// set current selected guide
 				selectedGuide = guide;
-				try {
-					// scan guide folder for guide
-					guideImageList = getGuideImageList(guide);
-					// set init guide image
-					if (!guideImageList.isEmpty()) {        // display image if not empty
-						displayImage();
-					}
-				} catch (IOException | URISyntaxException e) {
-					log.error(String.format("Failed to load %s image %d", guide.getName(), currentImageGuideIndex), e);
-				}
+				currentImageGuideIndex = 0;
+				displayImage();
 			});
 			guideListVBox.getChildren().add(guideButton);
 			setImageZoom();
@@ -133,31 +124,28 @@ public class UserGuideController {
 
 	}
 
-	private List<InputStream> getGuideImageList(Guide guide) throws URISyntaxException, IOException {
-		ArrayList<InputStream> fileList = new ArrayList<>();
+
+	private void displayImage() {
+//		if (guideImageList.isEmpty()) {
+//			log.warn("No guide image for guide {}", selectedGuide.getName());
+//			return;
+//		}
+		log.trace("Displaying guide image {}", currentImageGuideIndex);
+
+		ResourcePatternResolver resourcePatternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
 		try {
-			ResourcePatternResolver resourcePatternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
-			Resource[] resources = resourcePatternResolver.getResources("classpath:" + basePath + guide.getGuideFolderName() + "/*");
-			for (Resource resource : resources) {
-				fileList.add(resource.getInputStream());
-			}
-			return fileList;
+			Resource[] resources = resourcePatternResolver.getResources("classpath:" + basePath + selectedGuide.getGuideFolderName() + "/*");
+			InputStream imageInputStream = resources[currentImageGuideIndex].getInputStream();
+			Image image = new Image(imageInputStream);
+			imageView.setImage(image);
+			// set iamge counter
+			currentImageListLen = resources.length;
+			imageCounterText.setText(String.format("%d/%d", currentImageGuideIndex + 1, resources.length));
 		} catch (IOException e) {
-			return fileList;
+			log.error(String.format("Failed to display image index %d", currentImageGuideIndex));
 		}
-	}
 
-	private void displayImage() throws FileNotFoundException {
-		if (guideImageList.isEmpty()) {
-			log.warn("No guide image for guide {}", selectedGuide.getName());
-			return;
-		}
-		InputStream imageFileInputStream = guideImageList.get(currentImageGuideIndex);
-		Image image = new Image(imageFileInputStream);
-		imageView.setImage(image);
 
-		// set iamge counter
-		imageCounterText.setText(String.format("%d/%d", currentImageGuideIndex + 1, guideImageList.size()));
 	}
 
 	public void previousImageButtonClicked(ActionEvent event) throws FileNotFoundException {
@@ -172,7 +160,7 @@ public class UserGuideController {
 
 	public void nextImageButtonClicked(ActionEvent event) throws FileNotFoundException {
 		// check if reached end
-		if (currentImageGuideIndex >= guideImageList.size() - 1) {
+		if (currentImageGuideIndex >= currentImageListLen - 1) {
 			return;
 		}
 		// set image
