@@ -1,11 +1,12 @@
 package canvas.canvasapp.controller.view;
 
 import canvas.canvasapp.CanvasApp;
+import canvas.canvasapp.fx.classes.FilterableTreeItem;
 import canvas.canvasapp.helpers.DocTypeHelper;
+import canvas.canvasapp.helpers.FilterHelper;
 import canvas.canvasapp.service.application.CanvasPreferenceService;
 import canvas.canvasapp.service.application.document.DocumentToPdfConverterService;
 import canvas.canvasapp.type.application.AppSetting;
-import com.dlsc.preferencesfx.view.FilterableTreeItem;
 import com.sshtools.twoslices.Toast;
 import com.sshtools.twoslices.ToastType;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Slf4j
@@ -41,7 +43,8 @@ public class FileController {
 	@Autowired
 	private DocTypeHelper docTypeHelper;
 
-	private FilterableTreeItem<File> fileTreeRoot;
+	private FilterableTreeItem<File> fileTreeRoot = new FilterableTreeItem<>();
+	private FilterHelper filterHelper = new FilterHelper();
 
 	// context menu
 	// folder
@@ -51,8 +54,16 @@ public class FileController {
 
 	@FXML
 	private void initialize() {
+		setupFileSearch();
 		setupContextMenu();
 		setupCellFactory();
+	}
+
+	private void setupFileSearch() {
+		fileSearchTextField.textProperty().addListener((obs, oldValue, newValue) -> {
+			fileTreeView.getSelectionModel().clearSelection();
+			setupCellFactory();
+		});
 	}
 
 	private void setupContextMenu() {
@@ -138,7 +149,6 @@ public class FileController {
 			} catch (Exception e) {
 				log.error(String.format("Failed to convert %s to pdf", file.getPath()), e);
 			}
-
 		});
 		officeDocumentFileContextMenu.getItems().addAll(convertToPdfMenuItem, deleteFileMenuItem);
 	}
@@ -186,8 +196,31 @@ public class FileController {
 		}
 		File rootFile = new File(syncFolderBasePath);
 		TreeItem<File> rootNode = createNode(rootFile);
+		filterChild(rootNode, fileSearchTextField.getText());
 		fileTreeView.setRoot(rootNode);
 		fileTreeView.setShowRoot(false);
+	}
+
+	boolean filterChild(TreeItem<File> root, String filter) {
+		if (filter.isEmpty())
+			return true;
+
+		boolean stringMatched = root.getValue().getName().toLowerCase().contains(filter.toLowerCase());
+		ArrayList<TreeItem<File>> removeList = new ArrayList<>();
+
+		for (TreeItem<File> child : root.getChildren()) {
+			if (!filterChild(child, filter))
+				removeList.add(child);
+			else {
+				root.setExpanded(true);
+				stringMatched = true;
+			}
+		}
+
+		for (TreeItem<File> item : removeList)
+			root.getChildren().remove(item);
+
+		return stringMatched;
 	}
 
 	private TreeItem<File> createNode(final File f) {
@@ -229,6 +262,8 @@ public class FileController {
 					ObservableList<TreeItem<File>> children = FXCollections
 							.observableArrayList();
 					for (File childFile : files) {
+						System.out.println(childFile.getName());
+//						if (childFile.getName().contains("Ass"))
 						children.add(createNode(childFile));
 					}
 					return children;

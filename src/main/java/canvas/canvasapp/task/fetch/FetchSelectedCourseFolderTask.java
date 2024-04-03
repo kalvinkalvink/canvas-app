@@ -32,44 +32,49 @@ public class FetchSelectedCourseFolderTask implements Runnable {
 		if (!canvasApi.isInitialized()) return;
 
 		log.info("Fetching selected course folder");
-		List<Course> selectedCourseList = courseService.findAllSelected();
-		FolderReader folderReader = canvasApi.getReader(FolderReader.class);
+		try {
 
-		List<canvas.canvasapp.model.db.Folder> courseFolderList = new ArrayList<>();
-		selectedCourseList.stream()
-				.map(selectedCourse -> {
-					try {
-						return folderReader.listCourseFolder(new ListCourseFolderOptioins(selectedCourse.getId().toString()));
-					} catch (IOException e) {
-						log.error("Error while fetching folder for course {}", selectedCourse.getName(), e);
-						return new ArrayList<Folder>();
-					}
-				}).flatMap(List::stream)
-				.map(canvasFolder -> new canvas.canvasapp.model.db.Folder()
-						.setId(canvasFolder.getId())
-						.setName(canvasFolder.getName())
-						.setFullName(canvasFolder.getFullName())
-						.setContextId(canvasFolder.getContextId())
-						.setContextType(canvasFolder.getContextType())
-						.setParentFolderId(canvasFolder.getParentFolderId())
-						.setCreatedAt(canvasFolder.getCreatedAt())
-						.setCanUpload(canvasFolder.isCanUpload())
-						.setLockAt(canvasFolder.getLockAt())
-						.setPosition(canvasFolder.getPosition())
-						.setFoldersUrl(canvasFolder.getFoldersUrl())
-						.setFilesUrl(canvasFolder.getFilesUrl())
-						.setFilesCount(canvasFolder.getFilesCount())
-						.setFoldersCount(canvasFolder.getFoldersCount())
-						.setHidden(canvasFolder.isHidden())
-						.setLockedForser(canvasFolder.isLockedForser())
-						.setHiddenForUser(canvasFolder.isHiddenForUser())
-						.setForSubmissions(canvasFolder.isForSubmissions())
-						.setCanUpload(canvasFolder.isCanUpload())
-						.setCourse(courseService.findById(canvasFolder.getContextId()).get())
-				)
-				.forEach(courseFolderList::add);
-		folderService.saveAll(courseFolderList);
-		folderService.publishUpdateEvent();
+			List<Course> selectedCourseList = courseService.findAllSelected();
+			FolderReader folderReader = canvasApi.getReader(FolderReader.class);
+
+			List<canvas.canvasapp.model.db.Folder> courseFolderList = new ArrayList<>();
+			selectedCourseList.stream()
+					.map(selectedCourse -> {
+						try {
+							return folderReader.listCourseFolder(new ListCourseFolderOptioins(selectedCourse.getId().toString()));
+						} catch (IOException e) {
+							log.error("Error while fetching folder for course {}", selectedCourse.getName(), e);
+							return new ArrayList<Folder>();
+						}
+					}).flatMap(List::stream)
+					.map(canvasFolder -> new canvas.canvasapp.model.db.Folder()
+							.setId(canvasFolder.getId())
+							.setName(canvasFolder.getName())
+							.setFullName(canvasFolder.getFullName())
+							.setContextId(canvasFolder.getContextId())
+							.setContextType(canvasFolder.getContextType())
+							.setParentFolderId(canvasFolder.getParentFolderId())
+							.setCreatedAt(canvasFolder.getCreatedAt())
+							.setCanUpload(canvasFolder.isCanUpload())
+							.setLockAt(canvasFolder.getLockAt())
+							.setPosition(canvasFolder.getPosition())
+							.setFoldersUrl(canvasFolder.getFoldersUrl())
+							.setFilesUrl(canvasFolder.getFilesUrl())
+							.setFilesCount(canvasFolder.getFilesCount())
+							.setFoldersCount(canvasFolder.getFoldersCount())
+							.setHidden(canvasFolder.isHidden())
+							.setLockedForser(canvasFolder.isLockedForser())
+							.setHiddenForUser(canvasFolder.isHiddenForUser())
+							.setForSubmissions(canvasFolder.isForSubmissions())
+							.setCanUpload(canvasFolder.isCanUpload())
+							.setCourse(courseService.findById(canvasFolder.getContextId()).get())
+					)
+					.forEach(courseFolderList::add);
+			folderService.saveAll(courseFolderList);
+			folderService.publishUpdateEvent();
+		} catch (Exception e) {
+			log.error("Failed t0 fetch Selected Course folder", e);
+		}
 		log.info("Fetched selected course folder");
 
 	}
